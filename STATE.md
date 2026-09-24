@@ -1,6 +1,6 @@
-state: playtest
+state: spec-draft
 round:
-  spec-draft: 15
+  spec-draft: 16
   playtest: 6
 log:
 - 2026-09-20 建立, 概念寫入 concept.md
@@ -41,3 +41,4 @@ log:
 - 2026-09-24 spec.md v15 落地(大方形全刪、多樣化任務與新外型依 v15 定案、埋點章寫全校正推算用欄位), guide.md v15 改第 5、6 頁, 轉移至 spec-review。製作人順手修正 decisions.md 數值方向段殘留的 v14 舊值, 並把企劃列的待定「多樣化任務不另給分」直接定案(數值 r1 已確認維持)移出待定; 待定剩 2 項皆待 console 實測
 - 2026-09-24 spec v15 通過, 進 build 完整實作。製作人略過第三輪 spec-review(理由同 v7/v9/v11/v13: v15 是兩位 agent 在 v14 複審中已互相確認的結論的機械性套用, 加上製作人否決「接團」一項, 沒有新設計)。視覺設計依流程沿用上一版(archive/game-v13/art), 不屬例外: 版面骨架(盤面 + 側欄面板)未變, 只有任務面板內容、新外型與下落動畫是新增或改動。上一版產物移至 archive/game-v13/。美術清單另帶 feedback/round-5.md 的四條美術回饋
 - 2026-09-25 build 完成, 美術沿用 v13 視覺(保留 10 / 修改 11 / 新增 3 / 刪除 4 個函式)並處理第 5 輪四條美術回饋, RD 重寫 game.js, 無佔位圖形。製作人讀碼核對: meta charset 與載入順序、node --check 兩檔皆過; R1: 只掛 keydown/keyup, 無滑鼠監聽(唯一的 click 是觸發下載); R2: 8 頁說明文字與 guide.md 一致; R3: 每局結束自動下載 gamelog-WebGame_SlimeTetris-<時間>.json; 開地需求 3/5/7/9、新外型順序 V→U→X、下落動畫 0.06/0.15/0.12/1.5 皆對得上規格。美術理念異動製作人審過接受: P4 縮邊界(老闆回饋, prototype 不考慮色弱)、P7 與 P18 由候選升為成立(外部理念, 各有本工作室第 5 輪回饋佐證)。製作人把說明第 4 頁改為「消掉的瞬間」以符合規則。RD 自行定義「連續 20 塊回收量」的算法(僅供校正, 不影響規則), 製作人確認。轉移至 playtest 第 6 輪
+- 2026-09-25 playtest 第 6 輪回饋收齊。bug 一條(重力下落動畫期間方塊變紅)已由 RD 修復並 push; 玩法回饋退回 spec-draft: 削頂從前期移到中後期(只在滿寬與每個多樣化任務)、說明字太多。decisions.md 修訂為 v16, 轉回 spec-draft 第 16 版。依守則 R3 首次收到試玩紀錄 4 局, 搬入 feedback/round-6-logs/
