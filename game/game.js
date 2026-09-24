@@ -590,7 +590,7 @@
     }
     var newCells = saved.map(function (c) { return { col: c.col, row: c.row - delta, color: c.color }; });
     newCells.forEach(function (c) { setCell(c.col, c.row, { color: c.color }); });
-    return { delta: delta, origCells: cells.map(function (c) { return { col: c.col, row: c.row }; }), finalCells: newCells.map(function (c) { return { col: c.col, row: c.row }; }) };
+    return { delta: delta, origCells: saved.map(function (c) { return { col: c.col, row: c.row, color: c.color }; }), finalCells: newCells.map(function (c) { return { col: c.col, row: c.row, color: c.color }; }) };
   }
 
   function updateSurvivorsAfterDrop(origCells, delta) {
