@@ -1,0 +1,2402 @@
+/* 史萊姆擴張 v20 — 美術繪製層
+ * 全域物件 window.Art, 不用 ES module。
+ * 只負責「給狀態, 畫出來」; 不做任何判定。
+ * 盤面座標: x = 絕對欄(-2~7), y = 列(1 = 最底列, 19 = 頂列, 20 以上不可見; 可帶小數供下落動畫)。
+ * 沿用 v18 的色票、形狀語言與版面骨架; v20 只重做規格變動牽涉到的物件:
+ * 新增清色球(格位 / 預覽 / ghost / 獎勵事件)與全盤清除演出; 刪除倍率獎勵事件, 改為「只削頂 / 沒有獎勵」的任務完成事件;
+ * 任務面板的得到什麼改寫、「用新形狀方塊」的面板小圖與預覽記號; 說明頁 8 頁照 guide.md v20。
+ */
+(function () {
+  'use strict';
+
+  // ================= 常數 =================
+  const W = 960, H = 640;
+  const CELL = 26;
+  const FONT = '"Microsoft JhengHei","PingFang TC","Noto Sans TC","Heiti TC",sans-serif';
+
+  const PAL = {
+    bg: '#12141c',
+    panel: '#1a1d29',
+    panelEdge: '#2c3146',
+    boardBg: '#1c2030',
+    grid: '#262b3d',
+    slot: '#14161e',
+    slotHatch: '#232736',
+    boundary: '#c9d1e6',
+    topLine: '#ff8a3d',
+    text: '#e8ecf5',
+    textDim: '#8a93ab',
+    slimeA: '#f25a4a',
+    slimeB: '#2657c8',
+    slimeC: '#f5cc2a',
+    ballBase: '#353b52',
+    ballOrb: '#e6e9f2',
+    ballArrow: '#262b3a',
+    clear: '#ffffff',
+    gravity: '#4fe0ff',
+    gravityStay: '#9aa3b8',
+    shave: '#b58cff',
+    expand: '#5fe39a',
+    danger: '#ff8a3d',
+    // v20: 洋紅 = 清色球 / 全盤清除(球的外框與核心、全盤清除的衝擊波、「清色球」字樣、+500)
+    wipe: '#ff5fd0',
+    clearBallBase: '#3a1f42',
+    outline: '#0b0d13',
+    silhouette: '#dfe4ef', // 新外型解鎖展示用的中性格(只示形狀, 不帶顏色)
+    player: '#ffffff', // 操作中方塊的外框(契約保留名)
+  };
+
+  // v15: 拿掉形狀符號, 只留顏色(老闆第 5 輪回饋); 三色明度仍拉開三檔(藍暗 / 紅中 / 黃亮)
+  const SLIME = {
+    A: { fill: PAL.slimeA, dark: '#c23a2e', rim: '#ff9488', name: '紅', text: '#ff7a6c' },
+    B: { fill: PAL.slimeB, dark: '#183d96', rim: '#7aa0ff', name: '藍', text: '#8fb0ff' },
+    C: { fill: PAL.slimeC, dark: '#c99c0e', rim: '#fff3a8', name: '黃', text: '#f5cc2a' },
+  };
+
+  // 新外型(v15): 框內座標 (bx, by), by 向上; 只供解鎖事件展示形狀
+  const NEW_SHAPES = {
+    V: { name: '角形', cells: [[0, 0], [1, 0], [0, 1]] },
+    U: { name: '杯形', cells: [[0, 0], [1, 0], [2, 0], [0, 1], [2, 1]] },
+    X: { name: '十字形', cells: [[1, 0], [0, 1], [1, 1], [2, 1], [1, 2]] },
+  };
+
+  // 任務種類(玩家語言; 不出現規格內部名稱)
+  // v18: 刪「雙消」, 新增「用新形狀方塊」(newShape)
+  const TASK = {
+    dig: { unit: '顆' },
+    big: { unit: '團', what: '消掉一團 5 顆以上的史萊姆' },
+    newShape: { unit: '團', what: '放下新形狀的方塊, 當場消掉一團' },
+    gravity: { unit: '次', what: '用重力球讓懸空的史萊姆掉下來' },
+  };
+  const NEW_PIECE_WORD = '新形狀方塊'; // v18 玩家用詞, 面板 / 事件 / 說明共用
+  const CLEAR_BALL_WORD = '清色球'; // v20 玩家用詞
+  const CLEAR_BALL_LINE = ['能當任何顏色,', '消掉它全盤同色一起消失。']; // v20 定案文字「能當任何顏色, 消掉它全盤同色一起消失。」分兩行排
+
+  // 固定版位(P11: 常駐資訊位置固定)
+  const BOX = {
+    task: { x: 24, y: 110, w: 302, h: 236 },
+    abandon: { x: 24, y: 548, w: 302, h: 56 },
+    preview: { x: 634, y: 110, w: 302, h: 140 },
+    score: { x: 634, y: 260, w: 302, h: 80 },
+    mult: { x: 634, y: 350, w: 302, h: 48 },
+    best: { x: 634, y: 408, w: 302, h: 48 },
+    time: { x: 634, y: 466, w: 302, h: 48 },
+    banner: { x: 330, y: 18, w: 300, h: 54 },
+  };
+
+  // ================= 盤面版位 =================
+  // 預設: 滿寬 10 欄的外框固定不動(絕對欄 -2~7), 未開的欄畫成「預留槽」
+  const DEFAULT_LAY = { left: 350, bottom: 604, col0: -2, frameMin: -2, frameMax: 7, rows: 19, showTop: true };
+  let LAY = DEFAULT_LAY;
+  function withLay(lay, fn) {
+    const prev = LAY;
+    LAY = Object.assign({}, DEFAULT_LAY, lay);
+    try { fn(); } finally { LAY = prev; }
+  }
+  function cx(col) { return LAY.left + (col - LAY.col0) * CELL; }
+  function cy(row) { return LAY.bottom - row * CELL; } // 該列格子的上緣
+  function boardRect() {
+    const x = cx(LAY.frameMin);
+    const w = (LAY.frameMax - LAY.frameMin + 1) * CELL;
+    const h = LAY.rows * CELL;
+    return { x: x, y: LAY.bottom - h, w: w, h: h };
+  }
+  function clipBoard(ctx) {
+    const b = boardRect();
+    ctx.beginPath();
+    ctx.rect(b.x, b.y, b.w, b.h);
+    ctx.clip();
+  }
+
+  // ================= 基礎工具 =================
+  function rr(ctx, x, y, w, h, r) {
+    r = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+  function font(size, weight) { return (weight || 'bold') + ' ' + size + 'px ' + FONT; }
+  // 文字; outline 給色則加描邊(P10)
+  function txt(ctx, s, x, y, size, color, align, outline, weight) {
+    ctx.font = font(size, weight);
+    ctx.textAlign = align || 'left';
+    ctx.textBaseline = 'middle';
+    if (outline) {
+      ctx.lineJoin = 'round';
+      ctx.lineWidth = Math.max(3, size * 0.22);
+      ctx.strokeStyle = outline;
+      ctx.strokeText(s, x, y);
+    }
+    ctx.fillStyle = color;
+    ctx.fillText(s, x, y);
+  }
+  // 多色文字: parts = [[文字, 顏色], ...]; 超過 maxW 時整段縮字
+  function parts(ctx, list, x, y, size, maxW, align) {
+    ctx.font = font(size);
+    let total = 0;
+    list.forEach(function (p) { total += ctx.measureText(p[0]).width; });
+    if (maxW && total > maxW) {
+      size = Math.max(10, Math.floor(size * maxW / total));
+      ctx.font = font(size);
+      total = 0;
+      list.forEach(function (p) { total += ctx.measureText(p[0]).width; });
+    }
+    let px = align === 'right' ? x - total : align === 'center' ? x - total / 2 : x;
+    list.forEach(function (p) {
+      txt(ctx, p[0], px, y, size, p[1], 'left');
+      px += ctx.measureText(p[0]).width;
+    });
+    return total;
+  }
+  function fmt(n) { return Math.round(n || 0).toLocaleString('en-US'); }
+  function fmtTime(sec) {
+    const s = Math.max(0, Math.floor(sec || 0));
+    return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+  }
+  function clamp01(v) { return Math.max(0, Math.min(1, v || 0)); }
+  function panel(ctx, b, title, edge) {
+    rr(ctx, b.x, b.y, b.w, b.h, 8);
+    ctx.fillStyle = PAL.panel;
+    ctx.fill();
+    ctx.lineWidth = edge ? 2 : 1;
+    ctx.strokeStyle = edge || PAL.panelEdge;
+    ctx.stroke();
+    if (title) txt(ctx, title, b.x + 14, b.y + 16, 13, PAL.textDim, 'left');
+  }
+  function arrow(ctx, x1, y1, x2, y2, color, lw) {
+    const a = Math.atan2(y2 - y1, x2 - x1);
+    const hl = 6 + lw * 2;
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = lw;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2 - Math.cos(a) * hl * 0.6, y2 - Math.sin(a) * hl * 0.6);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - Math.cos(a - 0.5) * hl, y2 - Math.sin(a - 0.5) * hl);
+    ctx.lineTo(x2 - Math.cos(a + 0.5) * hl, y2 - Math.sin(a + 0.5) * hl);
+    ctx.closePath();
+    ctx.fill();
+  }
+  function hatch(ctx, x, y, w, h, color, gap, lw) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x, y, w, h);
+    ctx.clip();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lw || 1.5;
+    ctx.beginPath();
+    for (let d = -h; d < w + h; d += gap) {
+      ctx.moveTo(x + d, y + h);
+      ctx.lineTo(x + d + h, y);
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+  // 優先在「, 」後斷行(任務句子是兩個短句), 斷不下才逐字
+  function wrapPhrase(ctx, text, maxW) {
+    if (ctx.measureText(text).width <= maxW) return [text];
+    const i = text.indexOf(', ');
+    if (i > 0) {
+      const a = text.slice(0, i + 1), b = text.slice(i + 2);
+      if (ctx.measureText(a).width <= maxW && ctx.measureText(b).width <= maxW) return [a, b];
+    }
+    return wrap(ctx, text, maxW);
+  }
+  function wrap(ctx, text, maxW) {
+    const out = [];
+    let line = '';
+    for (const ch of text) {
+      const test = line + ch;
+      if (ctx.measureText(test).width > maxW && line) {
+        out.push(line);
+        line = ch;
+      } else {
+        line = test;
+      }
+    }
+    if (line) out.push(line);
+    return out;
+  }
+
+  // ================= 格位畫家(全畫面共用一本字典, P3) =================
+  // v15: 史萊姆只有顏色, 沒有中央記號
+  function paintSlime(ctx, px, py, size, color) {
+    const c = SLIME[color] || SLIME.A;
+    const i = size * 0.06;
+    const x = px + i, y = py + i, s = size - 2 * i;
+    rr(ctx, x, y, s, s, s * 0.3);
+    ctx.fillStyle = c.fill;
+    ctx.fill();
+    ctx.save();
+    ctx.clip();
+    ctx.fillStyle = c.dark;
+    ctx.fillRect(x, y + s * 0.74, s, s * 0.3);
+    ctx.restore();
+    rr(ctx, x, y, s, s, s * 0.3);
+    ctx.lineWidth = Math.max(1, size * 0.045);
+    ctx.strokeStyle = c.rim;
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255,255,255,0.38)';
+    ctx.beginPath();
+    ctx.ellipse(x + s * 0.3, y + s * 0.22, s * 0.15, s * 0.08, -0.45, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  // 新外型展示用的中性格: 同一個史萊姆輪廓, 不帶顏色(形狀才是重點)
+  function paintSilhouette(ctx, px, py, size) {
+    const i = size * 0.06;
+    const x = px + i, y = py + i, s = size - 2 * i;
+    rr(ctx, x, y, s, s, s * 0.3);
+    ctx.fillStyle = PAL.silhouette;
+    ctx.fill();
+    ctx.save();
+    ctx.clip();
+    ctx.fillStyle = '#aab2c6';
+    ctx.fillRect(x, y + s * 0.74, s, s * 0.3);
+    ctx.restore();
+    rr(ctx, x, y, s, s, s * 0.3);
+    ctx.lineWidth = Math.max(1, size * 0.045);
+    ctx.strokeStyle = '#ffffff';
+    ctx.stroke();
+  }
+  function ballArrowPath(ctx, mx, my, s) {
+    ctx.beginPath();
+    ctx.moveTo(mx, my - s * 0.2);
+    ctx.lineTo(mx, my + s * 0.08);
+    ctx.moveTo(mx - s * 0.13, my - s * 0.02);
+    ctx.lineTo(mx, my + s * 0.15);
+    ctx.lineTo(mx + s * 0.13, my - s * 0.02);
+  }
+  function paintBall(ctx, px, py, size) {
+    const i = size * 0.06;
+    rr(ctx, px + i, py + i, size - 2 * i, size - 2 * i, size * 0.2);
+    ctx.fillStyle = PAL.ballBase;
+    ctx.fill();
+    ctx.lineWidth = Math.max(1, size * 0.04);
+    ctx.strokeStyle = '#5d6582';
+    ctx.stroke();
+    const mx = px + size / 2, my = py + size / 2, r = size * 0.36;
+    ctx.beginPath();
+    ctx.arc(mx, my, r, 0, Math.PI * 2);
+    ctx.fillStyle = PAL.ballOrb;
+    ctx.fill();
+    // 三色環 = 萬用色
+    const cols = [PAL.slimeA, PAL.slimeB, PAL.slimeC];
+    ctx.lineWidth = size * 0.1;
+    for (let k = 0; k < 3; k++) {
+      ctx.beginPath();
+      ctx.arc(mx, my, r, -Math.PI / 2 + k * (Math.PI * 2 / 3) + 0.12, -Math.PI / 2 + (k + 1) * (Math.PI * 2 / 3) - 0.12);
+      ctx.strokeStyle = cols[k];
+      ctx.stroke();
+    }
+    // 向下箭頭 = 重力
+    ballArrowPath(ctx, mx, my, size);
+    ctx.strokeStyle = PAL.ballArrow;
+    ctx.lineWidth = Math.max(1.5, size * 0.09);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+  }
+  // 四角星(閃光)路徑: 清色球的專屬符號
+  function sparklePath(ctx, mx, my, R, r) {
+    ctx.beginPath();
+    for (let k = 0; k < 8; k++) {
+      const a = -Math.PI / 2 + k * Math.PI / 4;
+      const rad = k % 2 ? r : R;
+      const x = mx + Math.cos(a) * rad, y = my + Math.sin(a) * rad;
+      if (k) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+    }
+    ctx.closePath();
+  }
+  // 清色球(v20): 與重力球同屬萬用格 → 共用「三色環 = 萬用色」;
+  // 差異走三條通道: 底色(紫黑 + 洋紅外框 vs 灰藍)、核心(洋紅圓 vs 銀白圓)、符號(白色四角星 vs 向下箭頭)
+  function paintClearBall(ctx, px, py, size) {
+    const i = size * 0.06;
+    rr(ctx, px + i, py + i, size - 2 * i, size - 2 * i, size * 0.2);
+    ctx.fillStyle = PAL.clearBallBase;
+    ctx.fill();
+    ctx.lineWidth = Math.max(1.2, size * 0.07);
+    ctx.strokeStyle = PAL.wipe;
+    ctx.stroke();
+    const mx = px + size / 2, my = py + size / 2, r = size * 0.34;
+    ctx.beginPath();
+    ctx.arc(mx, my, r, 0, Math.PI * 2);
+    ctx.fillStyle = PAL.wipe;
+    ctx.fill();
+    const cols = [PAL.slimeA, PAL.slimeB, PAL.slimeC];
+    ctx.lineWidth = size * 0.09;
+    for (let k = 0; k < 3; k++) {
+      ctx.beginPath();
+      ctx.arc(mx, my, r, -Math.PI / 2 + k * (Math.PI * 2 / 3) + 0.12, -Math.PI / 2 + (k + 1) * (Math.PI * 2 / 3) - 0.12);
+      ctx.strokeStyle = cols[k];
+      ctx.stroke();
+    }
+    sparklePath(ctx, mx, my, size * 0.25, size * 0.075);
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+  }
+  function paintBody(ctx, px, py, size, kind, color) {
+    if (kind === 'ball') paintBall(ctx, px, py, size);
+    else if (kind === 'clearBall') paintClearBall(ctx, px, py, size);
+    else paintSlime(ctx, px, py, size, color);
+  }
+  function paintGhost(ctx, px, py, size, kind, color) {
+    if (kind === 'clearBall') {
+      // 清色球落點: 洋紅圓框 + 四角星線稿(與重力球的銀框 + 箭頭分開)
+      const mx = px + size / 2, my = py + size / 2;
+      ctx.beginPath();
+      ctx.arc(mx, my, size * 0.36, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,95,208,0.16)';
+      ctx.fill();
+      ctx.strokeStyle = PAL.wipe;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      sparklePath(ctx, mx, my, size * 0.25, size * 0.08);
+      ctx.lineWidth = 1.5;
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+      return;
+    }
+    if (kind === 'ball') {
+      const mx = px + size / 2, my = py + size / 2;
+      ctx.beginPath();
+      ctx.arc(mx, my, size * 0.36, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(230,233,242,0.14)';
+      ctx.fill();
+      ctx.strokeStyle = PAL.ballOrb;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ballArrowPath(ctx, mx, my, size);
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+      return;
+    }
+    const c = SLIME[color] || SLIME.A;
+    const i = size * 0.1;
+    rr(ctx, px + i, py + i, size - 2 * i, size - 2 * i, size * 0.26);
+    ctx.globalAlpha = 0.24;
+    ctx.fillStyle = c.fill;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = c.fill;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  // 任務種類圖示: 任務面板、算數標籤、下一個任務公告共用(P3)
+  function taskIcon(ctx, kind, color, x, y, s) {
+    if (kind === 'gravity') { paintBall(ctx, x, y, s); return; }
+    if (kind === 'dig') {
+      if (SLIME[color]) paintSlime(ctx, x, y, s, color);
+      else { rr(ctx, x + s * 0.1, y + s * 0.1, s * 0.8, s * 0.8, s * 0.25); ctx.strokeStyle = PAL.textDim; ctx.lineWidth = 1.5; ctx.stroke(); }
+      return;
+    }
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = Math.max(1.5, s * 0.07);
+    if (kind === 'big') {
+      rr(ctx, x + s * 0.06, y + s * 0.06, s * 0.88, s * 0.88, s * 0.3);
+      ctx.stroke();
+      txt(ctx, '5+', x + s / 2, y + s * 0.53, Math.max(9, Math.round(s * 0.42)), '#ffffff', 'center');
+    } else if (kind === 'newShape') {
+      // 用新形狀方塊(v18): 一個「不是四格方塊」的輪廓(三格缺角) + 向下箭頭 = 放下它。
+      // 白線稿, 與獎勵的綠色「?」分開(白 = 玩家的消除 / 任務, 綠 = 獎勵)
+      const q = s * 0.33;
+      const ox = x + s * 0.04, oy = y + s * 0.2;
+      [[0, 0], [0, 1], [1, 1]].forEach(function (p) {
+        rr(ctx, ox + p[0] * q, oy + p[1] * q, q, q, q * 0.3);
+        ctx.fillStyle = 'rgba(255,255,255,0.28)';
+        ctx.fill();
+        ctx.stroke();
+      });
+      const ax = x + s * 0.86;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(ax, y + s * 0.1);
+      ctx.lineTo(ax, y + s * 0.62);
+      ctx.moveTo(ax - s * 0.12, y + s * 0.48);
+      ctx.lineTo(ax, y + s * 0.64);
+      ctx.lineTo(ax + s * 0.12, y + s * 0.48);
+      ctx.stroke();
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(x + s * 0.74, y + s * 0.84, s * 0.24, Math.max(1.5, s * 0.06));
+    }
+  }
+  // 「做什麼」的文字(多色 parts)
+  function whatParts(kind, color) {
+    if (kind === 'dig') {
+      const c = SLIME[color];
+      return [['消掉 ', PAL.text], [(c ? c.name : '目標') + '色', c ? c.text : PAL.text], [' 史萊姆', PAL.text]];
+    }
+    return [[(TASK[kind] || TASK.big).what, PAL.text]];
+  }
+  function unitOf(kind) { return (TASK[kind] || TASK.dig).unit; }
+  // 獎勵圖示(「得到什麼」)
+  function rewardIcon(ctx, reward, side, x, y, s) {
+    if (reward === 'newPiece') {
+      rr(ctx, x + s * 0.06, y + s * 0.06, s * 0.88, s * 0.88, s * 0.25);
+      ctx.fillStyle = 'rgba(95,227,154,0.18)';
+      ctx.fill();
+      ctx.strokeStyle = PAL.expand;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      txt(ctx, '?', x + s / 2, y + s * 0.53, Math.round(s * 0.6), PAL.expand, 'center');
+    } else if (reward === 'clearBall') {
+      // v20: 清色球獎勵的圖示就是清色球本身(與盤面 / 預覽 / 獎勵事件同一個長相)
+      paintClearBall(ctx, x, y, s);
+    } else if (reward === 'shave') {
+      // 削頂(v18: 倍率到上限後第偶數個任務只剩削頂): 紫色台階削線 + 斜紋, 與盤面上的削頂指示同一長相
+      hatch(ctx, x + 2, y + s * 0.45, s - 4, s * 0.45, PAL.shave, 4, 1.5);
+      ctx.strokeStyle = PAL.shave;
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(x + 2, y + s * 0.5);
+      ctx.lineTo(x + s * 0.4, y + s * 0.5);
+      ctx.lineTo(x + s * 0.4, y + s * 0.3);
+      ctx.lineTo(x + s * 0.7, y + s * 0.3);
+      ctx.lineTo(x + s * 0.7, y + s * 0.45);
+      ctx.lineTo(x + s - 2, y + s * 0.45);
+      ctx.stroke();
+    } else if (reward === 'none') {
+      ctx.strokeStyle = PAL.textDim;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(x + s * 0.2, y + s / 2);
+      ctx.lineTo(x + s * 0.8, y + s / 2);
+      ctx.stroke();
+    } else {
+      const my = y + s / 2;
+      if (side === 'left') arrow(ctx, x + s - 2, my, x + 2, my, PAL.expand, 3);
+      else arrow(ctx, x + 2, my, x + s - 2, my, PAL.expand, 3);
+    }
+  }
+
+  // 全盤清除中的一格(v20): lt = 該格自己的進度 0~1
+  //   0~0.35 鼓起 + 轉白(先讓玩家看到「就是這個顏色」) → 0.35~0.7 爆開: 本體縮沒、碎片往外噴 → 0.7~1 原位留下洋紅殘影框淡出
+  function paintWipeCell(ctx, px, py, kind, color, lt, glow) {
+    lt = clamp01(lt);
+    const mx = px + CELL / 2, my = py + CELL / 2;
+    const c = SLIME[color] || SLIME.A;
+    if (lt < 0.7) {
+      let k;
+      if (lt < 0.35) k = 1 + 0.22 * (lt / 0.35);
+      else k = 1.22 * (1 - (lt - 0.35) / 0.35);
+      if (k > 0.02) {
+        const s = CELL * k, o = (CELL - s) / 2;
+        paintBody(ctx, px + o, py + o, s, kind, color);
+        ctx.globalAlpha = Math.min(0.9, lt / 0.35 * 0.85);
+        rr(ctx, px + o, py + o, s, s, s * 0.3);
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.strokeStyle = PAL.wipe;
+        ctx.lineWidth = 2.5;
+        rr(ctx, px + o, py + o, s, s, s * 0.3);
+        ctx.stroke();
+      }
+    }
+    if (lt >= 0.4) {
+      // 碎片: 八道, 該色與白交錯, 從格緣往外噴
+      const e = clamp01((lt - 0.4) / 0.6);
+      ctx.globalAlpha = 1 - e;
+      for (let k = 0; k < 8; k++) {
+        const a = k * Math.PI / 4 + 0.3;
+        const d = 12 + 22 * e;
+        const r = (k % 2 ? 2.2 : 3.2) * (1 - 0.5 * e);
+        ctx.beginPath();
+        ctx.arc(mx + Math.cos(a) * d, my + Math.sin(a) * d, r, 0, Math.PI * 2);
+        ctx.fillStyle = k % 2 ? '#ffffff' : c.fill;
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+    if (lt >= 0.55) {
+      // 殘影框: 讓玩家事後看得出「哪些位置被清掉了」(不寫格數); glow 給值時由呼叫端控制淡出(全盤清除: 撐到段尾一起淡)
+      ctx.globalAlpha = glow != null ? glow : 0.7 * (1 - clamp01((lt - 0.55) / 0.45));
+      ctx.strokeStyle = PAL.wipe;
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(px + 3.5, py + 3.5, CELL - 7, CELL - 7);
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  // 一格含標記的完整畫法
+  function paintMarkedCell(ctx, px, py, kind, color, mark, t) {
+    t = clamp01(t);
+    if (mark === 'clearing') {
+      // 消除: 白色單框 + 縮小閃白(「我造成的」)
+      const s = CELL * (1 - 0.35 * t);
+      const o = (CELL - s) / 2;
+      paintBody(ctx, px + o, py + o, s, kind, color);
+      ctx.globalAlpha = 0.75 * (1 - t) + 0.1;
+      rr(ctx, px + o, py + o, s, s, s * 0.3);
+      ctx.fillStyle = PAL.clear;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = PAL.clear;
+      ctx.lineWidth = 2.5;
+      ctx.strokeRect(px + 1.5, py + 1.5, CELL - 3, CELL - 3);
+      if (kind === 'ball') {
+        // 觸發: 青色外擴環
+        ctx.beginPath();
+        ctx.arc(px + CELL / 2, py + CELL / 2, CELL * 0.45 + 10 * t, 0, Math.PI * 2);
+        ctx.strokeStyle = PAL.gravity;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      } else if (kind === 'clearBall') {
+        // 觸發全盤清除(v20): 洋紅四角星往外放大 + 洋紅外擴環(與重力球的單一青環分開)
+        const mx = px + CELL / 2, my = py + CELL / 2;
+        ctx.globalAlpha = 1 - 0.5 * t;
+        sparklePath(ctx, mx, my, CELL * 0.5 + 16 * t, CELL * 0.12 + 3 * t);
+        ctx.strokeStyle = PAL.outline;
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        ctx.strokeStyle = PAL.wipe;
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(mx, my, CELL * 0.45 + 12 * t, 0, Math.PI * 2);
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+    } else if (mark === 'wiping') {
+      // 全盤清除中(v20): 單格版本(整段演出由 drawBoardWipe 依距離錯開, 見該函式)
+      paintWipeCell(ctx, px, py, kind, color, t);
+    } else if (mark === 'shaving') {
+      // 削頂: 紫色斜紋 + 紫框, 淡出(「系統給的」)
+      ctx.globalAlpha = 1 - 0.6 * t;
+      paintBody(ctx, px, py, CELL, kind, color);
+      ctx.globalAlpha = 1;
+      hatch(ctx, px + 1, py + 1, CELL - 2, CELL - 2, PAL.shave, 5, 2);
+      ctx.strokeStyle = PAL.shave;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(px + 1.5, py + 1.5, CELL - 3, CELL - 3);
+    } else if (mark === 'falling') {
+      // 下落中: 青色拖尾(上方三道)
+      paintBody(ctx, px, py, CELL, kind, color);
+      ctx.strokeStyle = PAL.gravity;
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.globalAlpha = 0.85;
+      ctx.beginPath();
+      [6, 13, 20].forEach(function (dx, k) {
+        ctx.moveTo(px + dx, py - 2);
+        ctx.lineTo(px + dx, py - 8 - (k === 1 ? 5 : 0));
+      });
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    } else {
+      paintBody(ctx, px, py, CELL, kind, color);
+    }
+  }
+
+  // 格位集合外框(可含小數 y, 同一組需有相同小數); inset 為負 = 往外擴
+  function cellSet(cells) {
+    const set = new Set();
+    cells.forEach(function (c) { set.add(c.x + ',' + Math.round(c.y * 100)); });
+    return function has(x, y) { return set.has(x + ',' + Math.round(y * 100)); };
+  }
+  function contourPath(ctx, cells, inset) {
+    const has = cellSet(cells);
+    const i = inset;
+    ctx.beginPath();
+    cells.forEach(function (c) {
+      const px = cx(c.x), py = cy(c.y);
+      const L = has(c.x - 1, c.y), R = has(c.x + 1, c.y), U = has(c.x, c.y + 1), D = has(c.x, c.y - 1);
+      if (!U) { ctx.moveTo(L ? px : px + i, py + i); ctx.lineTo(R ? px + CELL : px + CELL - i, py + i); }
+      if (!D) { ctx.moveTo(L ? px : px + i, py + CELL - i); ctx.lineTo(R ? px + CELL : px + CELL - i, py + CELL - i); }
+      if (!L) { ctx.moveTo(px + i, U ? py : py + i); ctx.lineTo(px + i, D ? py + CELL : py + CELL - i); }
+      if (!R) { ctx.moveTo(px + CELL - i, U ? py : py + i); ctx.lineTo(px + CELL - i, D ? py + CELL : py + CELL - i); }
+    });
+    return has;
+  }
+  // 「這次算數了」標籤: 任務圖示 + −N, 白框(白 = 玩家造成的消除)
+  function creditChip(ctx, kind, color, text, centerX, topY, t) {
+    const b = boardRect();
+    ctx.font = font(13);
+    const w = 6 + 16 + 5 + ctx.measureText(text).width + 8;
+    const lx = Math.max(b.x + w / 2 + 2, Math.min(b.x + b.w - w / 2 - 2, centerX));
+    const ly = Math.max(b.y + 12, topY - 12 - 8 * t);
+    ctx.globalAlpha = t > 0.7 ? 1 - (t - 0.7) / 0.3 * 0.6 : 1;
+    rr(ctx, lx - w / 2, ly - 11, w, 22, 6);
+    ctx.fillStyle = 'rgba(10,12,20,0.88)';
+    ctx.fill();
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    taskIcon(ctx, kind, color, lx - w / 2 + 6, ly - 8, 16);
+    txt(ctx, text, lx - w / 2 + 27, ly, 13, '#ffffff', 'left');
+    ctx.globalAlpha = 1;
+  }
+  function spanOf(list) {
+    let top = -Infinity, sumX = 0;
+    list.forEach(function (c) { if (c.y > top) top = c.y; sumX += cx(c.x) + CELL / 2; });
+    return { top: top, midX: list.length ? sumX / list.length : 0 };
+  }
+  function targetCorner(ctx, c) {
+    // 目標色格: 左下角白色倒三角(= 扣 1)
+    const px = cx(c.x), py = cy(c.y);
+    ctx.beginPath();
+    ctx.moveTo(px + 2, py + CELL - 11);
+    ctx.lineTo(px + 12, py + CELL - 11);
+    ctx.lineTo(px + 7, py + CELL - 3);
+    ctx.closePath();
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = PAL.outline;
+    ctx.stroke();
+  }
+
+  // ================= 背景 / 盤面 =================
+  function drawBackground(ctx) {
+    ctx.save();
+    ctx.fillStyle = PAL.bg;
+    ctx.fillRect(0, 0, W, H);
+    ctx.restore();
+  }
+
+  // state: { minCol, maxCol }  目前已開的絕對欄範圍
+  function drawBoard(ctx, s) {
+    s = s || {};
+    const minCol = s.minCol != null ? s.minCol : 0;
+    const maxCol = s.maxCol != null ? s.maxCol : 5;
+    ctx.save();
+    const b = boardRect();
+    for (let c = LAY.frameMin; c <= LAY.frameMax; c++) {
+      const x = cx(c);
+      if (c >= minCol && c <= maxCol) {
+        ctx.fillStyle = PAL.boardBg;
+        ctx.fillRect(x, b.y, CELL, b.h);
+      } else {
+        ctx.fillStyle = PAL.slot;
+        ctx.fillRect(x, b.y, CELL, b.h);
+        hatch(ctx, x, b.y, CELL, b.h, PAL.slotHatch, 8, 1.5);
+      }
+    }
+    // 格線
+    const ox = cx(minCol), ow = (maxCol - minCol + 1) * CELL;
+    ctx.strokeStyle = PAL.grid;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let c = minCol + 1; c <= maxCol; c++) {
+      ctx.moveTo(cx(c) + 0.5, b.y);
+      ctx.lineTo(cx(c) + 0.5, b.y + b.h);
+    }
+    for (let r = 1; r < LAY.rows; r++) {
+      ctx.moveTo(ox, cy(r) + 0.5);
+      ctx.lineTo(ox + ow, cy(r) + 0.5);
+    }
+    ctx.stroke();
+    // 邊界(目前可放置範圍)
+    ctx.strokeStyle = PAL.boundary;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(ox - 1, b.y, ow + 2, b.h + 1);
+    ctx.fillStyle = PAL.boundary;
+    ctx.fillRect(ox - 2, b.y + b.h, ow + 4, 3);
+    // 頂線
+    if (LAY.showTop) {
+      ctx.strokeStyle = PAL.topLine;
+      ctx.lineWidth = 2.5;
+      ctx.setLineDash([8, 5]);
+      ctx.beginPath();
+      ctx.moveTo(ox - 4, b.y + 1);
+      ctx.lineTo(ox + ow + 4, b.y + 1);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      txt(ctx, '頂線', b.x + b.w + 3, b.y + 2, 11, PAL.topLine, 'left');
+    }
+    ctx.restore();
+  }
+
+  // state: { x, y, kind: 'empty'|'color'|'ball'|'clearBall', color: 'A'|'B'|'C', mark: 'none'|'clearing'|'shaving'|'falling'|'wiping', t }
+  function drawCell(ctx, s) {
+    if (!s || s.kind === 'empty') return; // 空格(含開放 / 封閉空洞)由盤面底色呈現
+    ctx.save();
+    clipBoard(ctx);
+    paintMarkedCell(ctx, cx(s.x), cy(s.y), s.kind, s.color, s.mark, s.t);
+    ctx.restore();
+  }
+
+  // state: { x, y, mark, t }  與 drawCell(kind:'ball') 等價
+  function drawGravityBall(ctx, s) {
+    drawCell(ctx, Object.assign({}, s, { kind: 'ball' }));
+  }
+
+  // state: { x, y, mark, t }  與 drawCell(kind:'clearBall') 等價(v20)
+  // mark: 'none'(留在盤面上) / 'clearing'(成團消除中 = 觸發全盤清除) / 'falling'(隨重力事件下落) / 'shaving'(被削頂, 不觸發)
+  function drawClearBall(ctx, s) {
+    drawCell(ctx, Object.assign({}, s, { kind: 'clearBall' }));
+  }
+
+  // state: { cells: [{x,y}], group }  一個懸空連通塊一次呼叫; group = 塊序號(0,1,2...)
+  function drawFloatingMark(ctx, s) {
+    if (!s || !s.cells || !s.cells.length) return;
+    ctx.save();
+    clipBoard(ctx);
+    const cells = s.cells;
+    ctx.fillStyle = 'rgba(79,224,255,0.10)';
+    cells.forEach(function (c) { ctx.fillRect(cx(c.x), cy(c.y), CELL, CELL); });
+    const has = contourPath(ctx, cells, 1.5);
+    ctx.strokeStyle = PAL.gravity;
+    ctx.lineWidth = 2;
+    ctx.setLineDash((s.group || 0) % 2 ? [4, 3] : [9, 3]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // 連接桿: 同塊相鄰格之間畫短桿, 表達「整塊一起動」
+    ctx.fillStyle = PAL.gravity;
+    cells.forEach(function (c) {
+      const px = cx(c.x), py = cy(c.y);
+      if (has(c.x + 1, c.y)) ctx.fillRect(px + CELL - 4, py + CELL / 2 - 2, 8, 4);
+      if (has(c.x, c.y + 1)) ctx.fillRect(px + CELL / 2 - 2, py - 4, 4, 8);
+    });
+    ctx.restore();
+  }
+
+  // state: { cells: [{x,y}], role: 'fall'|'falling'|'landed'|'stay', t }  重力事件期間的受影響連通塊
+  function drawFloatingEventBlock(ctx, s) {
+    if (!s || !s.cells || !s.cells.length) return;
+    const t = clamp01(s.t);
+    ctx.save();
+    clipBoard(ctx);
+    const cells = s.cells;
+    if (s.role === 'fall') {
+      // 將下落(排隊中): 青色實線粗輪廓 + 每欄最低格下方向下 V
+      ctx.fillStyle = 'rgba(79,224,255,0.18)';
+      cells.forEach(function (c) { ctx.fillRect(cx(c.x), cy(c.y), CELL, CELL); });
+      const has = contourPath(ctx, cells, 1.5);
+      ctx.strokeStyle = PAL.gravity;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      cells.forEach(function (c) {
+        if (has(c.x, c.y - 1)) return;
+        const mx = cx(c.x) + CELL / 2, my = cy(c.y) + CELL + 4 + 4 * t;
+        ctx.beginPath();
+        ctx.moveTo(mx - 6, my);
+        ctx.lineTo(mx, my + 5);
+        ctx.lineTo(mx + 6, my);
+        ctx.stroke();
+      });
+    } else if (s.role === 'falling') {
+      // 下落中: 整塊一條青色粗實線輪廓(剛體), 不畫 V; 格位本體由 drawCell(mark:'falling') 畫
+      ctx.fillStyle = 'rgba(79,224,255,0.22)';
+      cells.forEach(function (c) { ctx.fillRect(cx(c.x), cy(c.y), CELL, CELL); });
+      contourPath(ctx, cells, 1);
+      ctx.strokeStyle = PAL.outline;
+      ctx.lineWidth = 5;
+      ctx.stroke();
+      ctx.strokeStyle = PAL.gravity;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    } else if (s.role === 'landed') {
+      // 已落定: 淡青細實線, 表示「這塊已經處理完」
+      contourPath(ctx, cells, 1.5);
+      ctx.globalAlpha = 0.55;
+      ctx.strokeStyle = PAL.gravity;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    } else {
+      // 受影響但不懸空(不動): 灰色點線 + ⊥ 錨
+      const has = contourPath(ctx, cells, 1.5);
+      ctx.strokeStyle = PAL.gravityStay;
+      ctx.lineWidth = 2;
+      ctx.setLineDash([2, 3]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.lineWidth = 2.5;
+      cells.forEach(function (c) {
+        if (has(c.x, c.y - 1)) return;
+        const mx = cx(c.x) + CELL / 2, by = cy(c.y) + CELL - 3;
+        ctx.beginPath();
+        ctx.moveTo(mx, by - 7);
+        ctx.lineTo(mx, by);
+        ctx.moveTo(mx - 7, by);
+        ctx.lineTo(mx + 7, by);
+        ctx.stroke();
+      });
+    }
+    ctx.restore();
+  }
+
+  // state: { cells: [{x,y}], t }  落地回饋: 一塊落定時(落地停頓 0.12 秒)呼叫, cells = 落定後座標
+  function drawLandingImpact(ctx, s) {
+    if (!s || !s.cells || !s.cells.length) return;
+    const t = clamp01(s.t);
+    ctx.save();
+    clipBoard(ctx);
+    const has = cellSet(s.cells);
+    let minX = Infinity, maxX = -Infinity, lowY = Infinity;
+    s.cells.forEach(function (c) {
+      if (c.x < minX) minX = c.x;
+      if (c.x > maxX) maxX = c.x;
+      if (c.y < lowY) lowY = c.y;
+    });
+    // 每個底面格: 底緣白 → 青的撞擊線, 往兩側擴
+    ctx.lineCap = 'round';
+    s.cells.forEach(function (c) {
+      if (has(c.x, c.y - 1)) return;
+      const px = cx(c.x), by = cy(c.y) + CELL - 1;
+      const grow = 4 * t;
+      ctx.globalAlpha = 1 - 0.7 * t;
+      ctx.strokeStyle = t < 0.35 ? '#ffffff' : PAL.gravity;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(px + 2 - grow, by);
+      ctx.lineTo(px + CELL - 2 + grow, by);
+      ctx.stroke();
+    });
+    // 最低處兩側的撞擊塵: 三道短斜線往外噴
+    const by = cy(lowY) + CELL - 2;
+    const lx = cx(minX), rx = cx(maxX) + CELL;
+    ctx.globalAlpha = 1 - t;
+    ctx.strokeStyle = PAL.gravity;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    [-0.5, -0.9, -1.3].forEach(function (a) {
+      const r1 = 3 + 6 * t, r2 = r1 + 6;
+      ctx.moveTo(lx - Math.cos(a) * r1, by + Math.sin(a) * r1);
+      ctx.lineTo(lx - Math.cos(a) * r2, by + Math.sin(a) * r2);
+      ctx.moveTo(rx + Math.cos(a) * r1, by + Math.sin(a) * r1);
+      ctx.lineTo(rx + Math.cos(a) * r2, by + Math.sin(a) * r2);
+    });
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+
+  // state: { x, y, size: 'small'|'large'|'zero', counted, t }  (x,y) = 觸發團錨點或重力球原位
+  function drawGravityEvent(ctx, s) {
+    if (!s) return;
+    const t = clamp01(s.t);
+    ctx.save();
+    clipBoard(ctx);
+    const mx = cx(s.x) + CELL / 2, my = cy(s.y) + CELL / 2;
+    if (s.size === 'zero') {
+      // 空轉: 灰青虛線環往內收 + 橫槓, 與有效版本形狀相反
+      ctx.strokeStyle = '#8fb8c4';
+      ctx.lineWidth = 3;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.arc(mx, my, 28 - 14 * t, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.lineWidth = 4;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(mx - 11, my);
+      ctx.lineTo(mx + 11, my);
+      ctx.stroke();
+      txt(ctx, '無下落', mx, my - 36, 13, '#cfe6ec', 'center', PAL.outline);
+    } else {
+      if (s.size === 'large') {
+        ctx.globalAlpha = 1 - 0.7 * t;
+        ctx.strokeStyle = PAL.gravity;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(mx, my, 12 + 44 * t, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(mx, my, 8 + 26 * t, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        for (let k = 0; k < 8; k++) {
+          const a = k * Math.PI / 4;
+          const r1 = 16 + 30 * t, r2 = r1 + 10;
+          ctx.moveTo(mx + Math.cos(a) * r1, my + Math.sin(a) * r1);
+          ctx.lineTo(mx + Math.cos(a) * r2, my + Math.sin(a) * r2);
+        }
+        ctx.stroke();
+      } else {
+        ctx.globalAlpha = 1 - 0.7 * t;
+        ctx.strokeStyle = PAL.gravity;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(mx, my, 8 + 22 * t, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      // 當前任務為「重力下落」且本事件算數: 標在觸發點上方
+      if (s.counted) creditChip(ctx, 'gravity', null, '−1 次', mx, cy(s.y) - 22, t);
+    }
+    ctx.restore();
+  }
+
+  // state: { cells: [{x,y,isTarget}], deducted, targetColor, t }  追加消除: 青色雙框 + 「下落後消除」
+  // 開地任務期間追加消除照常推進: isTarget 格加倒三角, deducted > 0 時多一個算數標籤; 不出現大團 / 用新形狀方塊的算數回饋
+  function drawExtraClear(ctx, s) {
+    if (!s || !s.cells || !s.cells.length) return;
+    const t = clamp01(s.t);
+    ctx.save();
+    clipBoard(ctx);
+    ctx.globalAlpha = 1 - 0.4 * t;
+    ctx.strokeStyle = PAL.gravity;
+    s.cells.forEach(function (c) {
+      const px = cx(c.x), py = cy(c.y);
+      ctx.lineWidth = 2.5;
+      ctx.strokeRect(px + 1.5, py + 1.5, CELL - 3, CELL - 3);
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(px + 6, py + 6, CELL - 12, CELL - 12);
+    });
+    ctx.globalAlpha = 1;
+    s.cells.forEach(function (c) { if (c.isTarget) targetCorner(ctx, c); });
+    const sp = spanOf(s.cells);
+    const b = boardRect();
+    const lx = Math.max(b.x + 50, Math.min(b.x + b.w - 50, sp.midX));
+    const ly = Math.max(b.y + 12, cy(Math.min(sp.top, LAY.rows)) - 12);
+    rr(ctx, lx - 46, ly - 10, 92, 20, 6);
+    ctx.fillStyle = 'rgba(10,12,20,0.82)';
+    ctx.fill();
+    txt(ctx, '↓ 下落後消除', lx, ly, 12, PAL.gravity, 'center');
+    if (s.deducted > 0) creditChip(ctx, 'dig', s.targetColor, '−' + s.deducted, lx, ly - 14, t);
+    ctx.restore();
+  }
+
+  // state: { task: 'dig'|'big'|'newShape'|null, cells: [{x,y,isTarget}], groups: [{cells:[{x,y}], counted}], deducted, targetColor, t }
+  // 消除結算標記(事後回饋): 標出本次消除中哪些推進了當前任務; v15 不標示團內重力球數
+  function drawClearResult(ctx, s) {
+    if (!s) return;
+    const t = clamp01(s.t);
+    ctx.save();
+    clipBoard(ctx);
+    const task = s.task || 'dig';
+    const deducted = s.deducted || 0;
+    let credited = [];
+    if (task === 'dig') {
+      (s.cells || []).forEach(function (c) { if (c.isTarget) { targetCorner(ctx, c); credited.push(c); } });
+    } else if (task === 'big' || task === 'newShape') {
+      // 算數的團: 整團白色外擴輪廓(大團 = n≥5 的團; 用新形狀方塊 = 含本塊格位的各團)
+      (s.groups || []).forEach(function (g) {
+        if (!g.counted || !g.cells || !g.cells.length) return;
+        contourPath(ctx, g.cells, -1);
+        ctx.strokeStyle = PAL.outline;
+        ctx.lineWidth = 5.5;
+        ctx.stroke();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        credited = credited.concat(g.cells);
+      });
+    }
+    if (deducted > 0 && credited.length) {
+      const sp = spanOf(credited);
+      const unit = task === 'dig' ? '' : ' ' + unitOf(task);
+      creditChip(ctx, task, s.targetColor, '−' + deducted + unit, sp.midX, cy(Math.min(sp.top, LAY.rows)), t);
+    }
+    ctx.restore();
+  }
+
+  // ================= 操作中方塊 / 落點 / 預覽 =================
+  // state: { cells: [{x,y,kind,color}], mode: 'falling'|'softDrop'|'lockDelay'|'locked', lockT }
+  function drawPiece(ctx, s) {
+    if (!s || !s.cells || !s.cells.length) return;
+    ctx.save();
+    clipBoard(ctx);
+    s.cells.forEach(function (c) { paintBody(ctx, cx(c.x), cy(c.y), CELL, c.kind, c.color); });
+    const lockT = clamp01(s.lockT);
+    const has = contourPath(ctx, s.cells, 0.5);
+    ctx.strokeStyle = PAL.player;
+    if (s.mode === 'lockDelay') {
+      ctx.lineWidth = 3;
+      ctx.setLineDash([5, 3]);
+      ctx.globalAlpha = 0.6 + 0.4 * lockT;
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 0.25 * lockT;
+      ctx.fillStyle = '#ffffff';
+      s.cells.forEach(function (c) { ctx.fillRect(cx(c.x), cy(c.y), CELL, CELL); });
+      ctx.globalAlpha = 1;
+    } else {
+      ctx.lineWidth = 1.5;
+      ctx.globalAlpha = 0.9;
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+    if (s.mode === 'softDrop') {
+      ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      s.cells.forEach(function (c) {
+        if (has(c.x, c.y + 1)) return;
+        const px = cx(c.x), py = cy(c.y);
+        ctx.moveTo(px + 8, py - 3); ctx.lineTo(px + 8, py - 14);
+        ctx.moveTo(px + 18, py - 3); ctx.lineTo(px + 18, py - 14);
+      });
+      ctx.stroke();
+    }
+    if (s.mode === 'locked') {
+      ctx.globalAlpha = 0.45;
+      ctx.fillStyle = '#ffffff';
+      s.cells.forEach(function (c) { ctx.fillRect(cx(c.x), cy(c.y), CELL, CELL); });
+      ctx.globalAlpha = 1;
+    }
+    ctx.restore();
+  }
+
+  // state: { cells: [{x,y,kind,color}] }
+  function drawGhost(ctx, s) {
+    if (!s || !s.cells) return;
+    ctx.save();
+    clipBoard(ctx);
+    s.cells.forEach(function (c) { paintGhost(ctx, cx(c.x), cy(c.y), CELL, c.kind, c.color); });
+    ctx.restore();
+  }
+
+  // state: { cells: [{dx,dy,kind,color}], masked, newShapeMark }  dx/dy 為相對格, dy 向上為正; 3~5 格、最大 3×3
+  // v15: 拿掉「含重力球」文字, 球格本身就是辨識(老闆第 5 輪回饋)
+  function drawNextPreview(ctx, s) {
+    s = s || {};
+    ctx.save();
+    const b = BOX.preview;
+    panel(ctx, b, '下一塊');
+    if (s.masked || !s.cells || !s.cells.length) {
+      txt(ctx, '—', b.x + b.w / 2, b.y + b.h / 2 + 6, 24, PAL.textDim, 'center');
+      ctx.restore();
+      return;
+    }
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    s.cells.forEach(function (c) {
+      minX = Math.min(minX, c.dx); maxX = Math.max(maxX, c.dx);
+      minY = Math.min(minY, c.dy); maxY = Math.max(maxY, c.dy);
+    });
+    const w = (maxX - minX + 1) * CELL, h = (maxY - minY + 1) * CELL;
+    const ox = b.x + (b.w - w) / 2, oy = b.y + 26 + (b.h - 34 - h) / 2 + h;
+    s.cells.forEach(function (c) {
+      paintBody(ctx, ox + (c.dx - minX) * CELL, oy - (c.dy - minY + 1) * CELL, CELL, c.kind, c.color);
+    });
+    if (s.newShapeMark) {
+      // v20(規格 v19): 「用新形狀方塊」為當前任務且這塊是新外型時才給。
+      // 與任務面板的新形狀小圖同一類標示 = 淺灰白(新外型展示色): 右上角小標籤 + 整塊外緣淺色描線; 不表示放哪裡會算數
+      ctx.strokeStyle = PAL.silhouette;
+      ctx.lineWidth = 2;
+      ctx.setLineDash([4, 3]);
+      rr(ctx, ox - 5, oy - h - 5, w + 10, h + 10, 8);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      const label = NEW_PIECE_WORD;
+      ctx.font = font(12);
+      const lw = ctx.measureText(label).width + 30;
+      const lx = b.x + b.w - 12 - lw, ly = b.y + 7;
+      rr(ctx, lx, ly, lw, 20, 10);
+      ctx.fillStyle = PAL.silhouette;
+      ctx.fill();
+      miniShape(ctx, 'V', lx + 7, ly + 4, 6, '#1a1d29');
+      txt(ctx, label, lx + 24, ly + 10, 12, '#1a1d29', 'left');
+    }
+    ctx.restore();
+  }
+
+  // 新外型的小圖(v20): 任務面板「做什麼」旁、預覽記號共用。fill 給色則畫實心小方格(不用史萊姆質感, 小尺寸下只看輪廓)
+  function miniShape(ctx, key, x, y, q, fill) {
+    const sh = NEW_SHAPES[key];
+    if (!sh) return;
+    let maxY = 0;
+    sh.cells.forEach(function (p) { if (p[1] > maxY) maxY = p[1]; });
+    sh.cells.forEach(function (p) {
+      rr(ctx, x + p[0] * q + 0.5, y + (maxY - p[1]) * q + 0.5, q - 1, q - 1, Math.max(1, q * 0.25));
+      ctx.fillStyle = fill || PAL.silhouette;
+      ctx.fill();
+    });
+  }
+
+  // ================= 側欄常駐資訊 =================
+  // state: { kind: 'dig'|'big'|'newShape'|'gravity', color, remaining, required,
+  //          reward: 'expand'|'newPiece'|'clearBall'|'shave'|'none', shave, clearBall, side: 'left'|'right', fullWidthBonus,
+  //          newShapes: ['V','U','X'] (kind 為 'newShape' 時: 目前已解鎖的新外型), announcing, t, credit }
+  // shave = 這個任務的獎勵附削頂(第 4 個開地任務、第偶數個多樣化任務); fullWidthBonus 為 true 時自動視為 shave
+  // clearBall = 主獎勵之後另附清色球(d = 1); d = 5 的清色球是主獎勵, 給 reward:'clearBall'
+  // 任務面板: 做什麼 / 得到什麼 / 還差多少。目標色(開地期間)與下一次延展側都畫在這裡面
+  function drawTaskProgress(ctx, s) {
+    s = s || {};
+    ctx.save();
+    const b = BOX.task;
+    const kind = TASK[s.kind] ? s.kind : 'dig';
+    const t = clamp01(s.t);
+    panel(ctx, b, '任務', s.announcing ? PAL.expand : null);
+    if (s.announcing) {
+      const pulse = 0.5 + 0.5 * Math.sin(t * Math.PI * 6);
+      rr(ctx, b.x + b.w - 78, b.y + 7, 66, 20, 10);
+      ctx.fillStyle = PAL.expand;
+      ctx.fill();
+      txt(ctx, '新任務', b.x + b.w - 45, b.y + 17, 13, '#0d1a12', 'center');
+      rr(ctx, b.x - 2, b.y - 2, b.w + 4, b.h + 4, 10);
+      ctx.strokeStyle = 'rgba(95,227,154,' + (0.3 + 0.5 * pulse) + ')';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+    function divider(y) {
+      ctx.fillStyle = PAL.panelEdge;
+      ctx.fillRect(b.x + 12, b.y + y, b.w - 24, 1);
+    }
+    // --- 做什麼 ---
+    txt(ctx, '做什麼', b.x + 14, b.y + 40, 12, PAL.textDim, 'left');
+    if (kind === 'newShape' && s.newShapes && s.newShapes.length) {
+      // v20(規格 v19): 已解鎖新外型的小圖, 只在本任務期間畫; 未解鎖的不畫(不預先揭曉)
+      const q = 6;
+      let x = b.x + b.w - 14;
+      const list = s.newShapes.filter(function (k) { return NEW_SHAPES[k]; }).slice(0, 3);
+      for (let i = list.length - 1; i >= 0; i--) {
+        const bx = shapeBox(list[i]);
+        x -= bx.w * q;
+        miniShape(ctx, list[i], x, b.y + 40 - bx.h * q / 2, q);
+        x -= 8;
+      }
+      txt(ctx, NEW_PIECE_WORD + ':', x, b.y + 40, 11, PAL.silhouette, 'right');
+    }
+    taskIcon(ctx, kind, s.color, b.x + 14, b.y + 52, 36);
+    const tx = b.x + 60, tw = b.w - 74;
+    if (kind === 'dig') {
+      parts(ctx, whatParts(kind, s.color), tx, b.y + 70, 18, tw);
+    } else {
+      ctx.font = font(16);
+      const lines = wrapPhrase(ctx, TASK[kind].what, tw);
+      const y0 = lines.length > 1 ? b.y + 60 : b.y + 70;
+      lines.slice(0, 2).forEach(function (ln, i) { txt(ctx, ln, tx, y0 + i * 21, 16, PAL.text, 'left'); });
+    }
+    divider(96);
+    // --- 得到什麼 ---
+    txt(ctx, '得到什麼', b.x + 14, b.y + 110, 12, PAL.textDim, 'left');
+    // 主獎勵寫在前、清色球 / 削頂在後(與事件內演出順序一致: 新形狀方塊 → 清色球 → 削頂); 削頂只寫「削頂」
+    // v20: 倍率獎勵已刪; 新增清色球(洋紅字), d = 4、6… 只有削頂
+    let reward = s.reward || (kind === 'dig' ? 'expand' : 'newPiece');
+    if (reward === 'multiplierMax' || reward === 'multiplier') reward = 'none'; // 舊名: 倍率獎勵 v19 已刪
+    const shave = !!(s.shave || reward === 'shave' || (reward === 'expand' && s.fullWidthBonus));
+    const extraBall = !!(s.clearBall && reward !== 'clearBall');
+    if (reward === 'shave') reward = 'none';
+    const iconKey = reward === 'none' ? (shave ? 'shave' : (extraBall ? 'clearBall' : 'none')) : reward;
+    rewardIcon(ctx, iconKey, s.side, b.x + 16, b.y + 124, 24);
+    const rx = b.x + 50, rw = b.w - 64;
+    let main = null;
+    if (reward === 'expand') main = [['盤面向' + (s.side === 'left' ? '左' : '右') + '長一欄', PAL.expand]];
+    else if (reward === 'newPiece') main = [[NEW_PIECE_WORD, PAL.expand]];
+    else if (reward === 'clearBall') main = [[CLEAR_BALL_WORD, PAL.wipe]];
+    if (main) {
+      const tail = [];
+      if (extraBall) tail.push(['+ ' + CLEAR_BALL_WORD, PAL.wipe]);
+      if (shave) tail.push([(tail.length ? ' ' : '') + '+ 削頂', PAL.shave]);
+      if (reward === 'expand' && s.fullWidthBonus) tail.push([(tail.length ? ' ' : '') + '+ 1,500 分', PAL.expand]);
+      if (tail.length) {
+        parts(ctx, main, rx, b.y + 128, 16, rw);
+        parts(ctx, tail, rx, b.y + 150, 15, rw);
+      } else {
+        parts(ctx, main, rx, b.y + 136, 16, rw);
+      }
+    } else if (shave) {
+      txt(ctx, '削頂', rx, b.y + 136, 16, PAL.shave, 'left');
+    } else {
+      txt(ctx, '沒有獎勵', rx, b.y + 136, 16, PAL.textDim, 'left');
+    }
+    divider(164);
+    // --- 還差多少 ---
+    txt(ctx, '還差多少', b.x + 14, b.y + 178, 12, PAL.textDim, 'left');
+    const req = Math.max(1, s.required || 1);
+    const rem = s.remaining != null ? s.remaining : req;
+    const done = rem <= 0;
+    if (done) {
+      txt(ctx, '已達成, 待結算', b.x + 14, b.y + 210, 19, PAL.expand, 'left');
+    } else {
+      ctx.font = font(36);
+      const nw = ctx.measureText(String(rem)).width;
+      txt(ctx, String(rem), b.x + 14, b.y + 208, 36, PAL.text, 'left');
+      txt(ctx, unitOf(kind), b.x + 20 + nw, b.y + 214, 15, PAL.textDim, 'left');
+    }
+    const cr = clamp01(s.credit);
+    if (cr > 0) {
+      // 這次算數了: 數字區閃白框
+      rr(ctx, b.x + 6, b.y + 188, 150, 42, 8);
+      ctx.strokeStyle = 'rgba(255,255,255,' + (0.9 * cr) + ')';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+    }
+    // 進度條: 圖形給趨勢、數字給精確
+    const got = Math.min(req, req - Math.max(0, rem));
+    const bx = b.x + 166, by = b.y + 200, bw = b.w - 166 - 16, bh = 10;
+    rr(ctx, bx, by, bw, bh, 5);
+    ctx.fillStyle = '#10131b';
+    ctx.fill();
+    if (got > 0) {
+      rr(ctx, bx, by, Math.max(bh, bw * got / req), bh, 5);
+      const c = kind === 'dig' ? SLIME[s.color] : null;
+      ctx.fillStyle = done ? PAL.expand : (c ? c.fill : PAL.text);
+      ctx.fill();
+    }
+    rr(ctx, bx, by, bw, bh, 5);
+    ctx.strokeStyle = PAL.panelEdge;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    txt(ctx, got + ' / ' + req, bx + bw, by + 24, 12, PAL.textDim, 'right');
+    ctx.restore();
+  }
+
+  // state: { side: 'left'|'right'|null, col }  col = 下一次會開的絕對欄
+  function drawNextExpandSide(ctx, s) {
+    if (!s || !s.side || s.col == null) return;
+    ctx.save();
+    const b = boardRect();
+    const x = cx(s.col);
+    ctx.strokeStyle = PAL.expand;
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6, 4]);
+    ctx.strokeRect(x + 2, b.y + 2, CELL - 4, b.h - 4);
+    ctx.setLineDash([]);
+    const ay = b.y + b.h + 16;
+    const mid = x + CELL / 2;
+    if (s.side === 'left') {
+      arrow(ctx, mid + 10, ay, mid - 10, ay, PAL.expand, 3);
+      txt(ctx, '下次開這側', mid + 16, ay, 12, PAL.expand, 'left');
+    } else {
+      arrow(ctx, mid - 10, ay, mid + 10, ay, PAL.expand, 3);
+      txt(ctx, '下次開這側', mid - 16, ay, 12, PAL.expand, 'right');
+    }
+    ctx.restore();
+  }
+
+  // state: { progress: 0~1 }  長按 R 期間
+  function drawAbandonTimer(ctx, s) {
+    if (!s) return;
+    const p = clamp01(s.progress);
+    ctx.save();
+    const b = BOX.abandon;
+    panel(ctx, b, null, PAL.danger);
+    txt(ctx, '放棄本局: 按住 R 不放', b.x + 14, b.y + 17, 14, PAL.text, 'left');
+    txt(ctx, (1 - p).toFixed(1) + ' 秒', b.x + b.w - 14, b.y + 17, 14, PAL.danger, 'right');
+    const bx = b.x + 14, by = b.y + 34, bw = b.w - 28, bh = 10;
+    rr(ctx, bx, by, bw, bh, 5);
+    ctx.fillStyle = '#10131b';
+    ctx.fill();
+    if (p > 0) {
+      rr(ctx, bx, by, Math.max(bh, bw * p), bh, 5);
+      ctx.fillStyle = PAL.danger;
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // state: { score, multiplier, multiplierFlash (0~1, 倍率剛變動時由 1 遞減), best (null = 尚無紀錄), time (秒) }
+  function drawHud(ctx, s) {
+    s = s || {};
+    ctx.save();
+    let b = BOX.score;
+    panel(ctx, b, '分數');
+    txt(ctx, fmt(s.score), b.x + b.w - 16, b.y + 50, 34, PAL.text, 'right');
+
+    b = BOX.mult;
+    const f = clamp01(s.multiplierFlash);
+    panel(ctx, b, null, f > 0 ? PAL.expand : null);
+    txt(ctx, '分數倍率', b.x + 14, b.y + b.h / 2, 13, PAL.textDim, 'left');
+    txt(ctx, '×' + (s.multiplier != null ? s.multiplier : 1).toFixed(2), b.x + b.w - 16, b.y + b.h / 2, 22, f > 0 ? PAL.expand : PAL.text, 'right');
+
+    b = BOX.best;
+    panel(ctx, b);
+    txt(ctx, '最佳紀錄', b.x + 14, b.y + b.h / 2, 13, PAL.textDim, 'left');
+    if (s.best == null) txt(ctx, '尚無紀錄', b.x + b.w - 16, b.y + b.h / 2, 16, PAL.textDim, 'right');
+    else txt(ctx, fmt(s.best), b.x + b.w - 16, b.y + b.h / 2, 20, PAL.text, 'right');
+
+    b = BOX.time;
+    panel(ctx, b);
+    txt(ctx, '時間', b.x + 14, b.y + b.h / 2, 13, PAL.textDim, 'left');
+    txt(ctx, fmtTime(s.time), b.x + b.w - 16, b.y + b.h / 2, 20, PAL.text, 'right');
+
+    txt(ctx, 'Esc 暫停　H 說明　長按 R 放棄', BOX.time.x + BOX.time.w, 600, 12, PAL.textDim, 'right');
+    ctx.restore();
+  }
+
+  // ================= 事件(結算期間) =================
+  // next = { kind, color, required }: t ≥ 0.7 起橫幅換成尾端公告(下一個任務)
+  function eventBanner(ctx, accent, icon, title, sub, t, next) {
+    const b = BOX.banner;
+    rr(ctx, b.x, b.y, b.w, b.h, 10);
+    ctx.fillStyle = 'rgba(14,17,26,0.96)';
+    ctx.fill();
+    ctx.strokeStyle = accent;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    if (next && next.kind && t >= 0.7) {
+      rr(ctx, b.x + 12, b.y + 6, 54, 18, 9);
+      ctx.fillStyle = PAL.expand;
+      ctx.fill();
+      txt(ctx, '新任務', b.x + 39, b.y + 15, 12, '#0d1a12', 'center');
+      if (next.required != null) {
+        txt(ctx, '還差 ' + next.required + ' ' + unitOf(next.kind), b.x + b.w - 12, b.y + 15, 13, PAL.text, 'right');
+      }
+      taskIcon(ctx, next.kind, next.color, b.x + 12, b.y + 27, 22);
+      parts(ctx, whatParts(next.kind, next.color), b.x + 40, b.y + 39, 14, b.w - 52);
+    } else {
+      if (icon) icon(b.x + 12, b.y + 13);
+      const tx = icon ? b.x + 50 : b.x + 14;
+      // sub 可為字串或多色 parts([[文字, 顏色], ...]); 沒有 sub 時標題置中
+      // title 可為字串或多色 parts(v20)
+      if (Array.isArray(title)) parts(ctx, title, tx, sub ? b.y + 19 : b.y + b.h / 2, 17, b.x + b.w - 12 - tx);
+      else txt(ctx, title, tx, sub ? b.y + 19 : b.y + b.h / 2, 17, accent, 'left');
+      if (Array.isArray(sub)) parts(ctx, sub, tx, b.y + 40, 13, b.x + b.w - 12 - tx);
+      else if (sub) txt(ctx, sub, tx, b.y + 40, 13, PAL.text, 'left');
+    }
+  }
+  // 獎勵事件內的分段(v18, 建議值; RD 依此換算各段 t):
+  //   延展事件(1.2 秒): 開欄 0~0.3 → 削頂 0.3~0.7(僅第 4 次) → 尾端公告 0.7~1
+  //   多樣化任務獎勵事件(1.5 秒): 主獎勵 0~0.4 → 削頂 0.4~0.7(僅第偶數個) → 尾端公告 0.7~1; 沒有削頂時主獎勵延到 0.7
+  //   v20 d = 1(解鎖 + 清色球): 解鎖 0~0.3 → 清色球 0.3~0.7 → 尾端公告 0.7~1(解鎖卡片上移保留, 清色球卡片接在下面)
+  //   v20 全盤清除(1.0 秒, 4d): 見 drawBoardWipe 內的分段
+  const PHASE = { expandShave: [0.3, 0.7], rewardShave: [0.4, 0.7], unlockClearBall: [0.3, 0.7], announce: 0.7 };
+  const SHAVE_SUB = [['接著削頂', PAL.shave]];
+
+  function colFlash(ctx, col, side, t) {
+    ctx.save();
+    clipBoard(ctx);
+    const b = boardRect();
+    const x = cx(col);
+    ctx.globalAlpha = 0.12 + 0.4 * (1 - clamp01(t));
+    ctx.fillStyle = PAL.expand;
+    ctx.fillRect(x, b.y, CELL, b.h);
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = PAL.expand;
+    ctx.lineWidth = 2.5;
+    ctx.strokeRect(x + 1.5, b.y + 1.5, CELL - 3, b.h - 3);
+    const my = b.y + b.h / 2;
+    if (side === 'left') arrow(ctx, x + CELL - 4, my, x + 4, my, PAL.expand, 3);
+    else arrow(ctx, x + 4, my, x + CELL - 4, my, PAL.expand, 3);
+    ctx.restore();
+  }
+
+  // state: { side: 'left'|'right', col, t (0~1, 1.2 秒), shave (僅第 4 次延展 = true), next: {kind, color, required} }
+  // v18: 第 1~3 次延展只 +1 欄、不削頂; 第 4 次才附削頂(與 drawShaveIndicator、drawFullWidthBonus 同時呼叫)
+  function drawExpandEvent(ctx, s) {
+    if (!s) return;
+    const t = clamp01(s.t);
+    ctx.save();
+    if (s.col != null) colFlash(ctx, s.col, s.side, t);
+    eventBanner(ctx, PAL.expand, null,
+      s.side === 'left' ? '◀ 盤面向左長一欄' : '盤面向右長一欄 ▶',
+      s.shave ? SHAVE_SUB : null,
+      t, s.next);
+    ctx.restore();
+  }
+
+  // state: { cells: [{x,y}], t }  cells = 本次被削的格(每欄至多 1 格); t = 削線掃過的進度 0~1
+  // 沿盤面輪廓畫一條紫色削線, 由左往右掃過: 讓玩家看出「削的是最上面那一層皮」; 不顯示格數
+  function drawShaveIndicator(ctx, s) {
+    if (!s || !s.cells || !s.cells.length) return;
+    const t = s.t == null ? 1 : clamp01(s.t);
+    const list = s.cells.slice().sort(function (a, b) { return a.x - b.x; });
+    ctx.save();
+    clipBoard(ctx);
+    const b = boardRect();
+    const n = list.length;
+    const reveal = t * n; // 已掃過的格數(可帶小數)
+    function path() {
+      ctx.beginPath();
+      let prev = null, headX = null, headY = null;
+      for (let i = 0; i < n; i++) {
+        const c = list[i];
+        if (i >= reveal) break;
+        const frac = Math.min(1, reveal - i);
+        const x0 = cx(c.x), y0 = Math.max(b.y + 2, cy(c.y));
+        const x1 = x0 + CELL * frac;
+        if (prev && prev.x === c.x - 1) ctx.lineTo(x0, y0); // 相鄰欄: 沿輪廓接上(台階)
+        else ctx.moveTo(x0, y0);
+        ctx.lineTo(x1, y0);
+        prev = c;
+        headX = x1; headY = y0;
+      }
+      return { x: headX, y: headY };
+    }
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    path();
+    ctx.strokeStyle = PAL.outline;
+    ctx.lineWidth = 6;
+    ctx.stroke();
+    const head = path();
+    ctx.strokeStyle = PAL.shave;
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    if (head.x != null && t < 1) {
+      // 削線前端的刀光
+      ctx.beginPath();
+      ctx.arc(head.x, head.y, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // state: { t }
+  function drawFullWidthBonus(ctx, s) {
+    const t = clamp01(s && s.t);
+    ctx.save();
+    const b = boardRect();
+    const mx = b.x + b.w / 2, my = b.y + b.h * 0.42;
+    const k = t < 0.12 ? 0.7 + 0.3 * (t / 0.12) : 1;
+    ctx.translate(mx, my);
+    ctx.scale(k, k);
+    rr(ctx, -120, -30, 240, 60, 14);
+    ctx.fillStyle = 'rgba(14,17,26,0.92)';
+    ctx.fill();
+    ctx.strokeStyle = PAL.expand;
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    txt(ctx, '滿寬完成', 0, -12, 14, PAL.expand, 'center');
+    txt(ctx, '+1,500', 0, 12, 28, '#ffffff', 'center', PAL.outline);
+    ctx.restore();
+  }
+
+  function paintShape(ctx, key, x, y, size) {
+    // (x, y) = 形狀外框左上角; by 向上
+    const sh = NEW_SHAPES[key];
+    if (!sh) return;
+    let maxY = 0;
+    sh.cells.forEach(function (p) { if (p[1] > maxY) maxY = p[1]; });
+    sh.cells.forEach(function (p) { paintSilhouette(ctx, x + p[0] * size, y + (maxY - p[1]) * size, size); });
+  }
+  function shapeBox(key) {
+    const sh = NEW_SHAPES[key];
+    let w = 0, h = 0;
+    sh.cells.forEach(function (p) { w = Math.max(w, p[0] + 1); h = Math.max(h, p[1] + 1); });
+    return { w: w, h: h };
+  }
+
+  // 清色球卡片(v20): 展示清色球本身 + 定案的一句效果。(mx, my) = 卡片中心; lt = 卡片自己的進度(彈出用)
+  const CB_CARD = { w: 240, h: 150 };
+  function clearBallCard(ctx, mx, my, lt) {
+    const k = lt < 0.12 ? 0.7 + 0.3 * (lt / 0.12) : 1;
+    ctx.save();
+    ctx.translate(mx, my);
+    ctx.scale(k, k);
+    rr(ctx, -CB_CARD.w / 2, -CB_CARD.h / 2, CB_CARD.w, CB_CARD.h, 14);
+    ctx.fillStyle = 'rgba(14,17,26,0.95)';
+    ctx.fill();
+    ctx.strokeStyle = PAL.wipe;
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    txt(ctx, CLEAR_BALL_WORD, 0, -56, 16, PAL.wipe, 'center');
+    // 球本身: 盤面上同一個畫法放大(26 的 1.6 倍), 後方一圈洋紅光暈
+    const bs = 42;
+    const g = ctx.createRadialGradient(0, -18, 4, 0, -18, 36);
+    g.addColorStop(0, 'rgba(255,95,208,0.45)');
+    g.addColorStop(1, 'rgba(255,95,208,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(0, -18, 36, 0, Math.PI * 2);
+    ctx.fill();
+    paintClearBall(ctx, -bs / 2, -18 - bs / 2, bs);
+    txt(ctx, CLEAR_BALL_LINE[0], 0, 26, 15, PAL.text, 'center');
+    txt(ctx, CLEAR_BALL_LINE[1], 0, 50, 15, PAL.text, 'center');
+    ctx.restore();
+  }
+  const CB_SUB = '之後會出現在方塊裡';
+  function clearBallIcon(ctx) { return function (x, y) { paintClearBall(ctx, x, y, 28); }; }
+
+  // state: { shape: 'V'|'U'|'X', t (0~1, 1.5 秒), shave (d = 2), clearBall (d = 1), next: {kind, color, required} }  新外型解鎖事件
+  // v18: 事件文字稱「新形狀方塊」; shave 時 t 0.4~0.7 讓位給削頂(卡片淡出, 不蓋住削線), 由 RD 同時呼叫 drawShaveIndicator
+  // v20: clearBall 時 t 0.3 起接著給清色球 — 解鎖卡片上移保留, 清色球卡片彈出在下方, 橫幅換成「獎勵: 清色球」(d = 1 不另呼叫 drawClearBallEvent)
+  function drawUnlockEvent(ctx, s) {
+    if (!s || !NEW_SHAPES[s.shape]) return;
+    const t = clamp01(s.t);
+    const sh = NEW_SHAPES[s.shape];
+    const inShave = s.shave && t >= PHASE.rewardShave[0] && t < PHASE.announce;
+    const ballT = s.clearBall ? (t - PHASE.unlockClearBall[0]) / (PHASE.unlockClearBall[1] - PHASE.unlockClearBall[0]) : -1;
+    ctx.save();
+    if (s.clearBall && ballT >= 0 && t < PHASE.announce) {
+      eventBanner(ctx, PAL.wipe, clearBallIcon(ctx), '獎勵: ' + CLEAR_BALL_WORD, CB_SUB, t, s.next);
+    } else {
+      eventBanner(ctx, PAL.expand, function (x, y) {
+        const bx = shapeBox(s.shape);
+        const q = 9;
+        paintShape(ctx, s.shape, x + (28 - bx.w * q) / 2, y + (28 - bx.h * q) / 2, q);
+      }, '解鎖' + NEW_PIECE_WORD + ': ' + sh.name, inShave ? SHAVE_SUB : '之後會混在方塊裡出現', t, s.next);
+    }
+    // 盤面中央卡片: 用與盤面同尺寸的格子展示形狀, 讓玩家第一次拿到前就認得
+    let alpha = 1;
+    if (s.shave && t >= PHASE.rewardShave[0]) alpha = 1 - clamp01((t - PHASE.rewardShave[0]) / 0.06);
+    const b0 = boardRect();
+    if (s.clearBall && ballT >= 0) {
+      // 清色球卡片在下方彈出(解鎖卡片同時上移, 見下)
+      clearBallCard(ctx, b0.x + b0.w / 2, b0.y + 318, ballT * 0.4);
+    }
+    if (alpha > 0) {
+      const b = b0;
+      let my = b.y + b.h * 0.42;
+      if (s.clearBall && ballT >= 0) my = b.y + b.h * 0.42 - 90 * clamp01(ballT / 0.15);
+      const mx = b.x + b.w / 2;
+      const k = t < 0.12 ? 0.7 + 0.3 * (t / 0.12) : 1;
+      ctx.globalAlpha = alpha;
+      ctx.translate(mx, my);
+      ctx.scale(k, k);
+      rr(ctx, -100, -88, 200, 176, 14);
+      ctx.fillStyle = 'rgba(14,17,26,0.94)';
+      ctx.fill();
+      ctx.strokeStyle = PAL.expand;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      txt(ctx, NEW_PIECE_WORD, 0, -68, 15, PAL.expand, 'center');
+      const bx = shapeBox(s.shape);
+      paintShape(ctx, s.shape, -bx.w * CELL / 2, -8 - bx.h * CELL / 2, CELL);
+      txt(ctx, sh.name, 0, 66, 20, '#ffffff', 'center');
+    }
+    ctx.restore();
+  }
+
+  // state: { t (0~1, 1.5 秒), next: {kind, color, required} }  清色球獎勵事件(v20: d = 5, 事件內只有清色球)
+  // d = 1 的清色球接在解鎖之後, 由 drawUnlockEvent(clearBall:true) 畫, 不呼叫本函式
+  function drawClearBallEvent(ctx, s) {
+    if (!s) return;
+    const t = clamp01(s.t);
+    ctx.save();
+    eventBanner(ctx, PAL.wipe, clearBallIcon(ctx), '獎勵: ' + CLEAR_BALL_WORD, CB_SUB, t, s.next);
+    const b = boardRect();
+    clearBallCard(ctx, b.x + b.w / 2, b.y + b.h * 0.42, t);
+    ctx.restore();
+  }
+
+  // state: { shave (d = 4、6、8… = true; d ≥ 7 奇數 = false), t (0~1, 1.5 秒), next: {kind, color, required} }
+  // v20: 取代 v18 的倍率獎勵事件。只削頂 = 紫框「獎勵: 削頂」(t 0.4~0.7 由 RD 同時呼叫 drawShaveIndicator);
+  //      沒有獎勵 = 灰框「任務完成 / 沒有獎勵」。兩者 t ≥ 0.7 起換成下一個任務公告
+  function drawTaskDoneEvent(ctx, s) {
+    if (!s) return;
+    const t = clamp01(s.t);
+    ctx.save();
+    if (s.shave) {
+      eventBanner(ctx, PAL.shave, function (x, y) { rewardIcon(ctx, 'shave', null, x, y, 26); }, '獎勵: 削頂', null, t, s.next);
+    } else {
+      eventBanner(ctx, PAL.textDim, function (x, y) {
+        // 打勾(任務完成) — 白線, 與獎勵的綠 / 紫 / 洋紅分開
+        ctx.strokeStyle = PAL.text;
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+        ctx.moveTo(x + 5, y + 15);
+        ctx.lineTo(x + 11, y + 21);
+        ctx.lineTo(x + 23, y + 7);
+        ctx.stroke();
+      }, [['任務完成', PAL.text]], [['沒有獎勵', PAL.textDim]], t, s.next);
+    }
+    ctx.restore();
+  }
+
+  // ---------- 全盤清除(v20, 結算 4d, 1.0 秒) ----------
+  // 分段(t = 本段進度 0~1):
+  //   0~0.1   同色全亮: 全盤所有要被清的格同時閃白框 + 盤面整片染上該色一閃(先說清楚「是這個顏色」)
+  //   0.04~0.55 洋紅衝擊波從清色球原位往外擴, 掃過哪一格哪一格就爆開(每格 0.3 的爆開動畫, 見 paintWipeCell)
+  //   0.32~1  盤面中上方「[該色史萊姆] +500」彈出(每種清除色一行), 末段淡出; 被清的位置留洋紅殘影框
+  // 盤面震動是選用的: Art.wipeShake(t) 回傳 {dx, dy}, RD 只套在盤面層(背景以上、側欄以下), 側欄與常駐面板不震(P11)
+  function wipeShake(t) {
+    t = clamp01(t);
+    if (t >= 0.25) return { dx: 0, dy: 0 };
+    const a = 5 * (1 - t / 0.25);
+    return { dx: a * Math.sin(t * 95), dy: a * Math.cos(t * 71) * 0.7 };
+  }
+  // state: { colors: ['A'|'B'|'C', ...](本次清除色, 同色一次), cells: [{x,y,color}](本次被清的全部格, 含 y>19 亦可),
+  //          origins: [{x,y}](觸發的清色球消除前的位置; 可省略, 省略時從被清格的重心起跑), t }
+  // 本段期間這些格由本函式畫(本體 + 爆開), RD 不要再用 drawCell 畫它們; 其餘格照常 drawCell
+  function drawBoardWipe(ctx, s) {
+    if (!s) return;
+    const t = clamp01(s.t);
+    const list = s.cells || [];
+    const colors = (s.colors && s.colors.length ? s.colors : uniqColors(list)).filter(function (c) { return SLIME[c]; });
+    ctx.save();
+    const b = boardRect();
+    // 起點(像素)
+    let origins = (s.origins || []).map(function (o) { return { x: cx(o.x) + CELL / 2, y: cy(Math.min(o.y, LAY.rows)) + CELL / 2 }; });
+    if (!origins.length) {
+      let sx = 0, sy = 0, n = 0;
+      list.forEach(function (c) { if (c.y <= LAY.rows) { sx += cx(c.x) + CELL / 2; sy += cy(c.y) + CELL / 2; n++; } });
+      origins = [n ? { x: sx / n, y: sy / n } : { x: b.x + b.w / 2, y: b.y + b.h / 2 }];
+    }
+    function nearest(px, py) {
+      let d = Infinity;
+      origins.forEach(function (o) { d = Math.min(d, Math.hypot(px - o.x, py - o.y)); });
+      return d;
+    }
+    let maxD = 1;
+    list.forEach(function (c) { maxD = Math.max(maxD, nearest(cx(c.x) + CELL / 2, cy(c.y) + CELL / 2)); });
+    const W0 = 0.04, WSPAN = 0.45, POP = 0.3;
+
+    ctx.save();
+    clipBoard(ctx);
+    // 1. 盤面整片染色一閃
+    if (t < 0.16) {
+      const f = 1 - t / 0.16;
+      ctx.globalAlpha = 0.16 * f;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(b.x, b.y, b.w, b.h);
+      colors.forEach(function (c) {
+        ctx.globalAlpha = 0.1 * f / colors.length;
+        ctx.fillStyle = SLIME[c].fill;
+        ctx.fillRect(b.x, b.y, b.w, b.h);
+      });
+      ctx.globalAlpha = 1;
+    }
+    // 2. 衝擊波(洋紅粗環 + 該色內環)與起點放射線
+    const wp = clamp01((t - W0) / (WSPAN + 0.08));
+    if (wp > 0 && wp < 1) {
+      const e = 1 - Math.pow(1 - wp, 2);
+      const r = 8 + (maxD + 30) * e;
+      origins.forEach(function (o) {
+        ctx.globalAlpha = 1 - wp * wp;
+        ctx.beginPath();
+        ctx.arc(o.x, o.y, r, 0, Math.PI * 2);
+        ctx.strokeStyle = PAL.outline;
+        ctx.lineWidth = 11 - 6 * wp;
+        ctx.stroke();
+        ctx.strokeStyle = PAL.wipe;
+        ctx.lineWidth = 7 - 4 * wp;
+        ctx.stroke();
+        colors.forEach(function (c, i) {
+          ctx.beginPath();
+          ctx.arc(o.x, o.y, Math.max(1, r - 8 - i * 5), 0, Math.PI * 2);
+          ctx.strokeStyle = SLIME[c].rim;
+          ctx.lineWidth = 3;
+          ctx.stroke();
+        });
+      });
+      ctx.globalAlpha = 1;
+    }
+    if (t < 0.3) {
+      const rp = t / 0.3;
+      ctx.globalAlpha = 1 - rp;
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 3;
+      ctx.lineCap = 'round';
+      origins.forEach(function (o) {
+        ctx.beginPath();
+        for (let k = 0; k < 12; k++) {
+          const a = k * Math.PI / 6 + 0.26;
+          const r1 = 10 + 50 * rp, r2 = r1 + (k % 2 ? 12 : 22);
+          ctx.moveTo(o.x + Math.cos(a) * r1, o.y + Math.sin(a) * r1);
+          ctx.lineTo(o.x + Math.cos(a) * r2, o.y + Math.sin(a) * r2);
+        }
+        ctx.stroke();
+        sparklePath(ctx, o.x, o.y, 18 + 30 * rp, 5 + 6 * rp);
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    }
+    // 3. 被清的格: 波到之前 = 本體 + 同色全亮的白框(脈動); 波到之後 = 爆開
+    list.forEach(function (c) {
+      if (c.y > LAY.rows + 1) return;
+      const px = cx(c.x), py = cy(c.y);
+      const start = W0 + WSPAN * (nearest(px + CELL / 2, py + CELL / 2) / maxD);
+      const lt = (t - start) / POP;
+      if (lt <= 0) {
+        paintBody(ctx, px, py, CELL, 'color', c.color);
+        ctx.globalAlpha = 0.65 + 0.35 * Math.sin(t * 60);
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2.5;
+        ctx.strokeRect(px + 1.5, py + 1.5, CELL - 3, CELL - 3);
+        ctx.globalAlpha = 1;
+      } else {
+        paintWipeCell(ctx, px, py, 'color', c.color, lt, 0.6 * (t < 0.8 ? 1 : 1 - (t - 0.8) / 0.2));
+      }
+    });
+    ctx.restore();
+
+    // 4. +500(每種清除色一行): 盤面中上方彈出, 不寫格數
+    if (t >= 0.32 && colors.length) {
+      const pt = (t - 0.32) / 0.12;
+      const k = pt < 1 ? 0.4 + 0.9 * pt : 1.3 - 0.3 * clamp01((t - 0.44) / 0.1);
+      const alpha = t > 0.88 ? 1 - (t - 0.88) / 0.12 * 0.7 : 1;
+      const mx = b.x + b.w / 2, my0 = b.y + b.h * 0.34;
+      const rowH = 48;
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.translate(mx, my0);
+      ctx.scale(k, k);
+      const top = -(colors.length - 1) * rowH / 2;
+      colors.forEach(function (c, i) {
+        const y = top + i * rowH;
+        const g = ctx.createRadialGradient(0, y, 6, 0, y, 90);
+        g.addColorStop(0, 'rgba(255,95,208,0.35)');
+        g.addColorStop(1, 'rgba(255,95,208,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(-100, y - 40, 200, 80);
+        paintSlime(ctx, -78, y - 15, 30, c);
+        ctx.font = font(40);
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 9;
+        ctx.strokeStyle = PAL.outline;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.strokeText('+500', -38, y + 1);
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = PAL.wipe;
+        ctx.strokeText('+500', -38, y + 1);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText('+500', -38, y + 1);
+      });
+      ctx.restore();
+    }
+    // 5. 橫幅: 「[紅色] 全盤一起消失」(玩家語言; 不寫「全盤清除」這個內部名詞、不寫格數)
+    const title = [];
+    colors.forEach(function (c, i) {
+      if (i) title.push(['、', PAL.text]);
+      title.push([SLIME[c].name + '色', SLIME[c].text]);
+    });
+    title.push([' 全盤一起消失', PAL.wipe]);
+    eventBanner(ctx, PAL.wipe, clearBallIcon(ctx), title, [[CLEAR_BALL_WORD + '生效', PAL.text]], t, null);
+    ctx.restore();
+  }
+  function uniqColors(list) {
+    const seen = {};
+    const out = [];
+    list.forEach(function (c) { if (c.color && !seen[c.color]) { seen[c.color] = 1; out.push(c.color); } });
+    return out;
+  }
+
+  // ================= 全畫面介面 =================
+  function drawPauseMask(ctx) {
+    ctx.save();
+    ctx.fillStyle = '#0d0f15';
+    ctx.fillRect(0, 0, W, H);
+    txt(ctx, '暫停', W / 2, 250, 48, PAL.text, 'center');
+    txt(ctx, 'Esc 繼續', W / 2, 320, 20, PAL.text, 'center');
+    txt(ctx, 'H 看說明', W / 2, 354, 20, PAL.text, 'center');
+    txt(ctx, '長按 R 1 秒 放棄這局', W / 2, 388, 20, PAL.danger, 'center');
+    ctx.restore();
+  }
+
+  const REASON = { blockout: '下一塊沒有位置了', lockout: '放下的方塊整塊卡在頂線上', abandon: '玩家放棄' };
+  const GO_W = 380, GO_H = 360;
+  function gameOverPanel(ctx, x, y, s) {
+    const w = GO_W, h = GO_H;
+    rr(ctx, x, y, w, h, 14);
+    ctx.fillStyle = 'rgba(20,23,34,0.97)';
+    ctx.fill();
+    ctx.strokeStyle = PAL.danger;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    txt(ctx, '本局結束', x + w / 2, y + 34, 28, PAL.text, 'center');
+    txt(ctx, REASON[s.reason] || '', x + w / 2, y + 66, 15, PAL.danger, 'center');
+    txt(ctx, '分數', x + 30, y + 108, 15, PAL.textDim, 'left');
+    txt(ctx, fmt(s.score), x + w - 30, y + 108, 34, '#ffffff', 'right');
+    if (s.newRecord) {
+      rr(ctx, x + 30, y + 126, 84, 22, 11);
+      ctx.fillStyle = PAL.expand;
+      ctx.fill();
+      txt(ctx, '新紀錄!', x + 72, y + 137, 13, '#0d1a12', 'center');
+    }
+    const rows = [
+      ['存活', Math.floor(s.seconds || 0) + ' 秒'],
+      ['已解鎖欄數', (s.columns || 0) + ' / 4'],
+      ['已解鎖新形狀方塊', (s.shapes || 0) + ' / 3'],
+      ['最佳紀錄', s.best == null ? '尚無紀錄' : fmt(s.best)],
+    ];
+    rows.forEach(function (r, i) {
+      const yy = y + 166 + i * 24;
+      txt(ctx, r[0], x + 30, yy, 14, PAL.textDim, 'left');
+      txt(ctx, r[1], x + w - 30, yy, 16, PAL.text, 'right');
+    });
+    // 局終停在的任務
+    const task = s.task;
+    ctx.fillStyle = PAL.panelEdge;
+    ctx.fillRect(x + 24, y + 250, w - 48, 1);
+    txt(ctx, '停在的任務', x + 30, y + 266, 14, PAL.textDim, 'left');
+    if (task && task.kind) {
+      const rem = task.remaining;
+      txt(ctx, rem != null && rem <= 0 ? '已達成, 待結算' : '還差 ' + (rem != null ? rem : '—') + ' ' + unitOf(task.kind), x + w - 30, y + 266, 14, PAL.text, 'right');
+      taskIcon(ctx, task.kind, task.color, x + 30, y + 280, 18);
+      parts(ctx, whatParts(task.kind, task.color), x + 54, y + 289, 14, w - 84);
+    } else {
+      txt(ctx, '—', x + w - 30, y + 266, 14, PAL.textDim, 'right');
+    }
+    if (s.reason === 'abandon') txt(ctx, '放棄局不更新紀錄', x + w / 2, y + h - 40, 12, PAL.textDim, 'center');
+    txt(ctx, 'R 重開　H 說明', x + w / 2, y + h - 18, 14, PAL.text, 'center');
+  }
+
+  // state: { score, seconds, columns, shapes, task: {kind, color, remaining}, reason: 'blockout'|'lockout'|'abandon', newRecord, best }
+  function drawGameOver(ctx, s) {
+    s = s || {};
+    ctx.save();
+    ctx.fillStyle = 'rgba(8,10,16,0.6)';
+    ctx.fillRect(0, 0, W, H);
+    gameOverPanel(ctx, (W - GO_W) / 2, 140, s);
+    ctx.restore();
+  }
+
+  // ================= 說明頁 =================
+  // v20: 每頁文字照 guide.md v20 逐字(標題 + 一句); 示意圖裡的遊戲物件一律呼叫遊戲內畫家(P3)
+  // guide v19/v20: 規則細節交給圖, 圖說只留圖畫不出來的東西(P7)
+  const GUIDE = [
+    { title: '同色連 4 顆就消掉', lines: ['同色上下左右連成 4 顆, 整團消失。'] },
+    { title: '消掉的地方會留下洞', lines: ['消掉後留下空洞, 上面不會掉。'] },
+    { title: '任務: 消指定顏色, 盤面變寬', lines: ['湊任務的顏色, 還是別的團?'] },
+    { title: '重力球: 能當任何顏色', lines: ['消掉它, 相連的懸空塊會掉下來。'] },
+    { title: '開滿之後: 新任務換新形狀方塊', lines: ['長滿後, 任務換成不同的消法。'] },
+    { title: '結束與目標: 挑戰最高分', lines: ['放不下下一塊就結束。'] },
+    { title: '操作: 方塊', lines: ['按住左右鍵可以連續移動。'] },
+    { title: '操作: 暫停、說明、放棄、重開', lines: ['放棄要按住 R 一秒。'] },
+  ];
+
+  // 字串盤面: 第一行 = 最上列; R/B/Y = 色 A/B/C, o = 重力球, . = 空
+  function grid(lines, col0) {
+    const out = [];
+    const n = lines.length;
+    col0 = col0 || 0;
+    lines.forEach(function (ln, i) {
+      for (let k = 0; k < ln.length; k++) {
+        const ch = ln[k];
+        if (ch === '.') continue;
+        const cell = { x: col0 + k, y: n - i };
+        if (ch === 'o') cell.kind = 'ball';
+        else { cell.kind = 'color'; cell.color = { R: 'A', B: 'B', Y: 'C' }[ch]; }
+        out.push(cell);
+      }
+    });
+    return out;
+  }
+  function mini(ctx, left, bottom, frameMin, frameMax, rows, minCol, maxCol, fn) {
+    withLay({ left: left, bottom: bottom, col0: frameMin, frameMin: frameMin, frameMax: frameMax, rows: rows, showTop: false }, function () {
+      drawBoard(ctx, { minCol: minCol, maxCol: maxCol });
+      if (fn) fn();
+    });
+  }
+  function cells(ctx, list, mark, t) {
+    list.forEach(function (c) { drawCell(ctx, Object.assign({}, c, { mark: mark || 'none', t: t || 0 })); });
+  }
+  function keyOf(c) { return c.x + ',' + c.y; }
+  // 把固定版位的元件搬到指定位置縮放畫
+  function placeAt(ctx, src, dx, dy, k, fn) {
+    ctx.save();
+    ctx.translate(dx, dy);
+    ctx.scale(k, k);
+    ctx.translate(-src.x, -src.y);
+    fn();
+    ctx.restore();
+  }
+  function keycap(ctx, x, y, label, w) {
+    w = w || 40;
+    rr(ctx, x, y, w, 36, 7);
+    ctx.fillStyle = '#2a2f42';
+    ctx.fill();
+    ctx.strokeStyle = '#6a7290';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.fillStyle = '#20243a';
+    ctx.fillRect(x + 3, y + 30, w - 6, 3);
+    txt(ctx, label, x + w / 2, y + 17, label.length > 2 ? 14 : 17, PAL.text, 'center');
+    return x + w;
+  }
+  function slash(ctx, x, y) { txt(ctx, '/', x, y, 16, PAL.textDim, 'center'); }
+  function checkMark(ctx, x, y, ok) {
+    ctx.beginPath();
+    ctx.arc(x, y, 15, 0, Math.PI * 2);
+    ctx.fillStyle = ok ? PAL.expand : '#5a6178';
+    ctx.fill();
+    ctx.strokeStyle = ok ? '#0d1a12' : '#ffffff';
+    ctx.lineWidth = 3.5;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    if (ok) { ctx.moveTo(x - 7, y); ctx.lineTo(x - 2, y + 6); ctx.lineTo(x + 8, y - 6); }
+    else { ctx.moveTo(x - 6, y - 6); ctx.lineTo(x + 6, y + 6); ctx.moveTo(x + 6, y - 6); ctx.lineTo(x - 6, y + 6); }
+    ctx.stroke();
+  }
+  function caption(ctx, s, x, y, color, align, size) {
+    txt(ctx, s, x, y, size || 15, color || PAL.text, align || 'center');
+  }
+  function miniPiece(ctx, x, y, s) {
+    // 小 T 形示意(用遊戲內史萊姆畫法)
+    const shape = [[0, 1], [1, 1], [2, 1], [1, 0]];
+    const cols = ['A', 'B', 'C', 'A'];
+    shape.forEach(function (p, i) { paintSlime(ctx, x + p[0] * s, y + p[1] * s, s, cols[i]); });
+  }
+  function rotIcon(ctx, x, y, dir, half) {
+    // 旋轉箭頭: dir 1 = 順時針, -1 = 逆時針
+    ctx.strokeStyle = PAL.text;
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    const r = 12;
+    const a0 = -Math.PI * 0.8, a1 = half ? a0 + Math.PI * 1.6 : a0 + Math.PI * 1.1;
+    ctx.beginPath();
+    if (dir > 0) ctx.arc(x, y, r, a0, a1, false);
+    else ctx.arc(x, y, r, -a0 - Math.PI, -a1 - Math.PI, true);
+    ctx.stroke();
+    const ea = dir > 0 ? a1 : -a1 - Math.PI;
+    const ex = x + Math.cos(ea) * r, ey = y + Math.sin(ea) * r;
+    const ta = ea + dir * Math.PI / 2;
+    arrow(ctx, ex - Math.cos(ta) * 4, ey - Math.sin(ta) * 4, ex + Math.cos(ta) * 3, ey + Math.sin(ta) * 3, PAL.text, 2.5);
+  }
+  // 圖說用的虛線圈(只在說明頁用來指出「這一團」; 白 = 玩家造成的消除)
+  function dashedGroup(ctx, list) {
+    ctx.save();
+    clipBoard(ctx);
+    contourPath(ctx, list, -2);
+    ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4, 3]);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // 說明頁縮圖用的遊戲中盤面(色 = (x + 2y) mod 3, 上下左右必不同色; 全部著地)
+  function stackDemo() {
+    const heights = [3, 5, 6, 4, 7, 5, 4, 2];
+    const out = [];
+    heights.forEach(function (h, i) {
+      const x = i - 1;
+      for (let y = 1; y <= h; y++) out.push({ x: x, y: y, kind: 'color', color: ['A', 'B', 'C'][((x + 3) + 2 * y) % 3] });
+    });
+    return out;
+  }
+
+  const FIG = {};
+
+  FIG[1] = function (ctx) {
+    // 已驗算: 左 = 4 顆四方向相連 → 成團; 右 = (2,3) 只與 (1,2) 斜碰, 其餘 3 顆成一團 → 不消
+    // guide v18: 「斜的不算」由這組對照講, 不寫字
+    const ok = grid(['....', 'R...', 'R...', 'RR..']);
+    checkMark(ctx, 242, 216, true);
+    mini(ctx, 190, 380, 0, 3, 4, 0, 3, function () { cells(ctx, ok, 'clearing', 0.35); });
+    const ng = grid(['....', '..R.', '.R..', '.RR.']);
+    checkMark(ctx, 712, 216, false);
+    mini(ctx, 660, 380, 0, 3, 4, 0, 3, function () {
+      cells(ctx, ng);
+      // 斜碰處: 白色虛線圈出兩格的接點
+      ctx.save();
+      ctx.strokeStyle = 'rgba(255,255,255,0.8)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.arc(cx(2), cy(2), 8, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    });
+  };
+
+  FIG[2] = function (ctx) {
+    // 已驗算: 第 3 列 4 紅成團; 下兩列棋盤格無同色相鄰; 消後 (1,4)(2,4) 成一個懸空塊
+    const before = grid(['.....', '.BY..', 'RRRR.', 'BYBYB', 'YBYBY']);
+    const after = grid(['.....', '.BY..', '.....', 'BYBYB', 'YBYBY']);
+    caption(ctx, '消除前', 265, 200, PAL.textDim);
+    caption(ctx, '消除後', 695, 200, PAL.textDim);
+    mini(ctx, 200, 360, 0, 4, 5, 0, 4, function () {
+      cells(ctx, before.filter(function (c) { return c.y !== 3; }));
+      cells(ctx, before.filter(function (c) { return c.y === 3; }), 'clearing', 0.3);
+    });
+    arrow(ctx, 360, 295, 600, 295, PAL.text, 3);
+    mini(ctx, 630, 360, 0, 4, 5, 0, 4, function () {
+      cells(ctx, after);
+      drawFloatingMark(ctx, { cells: [{ x: 1, y: 4 }, { x: 2, y: 4 }], group: 0 });
+    });
+    // v20: 「變成空洞 / 停在原處」由前後對照與頁面那一句講, 圖說只留遊戲內青色框的圖例(第 4 頁會用到)
+    caption(ctx, '青色框 = 懸空', 695, 400, PAL.gravity, 'center', 13);
+  };
+
+  FIG[3] = function (ctx) {
+    // 已驗算(第 1 個任務: 目標紅、需求 3、下一次開左; 盤面 6 欄 = 絕對欄 0~5):
+    //   盤面: 列 1 = R R Y Y B B, 列 2 = R . . . . B → 紅 3 顆一團、黃 2、藍 3 顆一團; 無 ≥4 團、無懸空塊
+    //   同一塊 O 形(左下紅、右下藍、上排黃黃): 放法 1 落在欄 1~2 → 紅補成 4 顆; 放法 2 落在欄 3~4 → 藍補成 4 顆
+    //   兩種放法都只補成一團: 放法 1 的藍 (2,2)、放法 2 的紅 (3,2) 都不與同色相鄰; 上排黃黃只有 2 顆
+    //   兩邊都不打勾打叉(guide: 只示意「有兩個選擇」, 不示意哪個對)
+    const k = 0.62;
+    const stack = grid(['....', 'R....B', 'RRYYBB']);
+    const pieceAt = function (x0) {
+      return [
+        { x: x0, y: 2, kind: 'color', color: 'A' }, { x: x0 + 1, y: 2, kind: 'color', color: 'B' },
+        { x: x0, y: 3, kind: 'color', color: 'C' }, { x: x0 + 1, y: 3, kind: 'color', color: 'C' },
+      ];
+    };
+    caption(ctx, '任務面板', 133, 146, PAL.textDim, 'center', 13);
+    placeAt(ctx, BOX.task, 40, 156, k, function () {
+      drawTaskProgress(ctx, { kind: 'dig', color: 'A', remaining: 3, required: 3, reward: 'expand', side: 'left' });
+    });
+    caption(ctx, '同一塊方塊, 兩種放法', 562, 146, PAL.text, 'center', 14);
+    [{ left: 262, x0: 1, cap: [['補上', PAL.text], ['紅色', SLIME.A.text], ['的第 4 顆(任務的顏色)', PAL.text]] },
+      { left: 604, x0: 3, cap: [['補上', PAL.text], ['藍色', SLIME.B.text], ['的第 4 顆', PAL.text]] }].forEach(function (o, i) {
+      caption(ctx, '放法 ' + (i + 1), o.left + 130, 170, PAL.textDim, 'center', 13);
+      mini(ctx, o.left, 288, -2, 7, 4, 0, 5, function () {
+        cells(ctx, stack);
+        drawNextExpandSide(ctx, { side: 'left', col: -1 });
+        drawPiece(ctx, { cells: pieceAt(o.x0), mode: 'falling' });
+      });
+      parts(ctx, o.cap, o.left + 130, 330, 14, 300, 'center');
+    });
+
+    // 下排: 面板顯示已達成 → 盤面在面板寫的那一側(左)多出一欄空欄; v16 起前幾個任務不削頂, 不畫削頂
+    caption(ctx, '做到之後', 133, 372, PAL.textDim, 'center', 13);
+    placeAt(ctx, BOX.task, 40, 382, k, function () {
+      drawTaskProgress(ctx, { kind: 'dig', color: 'A', remaining: -1, required: 3, reward: 'expand', side: 'left' });
+    });
+    arrow(ctx, 244, 455, 318, 455, PAL.expand, 3);
+    // 已驗算: 列 1 = Y . B Y R B, 列 2 = B . . R . . → 無同色相鄰、全部著地
+    const after = grid(['......', 'B..R..', 'Y.BYRB']);
+    mini(ctx, 334, 512, -2, 7, 4, -1, 5, function () {
+      cells(ctx, after);
+      colFlash(ctx, -1, 'left', 0.35);
+      drawNextExpandSide(ctx, { side: 'right', col: 6 });
+    });
+    // v20(guide v19): 「做到就變寬」全交給箭頭與前後對照, 不再配字
+  };
+
+  FIG[4] = function (ctx) {
+    // 已依規則驗算(欄 0~6, 列 1~7):
+    //   紅團 = 球(2,4) + 紅 (2,3)(2,2)(1,2), 唯一候選團(球的另一個有色鄰格是黃 (2,5), 黃只湊得到 2 顆); 真顏色 3 + 球 = 4 → 成立
+    //   A 塊 = (2,6)藍 (2,5)黃 (3,5)藍: 消除前經由球連到盤底 → 不懸空; B 塊 = (5,6)(6,6)黃: 一直懸空
+    //   4a 清除後重算: A、B 都懸空(「中」畫這個時點, 見 style.md 第 7 節)
+    //   4b 種子 = 被消團的鄰格: A 塊 (2,5)、黃柱 (3,2)、列 1 → 只有 A 懸空; B 不在種子裡 → 不動
+    //   A 剛體下落: (3,5) 落到 (3,3) 就碰到 (3,2) 的黃, 整塊只落 2 格, 下方 (2,2) 留著空洞 = 碰到東西就停, 不是掉到底
+    //   落定後接縫: (2,3)黃 與 (3,2)黃 只斜碰 → 沒有追加消除
+    const bef = grid(['.......', '..B..YY', '..YB...', '..o....', '..R....', '.RRY...', 'BYBY.BY']);
+    const inA = { '2,6': 1, '2,5': 1, '3,5': 1 };
+    const inB = { '5,6': 1, '6,6': 1 };
+    const inCluster = { '2,4': 1, '2,3': 1, '2,2': 1, '1,2': 1 };
+    const blockA = bef.filter(function (c) { return inA[keyOf(c)]; });
+    const blockB = bef.filter(function (c) { return inB[keyOf(c)]; });
+    const cluster = bef.filter(function (c) { return inCluster[keyOf(c)]; });
+    const rest = bef.filter(function (c) { return !inA[keyOf(c)] && !inB[keyOf(c)] && !inCluster[keyOf(c)]; });
+    const blockA2 = blockA.map(function (c) { return Object.assign({}, c, { y: c.y - 2 }); });
+    const L = [60, 389, 718], BOT = 392;
+    caption(ctx, '前: 湊團', L[0] + 91, 190, PAL.textDim);
+    caption(ctx, '中: 消掉的瞬間', L[1] + 91, 190, PAL.textDim);
+    caption(ctx, '後: 往下掉之後', L[2] + 91, 190, PAL.textDim);
+    // 前
+    mini(ctx, L[0], BOT, 0, 6, 7, 0, 6, function () {
+      cells(ctx, rest);
+      cells(ctx, blockA);
+      cells(ctx, blockB);
+      cells(ctx, cluster);
+      drawFloatingMark(ctx, { cells: blockB, group: 1 });
+      dashedGroup(ctx, cluster);
+    });
+    // 中(4a 清除後重算的懸空標示)
+    mini(ctx, L[1], BOT, 0, 6, 7, 0, 6, function () {
+      cells(ctx, rest);
+      cells(ctx, blockA);
+      cells(ctx, blockB);
+      cells(ctx, cluster, 'clearing', 0.6);
+      drawFloatingMark(ctx, { cells: blockA, group: 0 });
+      drawFloatingMark(ctx, { cells: blockB, group: 1 });
+    });
+    // 後
+    mini(ctx, L[2], BOT, 0, 6, 7, 0, 6, function () {
+      cells(ctx, rest);
+      cells(ctx, blockA2);
+      cells(ctx, blockB);
+      ctx.save();
+      clipBoard(ctx);
+      contourPath(ctx, blockA, 3); // 原位虛線
+      ctx.strokeStyle = 'rgba(79,224,255,0.5)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([3, 3]);
+      ctx.stroke();
+      ctx.restore();
+      drawFloatingEventBlock(ctx, { cells: blockA2, role: 'landed' });
+      drawLandingImpact(ctx, { cells: blockA2, t: 0.3 });
+      drawFloatingMark(ctx, { cells: blockB, group: 1 });
+      // 落距箭頭(只在說明頁)
+      arrow(ctx, cx(4) + 6, cy(6) + 4, cx(4) + 6, cy(4) + 2, PAL.gravity, 2.5);
+    });
+    arrow(ctx, L[0] + 192, 333, L[1] - 10, 301, PAL.text, 2.5);
+    arrow(ctx, L[1] + 192, 333, L[2] - 10, 301, PAL.text, 2.5);
+    // v20(guide v19): 「整塊」「直到碰到東西」「不相連的不動」全交給前中後三格圖, 不再配說明字;
+    // 只留遊戲內沒有的輔助: 球與相連那塊的圖例標籤(相連 / 不相連)
+    const y0 = 418;
+    parts(ctx, [['3 顆', PAL.text], ['紅', SLIME.A.text], [' + ', PAL.text], ['重力球', PAL.ballOrb]], L[0] + 91, y0, 14, 180, 'center');
+    caption(ctx, '相連', L[1] + 78, y0, PAL.gravity, 'center', 13);
+    caption(ctx, '不相連', L[1] + 156, y0, PAL.gravity, 'center', 13);
+    caption(ctx, '相連', L[2] + 78, y0, PAL.gravity, 'center', 13);
+    caption(ctx, '不相連', L[2] + 156, y0, PAL.textDim, 'center', 13);
+  };
+
+  FIG[5] = function (ctx) {
+    // 已驗算: 滿寬盤面無 ≥4 同色團、無懸空塊。不畫解鎖畫面、不透露新形狀方塊外型、不列任務種類
+    // v18: 第一個任務的獎勵不附削頂, 不畫削頂前後對照(畫了會與面板矛盾)
+    const strip = grid(['..Y....B..', 'B.BY.RBYR.', 'YRYBRYBRYB'], -2);
+    mini(ctx, 40, 402, -2, 7, 6, -2, 7, function () { cells(ctx, strip); });
+    caption(ctx, '盤面長滿(10 欄)', 170, 424, PAL.textDim, 'center', 13);
+    // v20: 面板照遊戲內第 1 個多樣化任務的真實狀態 — 得到「新形狀方塊 + 清色球」; 不畫清色球本身、不講它的效果
+    const k = 0.78;
+    placeAt(ctx, BOX.task, 316, 190, k, function () {
+      drawTaskProgress(ctx, { kind: 'big', remaining: 1, required: 1, reward: 'newPiece', clearBall: true });
+    });
+    caption(ctx, '做到', 592, 262, PAL.expand, 'center', 14);
+    arrow(ctx, 562, 282, 624, 282, PAL.expand, 3);
+    placeAt(ctx, BOX.task, 640, 190, k, function () {
+      drawTaskProgress(ctx, { kind: 'big', remaining: 0, required: 1, reward: 'newPiece', clearBall: true });
+    });
+  };
+
+  FIG[6] = function (ctx) {
+    // 左(結束畫面): 盤面堆到頂線(出生欄滿到第 19 列) + 遊戲內結束面板; 不畫頂線以上的出生位置, 不加警戒箭頭
+    // 右(v20 對照): 兩個剛放下的方塊 — 整塊在頂線上 → 結束; 只有一格超出 → 還能繼續(P21: 「碰到頂線就死」的誤解會在右邊那格分岔)
+    const k = 0.5;
+    ctx.save();
+    ctx.translate(56 - 350 * k, 150 - 110 * k);
+    ctx.scale(k, k);
+    drawBoard(ctx, { minCol: -2, maxCol: 7 });
+    const heights = [14, 16, 17, 19, 19, 19, 19, 18, 15, 13];
+    const col = ['A', 'B', 'C'];
+    for (let i = 0; i < 10; i++) {
+      for (let y = 1; y <= heights[i]; y++) {
+        if (((i * 7 + y * 13) % 11) === 0 && y < heights[i] - 1) continue; // 洞
+        drawCell(ctx, { x: i - 2, y: y, kind: 'color', color: col[(i + y) % 3] });
+      }
+    }
+    ctx.restore();
+    placeAt(ctx, { x: 0, y: 0 }, 200, 150, 0.7, function () {
+      gameOverPanel(ctx, 0, 0, { score: 18240, seconds: 214, columns: 4, shapes: 2, task: { kind: 'gravity', remaining: 1 }, reason: 'blockout', newRecord: false, best: 21500 });
+    });
+
+    // 右: 已驗算(欄 0~4, 可見 4 列; 盤面色 = (x + 2y) mod 3 → 上下左右必不同色, 無 ≥4 團, 全部著地)
+    //   結束: T 形 (1,5)藍 (2,5)黃 (3,5)紅 (2,6)藍, 全在頂線上 → 整塊卡在頂線上(lock out)
+    //   繼續: L 形 (3,3)紅 (4,3)藍 (3,4)黃 (3,5)紅, 只有 (3,5) 超出 → 不結束; 四格各自不與同色相鄰
+    const f = function (x, y) { return ['A', 'B', 'C'][(x + 2 * y) % 3]; };
+    function stackOf(heights) {
+      const out = [];
+      heights.forEach(function (h, x) { for (let y = 1; y <= h; y++) out.push({ x: x, y: y, kind: 'color', color: f(x, y) }); });
+      return out;
+    }
+    const cases = [
+      { left: 528, heights: [3, 4, 4, 4, 2], piece: [[1, 5, 'B'], [2, 5, 'C'], [3, 5, 'A'], [2, 6, 'B']], ok: false, cap: '結束', color: PAL.danger },
+      { left: 740, heights: [4, 4, 4, 2, 2], piece: [[3, 3, 'A'], [4, 3, 'B'], [3, 4, 'C'], [3, 5, 'A']], ok: true, cap: '還能繼續', color: PAL.expand },
+    ];
+    cases.forEach(function (o) {
+      withLay({ left: o.left, bottom: 392, col0: 0, frameMin: 0, frameMax: 4, rows: 4, showTop: true }, function () {
+        drawBoard(ctx, { minCol: 0, maxCol: 4 });
+        cells(ctx, stackOf(o.heights));
+        // 剛放下的方塊: 頂線以上的格也畫出來(示意用; 遊戲內那一區看不見), 白色細外框 = 本塊
+        const pc = o.piece.map(function (p) { return { x: p[0], y: p[1], kind: 'color', color: p[2] }; });
+        ctx.save();
+        pc.forEach(function (c) { paintBody(ctx, cx(c.x), cy(c.y), CELL, c.kind, c.color); });
+        contourPath(ctx, pc, 0.5);
+        ctx.strokeStyle = PAL.player;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.restore();
+      });
+      checkMark(ctx, o.left + 65, 196, o.ok);
+      caption(ctx, o.cap, o.left + 65, 418, o.color, 'center', 15);
+    });
+  };
+
+  FIG[7] = function (ctx) {
+    const rows = [
+      { keys: [['←', '→'], ['A', 'D']], icon: 'move', label: '左右移動(按住連續移動)' },
+      { keys: [['↑'], ['W']], icon: 'cw', label: '順轉' },
+      { keys: [['Z']], icon: 'ccw', label: '逆轉' },
+      { keys: [['X']], icon: 'half', label: '轉半圈' },
+      { keys: [['↓'], ['S']], icon: 'soft', label: '加速下落(按住持續)' },
+      { keys: [['空白鍵']], icon: 'hard', label: '直接落下', wide: true },
+    ];
+    rows.forEach(function (r, i) {
+      const y = 150 + i * 60;
+      let x = 50;
+      r.keys.forEach(function (grp, gi) {
+        if (gi > 0) { slash(ctx, x + 5, y + 18); x += 16; }
+        grp.forEach(function (kk) { x = keycap(ctx, x, y, kk, r.wide ? 96 : 40) + 6; });
+      });
+      const ix = 300, iy = y + 18;
+      miniPiece(ctx, ix - 15, iy - 10, 10);
+      if (r.icon === 'move') {
+        arrow(ctx, ix - 20, iy, ix - 36, iy, PAL.text, 2.5);
+        arrow(ctx, ix + 20, iy, ix + 36, iy, PAL.text, 2.5);
+      } else if (r.icon === 'cw') rotIcon(ctx, ix + 42, iy, 1, false);
+      else if (r.icon === 'ccw') rotIcon(ctx, ix + 42, iy, -1, false);
+      else if (r.icon === 'half') rotIcon(ctx, ix + 42, iy, 1, true);
+      else if (r.icon === 'soft') { arrow(ctx, ix + 34, iy - 12, ix + 34, iy + 4, PAL.text, 2.5); arrow(ctx, ix + 44, iy - 12, ix + 44, iy + 4, PAL.text, 2.5); }
+      else { arrow(ctx, ix + 40, iy - 14, ix + 40, iy + 14, PAL.text, 3); ctx.fillStyle = PAL.text; ctx.fillRect(ix + 30, iy + 15, 20, 3); }
+      txt(ctx, r.label, 370, iy, 16, PAL.text, 'left');
+    });
+    // 右: 落點指示
+    const stack = grid(['......', '......', 'Y...B.', 'BRYBRY', 'RYBRYB']);
+    mini(ctx, 660, 556, 0, 5, 12, 0, 5, function () {
+      cells(ctx, stack);
+      const piece = [{ x: 1, y: 12, kind: 'color', color: 'B' }, { x: 2, y: 12, kind: 'color', color: 'C' }, { x: 3, y: 12, kind: 'color', color: 'A' }, { x: 2, y: 11, kind: 'ball' }];
+      const ghost = piece.map(function (c) { return Object.assign({}, c, { y: c.y - 8 }); });
+      drawGhost(ctx, { cells: ghost });
+      drawPiece(ctx, { cells: piece, mode: 'falling' });
+      ctx.save();
+      ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([3, 4]);
+      ctx.beginPath();
+      ctx.moveTo(cx(2) + CELL / 2, cy(11) + CELL + 2);
+      ctx.lineTo(cx(2) + CELL / 2, cy(4) - 2);
+      ctx.stroke();
+      ctx.restore();
+    });
+    txt(ctx, '空白鍵', 830, 430, 16, PAL.text, 'left');
+    txt(ctx, '→ 直接落到', 830, 454, 14, PAL.text, 'left');
+    txt(ctx, '　這個框的位置', 830, 476, 14, PAL.text, 'left');
+    arrow(ctx, 826, 465, 772, 465, PAL.text, 2);
+  };
+
+  FIG[8] = function (ctx) {
+    const items = [
+      { key: 'Esc', cap: '暫停畫面', sub: '再按一次繼續' },
+      { key: 'H', cap: '說明畫面', sub: '← → 翻頁　Enter / H 關閉' },
+      { key: 'R', cap: '按住: 放棄倒數', hold: true },
+      { key: 'R', cap: '結束畫面上按下: 重開', sub: '立刻開始新的一局' },
+    ];
+    items.forEach(function (it, i) {
+      const x = 50 + i * 220, y = 150;
+      rr(ctx, x, y, 200, 400, 12);
+      ctx.fillStyle = PAL.panel;
+      ctx.fill();
+      ctx.strokeStyle = it.hold ? PAL.danger : PAL.panelEdge;
+      ctx.lineWidth = it.hold ? 2 : 1;
+      ctx.stroke();
+      const kw = it.key.length > 1 ? 60 : 44;
+      keycap(ctx, x + 100 - kw / 2, y + 16, it.key, kw);
+      if (it.hold) {
+        // 按住: 外圈進度環
+        ctx.beginPath();
+        ctx.arc(x + 100, y + 34, 32, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * 0.7);
+        ctx.strokeStyle = PAL.danger;
+        ctx.lineWidth = 4;
+        ctx.stroke();
+      }
+      txt(ctx, it.cap, x + 100, y + 86, 14, it.hold ? PAL.danger : PAL.text, 'center');
+      const sx = x + 4, sy = y + 110, sw = 192, sh = 128;
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(sx, sy, sw, sh);
+      ctx.clip();
+      ctx.translate(sx, sy);
+      ctx.scale(0.2, 0.2);
+      if (i === 0) drawPauseMask(ctx);
+      else if (i === 2) {
+        // v20(guide v19): 背景 = 遊戲中(左半) / 暫停畫面(右半), 兩處都能長按 R
+        drawBackground(ctx);
+        drawBoard(ctx, { minCol: -1, maxCol: 6 });
+        stackDemo().forEach(function (c) { drawCell(ctx, c); });
+        drawTaskProgress(ctx, { kind: 'dig', color: 'B', remaining: 4, required: 6, reward: 'expand', side: 'left' });
+        drawHud(ctx, { score: 5230, multiplier: 1.3, best: 12400, time: 96 });
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(W / 2, 0, W / 2, H);
+        ctx.clip();
+        ctx.translate(W / 4, 0); // 暫停字樣置中在右半
+        drawPauseMask(ctx);
+        ctx.restore();
+        ctx.fillStyle = PAL.panelEdge;
+        ctx.fillRect(W / 2 - 4, 0, 8, H);
+      } else if (i === 1) drawGuidePage(ctx, { page: 1, mode: 'ingame' });
+      else { drawBackground(ctx); drawGameOver(ctx, { score: 9870, seconds: 168, columns: 3, shapes: 0, task: { kind: 'dig', color: 'C', remaining: 4 }, reason: 'blockout', best: 12400 }); }
+      ctx.restore();
+      if (i === 2) {
+        placeAt(ctx, BOX.abandon, sx + 2, sy + 86, 188 / 302, function () { drawAbandonTimer(ctx, { progress: 0.7 }); });
+        txt(ctx, '遊戲中', sx + sw / 4, sy + 12, 11, PAL.text, 'center', PAL.outline);
+        txt(ctx, '暫停中', sx + sw * 3 / 4, sy + 12, 11, PAL.text, 'center', PAL.outline);
+      }
+      ctx.strokeStyle = PAL.panelEdge;
+      ctx.lineWidth = 1;
+      ctx.strokeRect(sx + 0.5, sy + 0.5, sw - 1, sh - 1);
+      if (it.hold) {
+        // 時間軸: 要按住, 不是點一下
+        const tx = x + 20, ty = y + 280, tw = 160;
+        txt(ctx, '按下', tx, ty - 14, 12, PAL.textDim, 'left');
+        txt(ctx, '1 秒', tx + tw, ty - 14, 12, PAL.textDim, 'right');
+        rr(ctx, tx, ty, tw, 10, 5);
+        ctx.fillStyle = '#10131b';
+        ctx.fill();
+        rr(ctx, tx, ty, tw * 0.7, 10, 5);
+        ctx.fillStyle = PAL.danger;
+        ctx.fill();
+        txt(ctx, '按滿 1 秒才放棄', x + 100, ty + 32, 12, PAL.text, 'center');
+        txt(ctx, '放開就取消', x + 100, ty + 54, 12, PAL.textDim, 'center');
+        txt(ctx, '看說明時要先關掉', x + 100, ty + 76, 12, PAL.textDim, 'center');
+      } else {
+        txt(ctx, it.sub, x + 100, y + 300, 12, PAL.textDim, 'center');
+      }
+    });
+  };
+
+  // state: { page (1~8), mode: 'opening'|'ingame'|'gameover' }
+  function drawGuidePage(ctx, s) {
+    s = s || {};
+    const total = GUIDE.length;
+    const page = Math.max(1, Math.min(total, s.page || 1));
+    const g = GUIDE[page - 1];
+    ctx.save();
+    ctx.fillStyle = PAL.bg;
+    ctx.fillRect(0, 0, W, H);
+    txt(ctx, '玩家說明', 50, 22, 13, PAL.textDim, 'left');
+    txt(ctx, page + ' / ' + total, W - 50, 22, 13, PAL.textDim, 'right');
+    txt(ctx, g.title, 50, 54, 28, PAL.text, 'left');
+    let y = 96;
+    g.lines.forEach(function (ln) {
+      ctx.font = font(18, 'normal');
+      wrap(ctx, ln, W - 100).forEach(function (l) {
+        txt(ctx, l, 50, y, 18, PAL.text, 'left', null, 'normal');
+        y += 26;
+      });
+    });
+    ctx.save();
+    if (FIG[page]) FIG[page](ctx);
+    ctx.restore();
+    // 頁尾: 翻頁與關閉(每頁固定)
+    ctx.fillStyle = '#0e1017';
+    ctx.fillRect(0, 598, W, 42);
+    for (let i = 1; i <= total; i++) {
+      ctx.beginPath();
+      ctx.arc(W / 2 - (total - 1) * 7 + (i - 1) * 14, 606, 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = i === page ? PAL.text : '#3a4058';
+      ctx.fill();
+    }
+    txt(ctx, '← / A 上一頁', 50, 624, 15, page > 1 ? PAL.text : '#474e66', 'left');
+    txt(ctx, '→ / D 下一頁', W - 50, 624, 15, page < total ? PAL.text : '#474e66', 'right');
+    txt(ctx, 'Enter / H 關閉' + (s.mode === 'opening' ? '(開始遊戲)' : ''), W / 2, 624, 15, PAL.expand, 'center');
+    ctx.restore();
+  }
+
+  // ================= 匯出 =================
+  window.Art = {
+    canvas: { width: W, height: H },
+    palette: PAL,
+    slimeColors: SLIME,
+    newShapes: NEW_SHAPES,
+    cellSize: CELL,
+    guidePages: GUIDE.length,
+    eventPhases: PHASE, // 獎勵事件內分段的建議值(見 style.md 第 7 節)
+    // RD 用: 盤面座標 → 畫布像素(預設版位)
+    cellRect: function (x, y) { return { x: cx(x), y: cy(y), w: CELL, h: CELL }; },
+    board: { left: 350, right: 610, top: 110, bottom: 604, minAbsCol: -2, maxAbsCol: 7, rows: 19 },
+    drawBackground: drawBackground,
+    drawPlayer: drawPiece, // 契約保留名, 等同 drawPiece
+    drawBoard: drawBoard,
+    drawCell: drawCell,
+    drawGravityBall: drawGravityBall,
+    drawFloatingMark: drawFloatingMark,
+    drawFloatingEventBlock: drawFloatingEventBlock,
+    drawLandingImpact: drawLandingImpact,
+    drawGravityEvent: drawGravityEvent,
+    drawExtraClear: drawExtraClear,
+    drawClearResult: drawClearResult,
+    drawPiece: drawPiece,
+    drawGhost: drawGhost,
+    drawNextPreview: drawNextPreview,
+    drawTaskProgress: drawTaskProgress,
+    drawNextExpandSide: drawNextExpandSide,
+    drawAbandonTimer: drawAbandonTimer,
+    drawExpandEvent: drawExpandEvent,
+    drawShaveIndicator: drawShaveIndicator,
+    drawFullWidthBonus: drawFullWidthBonus,
+    drawUnlockEvent: drawUnlockEvent,
+    drawClearBall: drawClearBall, // v20
+    drawClearBallEvent: drawClearBallEvent, // v20
+    drawTaskDoneEvent: drawTaskDoneEvent, // v20, 取代 drawMultiplierEvent
+    drawBoardWipe: drawBoardWipe, // v20
+    wipeShake: wipeShake, // v20, 選用: 全盤清除時盤面層的震動位移
+    drawPauseMask: drawPauseMask,
+    drawGameOver: drawGameOver,
+    drawGuidePage: drawGuidePage,
+    drawHud: drawHud,
+  };
+})();
