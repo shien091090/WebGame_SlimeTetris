@@ -1,0 +1,1483 @@
+{
+  "meta": {
+    "game": "WebGame_SlimeTetris",
+    "endedAt": "2026-09-27T15:15:47.393Z",
+    "reason": "blockout",
+    "totalPieces": 28,
+    "totalSeconds": 99.9,
+    "finalScore": 1547,
+    "finalMultiplier": 1.45
+  },
+  "validation": {
+    "digPhaseTargetColorRatio": 0.4473684210526316,
+    "digPhaseTargetColorRatioReference": {
+      "passiveExpected": 0.35,
+      "threeGameSignalLine": 0.45,
+      "note": "單局樣本小, 僅供對照, 非判定門檻"
+    },
+    "perTask": [
+      {
+        "index": 1,
+        "kind": "dig",
+        "color": "C",
+        "required": 3,
+        "enteredPieces": 0,
+        "enteredSeconds": 0,
+        "achievedPieces": 4,
+        "achievedSeconds": 20.8,
+        "reward": {
+          "type": "expand",
+          "side": "left",
+          "shave": false
+        }
+      },
+      {
+        "index": 2,
+        "kind": "dig",
+        "color": "B",
+        "required": 5,
+        "enteredPieces": 4,
+        "enteredSeconds": 20.8,
+        "achievedPieces": 20,
+        "achievedSeconds": 84.55,
+        "reward": {
+          "type": "expand",
+          "side": "right",
+          "shave": false
+        }
+      },
+      {
+        "index": 3,
+        "kind": "dig",
+        "color": "C",
+        "required": 6,
+        "enteredPieces": 20,
+        "enteredSeconds": 84.55,
+        "achievedPieces": 21,
+        "achievedSeconds": 89.13,
+        "reward": {
+          "type": "expand",
+          "side": "left",
+          "shave": false
+        }
+      }
+    ],
+    "endTask": {
+      "index": 4,
+      "kind": "dig",
+      "color": "A",
+      "remaining": 5
+    },
+    "perNewShape": [],
+    "misattributedNewShape": []
+  },
+  "multiTaskPassiveBaseline": {
+    "big": {
+      "pieces": 0,
+      "hits": 0
+    },
+    "gravity": {
+      "pieces": 0,
+      "hits": 0
+    },
+    "note": "滿寬後、該任務不是當前任務時的每塊發生率 p; 被動期望等待 = 需求/p, 與實際等待塊數比較(見 perTask); 參照線: 實際/期望 ≤0.6 有在做, ≥0.85 等同被動(3 局合併), 非判定門檻"
+  },
+  "newShapePassiveBaseline": {
+    "byShape": {
+      "V": {
+        "first": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 0,
+            "hits": 0
+          }
+        },
+        "nonFirst": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 0,
+            "hits": 0
+          }
+        }
+      },
+      "U": {
+        "first": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 0,
+            "hits": 0
+          }
+        },
+        "nonFirst": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 0,
+            "hits": 0
+          }
+        }
+      },
+      "X": {
+        "first": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 0,
+            "hits": 0
+          }
+        },
+        "nonFirst": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 0,
+            "hits": 0
+          }
+        }
+      }
+    },
+    "note": "命中率依外型 x 首發/非首發 x 是否為當前任務分開記; 判讀以「非當前任務時、同外型、非首發」為基準比較「當前任務時」同組; 第 1 輪不判讀(需求 1 且幾乎必在首發那張完成)"
+  },
+  "perGameSummary": {
+    "totalPieces": 28,
+    "totalSeconds": 99.9,
+    "hardDropRate": 0,
+    "expandTimeline": [
+      {
+        "pieces": 4,
+        "seconds": 20.8
+      },
+      {
+        "pieces": 20,
+        "seconds": 84.55
+      },
+      {
+        "pieces": 21,
+        "seconds": 89.13
+      },
+      "—"
+    ],
+    "unlockedColumns": 3,
+    "totalCleared": 38,
+    "targetCleared": 17,
+    "clearedPerPiece": 1.3571428571428572,
+    "teamSizeDistribution": {
+      "4": 6,
+      "5": 2,
+      "7+": 1
+    },
+    "shaveTotalCells": 0,
+    "finalColumnHeights": {
+      "0": 16,
+      "1": 20,
+      "2": 20,
+      "3": 19,
+      "4": 12,
+      "5": 13,
+      "6": 0,
+      "-2": 13,
+      "-1": 12
+    },
+    "finalClosedHoles": 54,
+    "endReason": "blockout",
+    "finalScore": 1547,
+    "finalMultiplier": 1.45,
+    "unlockedShapes": [],
+    "gravityBall": {
+      "spawned": 3,
+      "cleared": 3,
+      "shavedOff": 0,
+      "residual": 0,
+      "selfCheck": true,
+      "triggerCount": 3,
+      "movedCount": 2,
+      "displacedTotal": 2,
+      "maxDisplacedSingleEvent": 1,
+      "maxDropSingleEvent": 3,
+      "extraClearCount": 0,
+      "extraClearCells": 0,
+      "idleCount": 1,
+      "idleRate": 0.3333333333333333,
+      "ballGroupTrueCells": 9,
+      "eNoBall": 1.0357142857142858
+    },
+    "largeGravityEvents": [],
+    "clearBallSummary": {
+      "obtainedCount": 0,
+      "dispensedCount": 0,
+      "clearedCount": 0,
+      "shavedCount": 0,
+      "residualCount": 0,
+      "undispensedCount": 0,
+      "blockedCount": 0,
+      "wipeCount": 0,
+      "wipeScoreTotal": 0,
+      "selfCheckObtained": true,
+      "selfCheckDispensed": true
+    }
+  },
+  "clearBall": {
+    "perBall": []
+  },
+  "calibration": {
+    "perPieceSpawn": [
+      {
+        "index": 1,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 0,
+        "firstDealt": false
+      },
+      {
+        "index": 2,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 0,
+        "firstDealt": false
+      },
+      {
+        "index": 3,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 3,
+        "firstDealt": false
+      },
+      {
+        "index": 4,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 3,
+        "firstDealt": false
+      },
+      {
+        "index": 5,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 3,
+        "firstDealt": false
+      },
+      {
+        "index": 6,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 3,
+        "firstDealt": false
+      },
+      {
+        "index": 7,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 3,
+        "firstDealt": false
+      },
+      {
+        "index": 8,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 3,
+        "firstDealt": false
+      },
+      {
+        "index": 9,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 4,
+        "firstDealt": false
+      },
+      {
+        "index": 10,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false
+      },
+      {
+        "index": 11,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false
+      },
+      {
+        "index": 12,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false
+      },
+      {
+        "index": 13,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false
+      },
+      {
+        "index": 14,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 8,
+        "firstDealt": false
+      },
+      {
+        "index": 15,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false
+      },
+      {
+        "index": 16,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false
+      },
+      {
+        "index": 17,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false
+      },
+      {
+        "index": 18,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false
+      },
+      {
+        "index": 19,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false
+      },
+      {
+        "index": 20,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false
+      },
+      {
+        "index": 21,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false
+      },
+      {
+        "index": 22,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false
+      },
+      {
+        "index": 23,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false
+      },
+      {
+        "index": 24,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 13,
+        "firstDealt": false
+      },
+      {
+        "index": 25,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 15,
+        "firstDealt": false
+      },
+      {
+        "index": 26,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 16,
+        "firstDealt": false
+      },
+      {
+        "index": 27,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 17,
+        "firstDealt": false
+      },
+      {
+        "index": 28,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 19,
+        "firstDealt": false
+      },
+      {
+        "index": 29,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 20,
+        "firstDealt": false
+      }
+    ],
+    "perPieceTiming": [
+      {
+        "index": 1,
+        "spawnT": 0,
+        "lockT": 5.25,
+        "settleEndT": 5.25
+      },
+      {
+        "index": 2,
+        "spawnT": 5.25,
+        "lockT": 10.43,
+        "settleEndT": 10.43
+      },
+      {
+        "index": 3,
+        "spawnT": 10.43,
+        "lockT": 15.57,
+        "settleEndT": 15.57
+      },
+      {
+        "index": 4,
+        "spawnT": 15.57,
+        "lockT": 20.17,
+        "settleEndT": 22
+      },
+      {
+        "index": 5,
+        "spawnT": 22,
+        "lockT": 26.8,
+        "settleEndT": 26.8
+      },
+      {
+        "index": 6,
+        "spawnT": 26.8,
+        "lockT": 30.6,
+        "settleEndT": 30.6
+      },
+      {
+        "index": 7,
+        "spawnT": 30.6,
+        "lockT": 35.52,
+        "settleEndT": 35.52
+      },
+      {
+        "index": 8,
+        "spawnT": 35.52,
+        "lockT": 40.38,
+        "settleEndT": 40.8
+      },
+      {
+        "index": 9,
+        "spawnT": 40.8,
+        "lockT": 44.93,
+        "settleEndT": 44.93
+      },
+      {
+        "index": 10,
+        "spawnT": 44.93,
+        "lockT": 48.82,
+        "settleEndT": 49.55
+      },
+      {
+        "index": 11,
+        "spawnT": 49.55,
+        "lockT": 53.62,
+        "settleEndT": 53.62
+      },
+      {
+        "index": 12,
+        "spawnT": 53.62,
+        "lockT": 56.77,
+        "settleEndT": 56.77
+      },
+      {
+        "index": 13,
+        "spawnT": 56.77,
+        "lockT": 60.33,
+        "settleEndT": 60.33
+      },
+      {
+        "index": 14,
+        "spawnT": 60.33,
+        "lockT": 63.25,
+        "settleEndT": 63.25
+      },
+      {
+        "index": 15,
+        "spawnT": 63.25,
+        "lockT": 66.98,
+        "settleEndT": 67.4
+      },
+      {
+        "index": 16,
+        "spawnT": 67.4,
+        "lockT": 70.9,
+        "settleEndT": 70.9
+      },
+      {
+        "index": 17,
+        "spawnT": 70.9,
+        "lockT": 74.17,
+        "settleEndT": 74.87
+      },
+      {
+        "index": 18,
+        "spawnT": 74.87,
+        "lockT": 77.9,
+        "settleEndT": 78.32
+      },
+      {
+        "index": 19,
+        "spawnT": 78.32,
+        "lockT": 80.7,
+        "settleEndT": 80.7
+      },
+      {
+        "index": 20,
+        "spawnT": 80.7,
+        "lockT": 84.13,
+        "settleEndT": 85.75
+      },
+      {
+        "index": 21,
+        "spawnT": 85.75,
+        "lockT": 88.72,
+        "settleEndT": 90.33
+      },
+      {
+        "index": 22,
+        "spawnT": 90.33,
+        "lockT": 92.67,
+        "settleEndT": 92.67
+      },
+      {
+        "index": 23,
+        "spawnT": 92.67,
+        "lockT": 94.43,
+        "settleEndT": 94.43
+      },
+      {
+        "index": 24,
+        "spawnT": 94.43,
+        "lockT": 95.65,
+        "settleEndT": 95.65
+      },
+      {
+        "index": 25,
+        "spawnT": 95.65,
+        "lockT": 96.73,
+        "settleEndT": 96.73
+      },
+      {
+        "index": 26,
+        "spawnT": 96.73,
+        "lockT": 97.85,
+        "settleEndT": 97.85
+      },
+      {
+        "index": 27,
+        "spawnT": 97.85,
+        "lockT": 98.77,
+        "settleEndT": 99.18
+      },
+      {
+        "index": 28,
+        "spawnT": 99.18,
+        "lockT": 99.9,
+        "settleEndT": 99.9
+      }
+    ],
+    "perPieceLock": [
+      {
+        "index": 1,
+        "dropDistance": 19,
+        "fallSpeed": 4.051,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 2,
+        "dropDistance": 19,
+        "fallSpeed": 4.101,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 3,
+        "dropDistance": 19,
+        "fallSpeed": 4.152,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 4,
+        "dropDistance": 17,
+        "fallSpeed": 4.198,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 5,
+        "dropDistance": 17,
+        "fallSpeed": 4.265,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 6,
+        "dropDistance": 14,
+        "fallSpeed": 4.304,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 7,
+        "dropDistance": 19,
+        "fallSpeed": 4.354,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 8,
+        "dropDistance": 19,
+        "fallSpeed": 4.405,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 9,
+        "dropDistance": 16,
+        "fallSpeed": 4.454,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 1
+      },
+      {
+        "index": 10,
+        "dropDistance": 15,
+        "fallSpeed": 4.495,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 11,
+        "dropDistance": 16,
+        "fallSpeed": 4.547,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 12,
+        "dropDistance": 12,
+        "fallSpeed": 4.581,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 13,
+        "dropDistance": 14,
+        "fallSpeed": 4.62,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 14,
+        "dropDistance": 11,
+        "fallSpeed": 4.653,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 15,
+        "dropDistance": 15,
+        "fallSpeed": 4.695,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 16,
+        "dropDistance": 14,
+        "fallSpeed": 4.739,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 17,
+        "dropDistance": 13,
+        "fallSpeed": 4.776,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 18,
+        "dropDistance": 12,
+        "fallSpeed": 4.819,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 19,
+        "dropDistance": 9,
+        "fallSpeed": 4.851,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 20,
+        "dropDistance": 12,
+        "fallSpeed": 4.891,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 21,
+        "dropDistance": 12,
+        "fallSpeed": 4.945,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 22,
+        "dropDistance": 9,
+        "fallSpeed": 4.992,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 23,
+        "dropDistance": 8,
+        "fallSpeed": 5.013,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 24,
+        "dropDistance": 6,
+        "fallSpeed": 5.027,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 25,
+        "dropDistance": 4,
+        "fallSpeed": 5.04,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 26,
+        "dropDistance": 3,
+        "fallSpeed": 5.054,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 27,
+        "dropDistance": 2,
+        "fallSpeed": 5.065,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 28,
+        "dropDistance": 1,
+        "fallSpeed": 5.079,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 1
+      }
+    ],
+    "perPieceClearGroups": [
+      {
+        "index": 1,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 2,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 3,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 4,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 5,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 6,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 7,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 8,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 9,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 10,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 11,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 12,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 13,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 14,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 15,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 16,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 17,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "B",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 18,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 19,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 20,
+        "firstSegment": [
+          {
+            "size": 7,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 21,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 22,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 23,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 24,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 25,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 26,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 27,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 28,
+        "firstSegment": [],
+        "extraSegment": []
+      }
+    ],
+    "perPieceBoardState": [
+      {
+        "index": 1,
+        "sumColHeight": 5,
+        "filledCount": 4,
+        "closedHoles": 1,
+        "maxColHeight": 3,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 2,
+        "sumColHeight": 9,
+        "filledCount": 8,
+        "closedHoles": 1,
+        "maxColHeight": 3,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 3,
+        "sumColHeight": 13,
+        "filledCount": 12,
+        "closedHoles": 1,
+        "maxColHeight": 3,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 4,
+        "sumColHeight": 13,
+        "filledCount": 12,
+        "closedHoles": 1,
+        "maxColHeight": 3,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 5,
+        "sumColHeight": 18,
+        "filledCount": 16,
+        "closedHoles": 2,
+        "maxColHeight": 5,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 6,
+        "sumColHeight": 23,
+        "filledCount": 20,
+        "closedHoles": 3,
+        "maxColHeight": 8,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 7,
+        "sumColHeight": 27,
+        "filledCount": 24,
+        "closedHoles": 3,
+        "maxColHeight": 8,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 8,
+        "sumColHeight": 29,
+        "filledCount": 23,
+        "closedHoles": 6,
+        "maxColHeight": 8,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 9,
+        "sumColHeight": 33,
+        "filledCount": 27,
+        "closedHoles": 6,
+        "maxColHeight": 8,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 10,
+        "sumColHeight": 33,
+        "filledCount": 27,
+        "closedHoles": 6,
+        "maxColHeight": 8,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 11,
+        "sumColHeight": 38,
+        "filledCount": 31,
+        "closedHoles": 7,
+        "maxColHeight": 8,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 12,
+        "sumColHeight": 43,
+        "filledCount": 35,
+        "closedHoles": 8,
+        "maxColHeight": 10,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 13,
+        "sumColHeight": 51,
+        "filledCount": 39,
+        "closedHoles": 12,
+        "maxColHeight": 10,
+        "closedHolesDelta": 4
+      },
+      {
+        "index": 14,
+        "sumColHeight": 57,
+        "filledCount": 43,
+        "closedHoles": 14,
+        "maxColHeight": 11,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 15,
+        "sumColHeight": 57,
+        "filledCount": 43,
+        "closedHoles": 14,
+        "maxColHeight": 11,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 16,
+        "sumColHeight": 62,
+        "filledCount": 47,
+        "closedHoles": 15,
+        "maxColHeight": 11,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 17,
+        "sumColHeight": 62,
+        "filledCount": 47,
+        "closedHoles": 15,
+        "maxColHeight": 11,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 18,
+        "sumColHeight": 65,
+        "filledCount": 47,
+        "closedHoles": 18,
+        "maxColHeight": 11,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 19,
+        "sumColHeight": 70,
+        "filledCount": 51,
+        "closedHoles": 19,
+        "maxColHeight": 13,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 20,
+        "sumColHeight": 69,
+        "filledCount": 48,
+        "closedHoles": 21,
+        "maxColHeight": 13,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 21,
+        "sumColHeight": 76,
+        "filledCount": 48,
+        "closedHoles": 28,
+        "maxColHeight": 13,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 22,
+        "sumColHeight": 91,
+        "filledCount": 52,
+        "closedHoles": 39,
+        "maxColHeight": 13,
+        "closedHolesDelta": 11
+      },
+      {
+        "index": 23,
+        "sumColHeight": 97,
+        "filledCount": 56,
+        "closedHoles": 41,
+        "maxColHeight": 13,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 24,
+        "sumColHeight": 103,
+        "filledCount": 60,
+        "closedHoles": 43,
+        "maxColHeight": 15,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 25,
+        "sumColHeight": 114,
+        "filledCount": 64,
+        "closedHoles": 50,
+        "maxColHeight": 16,
+        "closedHolesDelta": 7
+      },
+      {
+        "index": 26,
+        "sumColHeight": 118,
+        "filledCount": 68,
+        "closedHoles": 50,
+        "maxColHeight": 18,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 27,
+        "sumColHeight": 118,
+        "filledCount": 67,
+        "closedHoles": 51,
+        "maxColHeight": 19,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 28,
+        "sumColHeight": 125,
+        "filledCount": 71,
+        "closedHoles": 54,
+        "maxColHeight": 20,
+        "closedHolesDelta": 3
+      }
+    ],
+    "perGravityEvent": [
+      {
+        "pieceIndex": 4,
+        "displaced": 0,
+        "blockCount": 0,
+        "perBlockDrop": [],
+        "animSeconds": 0.2,
+        "capped": false,
+        "piecesSinceLastWipe": "—"
+      },
+      {
+        "pieceIndex": 10,
+        "displaced": 1,
+        "blockCount": 1,
+        "perBlockDrop": [
+          3
+        ],
+        "animSeconds": 0.3,
+        "capped": false,
+        "piecesSinceLastWipe": "—"
+      },
+      {
+        "pieceIndex": 17,
+        "displaced": 1,
+        "blockCount": 1,
+        "perBlockDrop": [
+          1
+        ],
+        "animSeconds": 0.27,
+        "capped": false,
+        "piecesSinceLastWipe": "—"
+      }
+    ],
+    "perExpand": [
+      {
+        "pieces": 4,
+        "seconds": 20.8
+      },
+      {
+        "pieces": 20,
+        "seconds": 84.55
+      },
+      {
+        "pieces": 21,
+        "seconds": 89.13
+      },
+      null
+    ],
+    "perShaveEvent": [],
+    "perNewShape": [],
+    "perTask": [
+      {
+        "index": 1,
+        "piecesTaken": 4
+      },
+      {
+        "index": 2,
+        "piecesTaken": 16
+      },
+      {
+        "index": 3,
+        "piecesTaken": 1
+      }
+    ],
+    "perGame": {
+      "presentationDurationsSeconds": {
+        "clear": 3.5999999999999996,
+        "gravity": 0.77,
+        "extraClear": 0,
+        "expand": 3.5999999999999996,
+        "variety": 0,
+        "wipe": 0
+      },
+      "deathSumHeightOverWidth": 13.88888888888889,
+      "spawnColumnHeightAtDeath": 20,
+      "finalWidth": 9,
+      "deathPieces": 28,
+      "deathPhase": "dig",
+      "min20PieceSumHeightDelta": 69
+    }
+  }
+}

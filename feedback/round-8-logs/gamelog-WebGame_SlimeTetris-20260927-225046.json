@@ -1,0 +1,1502 @@
+{
+  "meta": {
+    "game": "WebGame_SlimeTetris",
+    "endedAt": "2026-09-27T14:50:46.095Z",
+    "reason": "abandon",
+    "totalPieces": 24,
+    "totalSeconds": 101.37,
+    "finalScore": 4475,
+    "finalMultiplier": 1.6
+  },
+  "validation": {
+    "digPhaseTargetColorRatio": 0.5,
+    "digPhaseTargetColorRatioReference": {
+      "passiveExpected": 0.35,
+      "threeGameSignalLine": 0.45,
+      "note": "單局樣本小, 僅供對照, 非判定門檻"
+    },
+    "perTask": [
+      {
+        "index": 1,
+        "kind": "dig",
+        "color": "B",
+        "required": 3,
+        "enteredPieces": 0,
+        "enteredSeconds": 0,
+        "achievedPieces": 3,
+        "achievedSeconds": 11.38,
+        "reward": {
+          "type": "expand",
+          "side": "left",
+          "shave": false
+        }
+      },
+      {
+        "index": 2,
+        "kind": "dig",
+        "color": "C",
+        "required": 5,
+        "enteredPieces": 3,
+        "enteredSeconds": 11.38,
+        "achievedPieces": 6,
+        "achievedSeconds": 22.27,
+        "reward": {
+          "type": "expand",
+          "side": "right",
+          "shave": false
+        }
+      },
+      {
+        "index": 3,
+        "kind": "dig",
+        "color": "A",
+        "required": 6,
+        "enteredPieces": 6,
+        "enteredSeconds": 22.27,
+        "achievedPieces": 15,
+        "achievedSeconds": 61.47,
+        "reward": {
+          "type": "expand",
+          "side": "left",
+          "shave": false
+        }
+      },
+      {
+        "index": 4,
+        "kind": "dig",
+        "color": "B",
+        "required": 8,
+        "enteredPieces": 15,
+        "enteredSeconds": 61.47,
+        "achievedPieces": 18,
+        "achievedSeconds": 74.8,
+        "reward": {
+          "type": "expand",
+          "side": "right",
+          "shave": true
+        }
+      },
+      {
+        "index": 5,
+        "kind": "big",
+        "color": null,
+        "required": 1,
+        "enteredPieces": 18,
+        "enteredSeconds": 74.8,
+        "achievedPieces": 21,
+        "achievedSeconds": 88.7,
+        "reward": {
+          "shave": false,
+          "none": false,
+          "shape": "V",
+          "clearBall": true,
+          "clearBallBlocked": false
+        }
+      }
+    ],
+    "endTask": {
+      "index": 6,
+      "kind": "newShape",
+      "color": null,
+      "remaining": 1
+    },
+    "perNewShape": [
+      {
+        "shape": "V",
+        "name": "角形",
+        "unlockedPieces": 21,
+        "unlockedSeconds": 88.7,
+        "boundaryDeferred": true,
+        "dealCount": 0,
+        "dealCountSelfCheck": true,
+        "firstDealtPieces": null,
+        "clearsPerDeal": []
+      }
+    ],
+    "misattributedNewShape": []
+  },
+  "multiTaskPassiveBaseline": {
+    "big": {
+      "pieces": 3,
+      "hits": 0
+    },
+    "gravity": {
+      "pieces": 6,
+      "hits": 0
+    },
+    "note": "滿寬後、該任務不是當前任務時的每塊發生率 p; 被動期望等待 = 需求/p, 與實際等待塊數比較(見 perTask); 參照線: 實際/期望 ≤0.6 有在做, ≥0.85 等同被動(3 局合併), 非判定門檻"
+  },
+  "newShapePassiveBaseline": {
+    "byShape": {
+      "V": {
+        "first": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 0,
+            "hits": 0
+          }
+        },
+        "nonFirst": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 0,
+            "hits": 0
+          }
+        }
+      },
+      "U": {
+        "first": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 0,
+            "hits": 0
+          }
+        },
+        "nonFirst": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 0,
+            "hits": 0
+          }
+        }
+      },
+      "X": {
+        "first": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 0,
+            "hits": 0
+          }
+        },
+        "nonFirst": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 0,
+            "hits": 0
+          }
+        }
+      }
+    },
+    "note": "命中率依外型 x 首發/非首發 x 是否為當前任務分開記; 判讀以「非當前任務時、同外型、非首發」為基準比較「當前任務時」同組; 第 1 輪不判讀(需求 1 且幾乎必在首發那張完成)"
+  },
+  "perGameSummary": {
+    "totalPieces": 24,
+    "totalSeconds": 101.37,
+    "hardDropRate": 0,
+    "expandTimeline": [
+      {
+        "pieces": 3,
+        "seconds": 11.38
+      },
+      {
+        "pieces": 6,
+        "seconds": 22.27
+      },
+      {
+        "pieces": 15,
+        "seconds": 61.47
+      },
+      {
+        "pieces": 18,
+        "seconds": 74.8
+      }
+    ],
+    "unlockedColumns": 4,
+    "totalCleared": 67,
+    "targetCleared": 25,
+    "clearedPerPiece": 2.7916666666666665,
+    "teamSizeDistribution": {
+      "4": 10,
+      "5": 6
+    },
+    "shaveTotalCells": 8,
+    "finalColumnHeights": {
+      "0": 4,
+      "1": 7,
+      "2": 5,
+      "3": 5,
+      "4": 0,
+      "5": 7,
+      "6": 6,
+      "7": 0,
+      "-2": 5,
+      "-1": 6
+    },
+    "finalClosedHoles": 27,
+    "endReason": "abandon",
+    "finalScore": 4475,
+    "finalMultiplier": 1.6,
+    "unlockedShapes": [
+      "V"
+    ],
+    "gravityBall": {
+      "spawned": 3,
+      "cleared": 3,
+      "shavedOff": 0,
+      "residual": 0,
+      "selfCheck": true,
+      "triggerCount": 3,
+      "movedCount": 2,
+      "displacedTotal": 5,
+      "maxDisplacedSingleEvent": 4,
+      "maxDropSingleEvent": 4,
+      "extraClearCount": 1,
+      "extraClearCells": 4,
+      "idleCount": 1,
+      "idleRate": 0.3333333333333333,
+      "ballGroupTrueCells": 10,
+      "eNoBall": 2.2083333333333335
+    },
+    "largeGravityEvents": [],
+    "clearBallSummary": {
+      "obtainedCount": 1,
+      "dispensedCount": 0,
+      "clearedCount": 0,
+      "shavedCount": 0,
+      "residualCount": 0,
+      "undispensedCount": 1,
+      "blockedCount": 0,
+      "wipeCount": 0,
+      "wipeScoreTotal": 0,
+      "selfCheckObtained": true,
+      "selfCheckDispensed": true
+    }
+  },
+  "clearBall": {
+    "perBall": [
+      {
+        "id": 1,
+        "source": 1,
+        "obtainedPieces": 21,
+        "obtainedSeconds": 88.7,
+        "earliestIndex": 36,
+        "dispensedIndex": null,
+        "deferredByBall": false,
+        "gapPiecesToTrigger": "—",
+        "stage": null,
+        "triggeredPieces": null,
+        "triggeredSeconds": null,
+        "groupColor": null,
+        "groupSize": null,
+        "groupHasBall": null,
+        "concurrentClearBallCount": null,
+        "colorCountsBeforeWipe": null,
+        "isMaxColor": null,
+        "topColumnsOfColor": null,
+        "wipeCellCount": null,
+        "merged": false,
+        "wipeScore": null,
+        "before": null,
+        "after": null,
+        "followup10": null,
+        "outcome": "undispensed"
+      }
+    ]
+  },
+  "calibration": {
+    "perPieceSpawn": [
+      {
+        "index": 1,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 0,
+        "firstDealt": false
+      },
+      {
+        "index": 2,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 2,
+        "firstDealt": false
+      },
+      {
+        "index": 3,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 2,
+        "firstDealt": false
+      },
+      {
+        "index": 4,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 4,
+        "firstDealt": false
+      },
+      {
+        "index": 5,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 4,
+        "firstDealt": false
+      },
+      {
+        "index": 6,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 5,
+        "firstDealt": false
+      },
+      {
+        "index": 7,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 5,
+        "firstDealt": false
+      },
+      {
+        "index": 8,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 5,
+        "firstDealt": false
+      },
+      {
+        "index": 9,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 5,
+        "firstDealt": false
+      },
+      {
+        "index": 10,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 5,
+        "firstDealt": false
+      },
+      {
+        "index": 11,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false
+      },
+      {
+        "index": 12,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false
+      },
+      {
+        "index": 13,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false
+      },
+      {
+        "index": 14,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false
+      },
+      {
+        "index": 15,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false
+      },
+      {
+        "index": 16,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false
+      },
+      {
+        "index": 17,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false
+      },
+      {
+        "index": 18,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false
+      },
+      {
+        "index": 19,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 5,
+        "firstDealt": false
+      },
+      {
+        "index": 20,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 5,
+        "firstDealt": false
+      },
+      {
+        "index": 21,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 5,
+        "firstDealt": false
+      },
+      {
+        "index": 22,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 5,
+        "firstDealt": false
+      },
+      {
+        "index": 23,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 5,
+        "firstDealt": false
+      },
+      {
+        "index": 24,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 7,
+        "firstDealt": false
+      },
+      {
+        "index": 25,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 7,
+        "firstDealt": false
+      }
+    ],
+    "perPieceTiming": [
+      {
+        "index": 1,
+        "spawnT": 0,
+        "lockT": 4.02,
+        "settleEndT": 4.02
+      },
+      {
+        "index": 2,
+        "spawnT": 4.02,
+        "lockT": 7.88,
+        "settleEndT": 7.88
+      },
+      {
+        "index": 3,
+        "spawnT": 7.88,
+        "lockT": 10.97,
+        "settleEndT": 12.58
+      },
+      {
+        "index": 4,
+        "spawnT": 12.58,
+        "lockT": 15.4,
+        "settleEndT": 15.4
+      },
+      {
+        "index": 5,
+        "spawnT": 15.4,
+        "lockT": 18.05,
+        "settleEndT": 18.47
+      },
+      {
+        "index": 6,
+        "spawnT": 18.47,
+        "lockT": 21.85,
+        "settleEndT": 23.47
+      },
+      {
+        "index": 7,
+        "spawnT": 23.47,
+        "lockT": 27.25,
+        "settleEndT": 27.88
+      },
+      {
+        "index": 8,
+        "spawnT": 27.88,
+        "lockT": 31.48,
+        "settleEndT": 31.9
+      },
+      {
+        "index": 9,
+        "spawnT": 31.9,
+        "lockT": 35.78,
+        "settleEndT": 35.78
+      },
+      {
+        "index": 10,
+        "spawnT": 35.78,
+        "lockT": 39.62,
+        "settleEndT": 39.62
+      },
+      {
+        "index": 11,
+        "spawnT": 39.62,
+        "lockT": 43.98,
+        "settleEndT": 44.4
+      },
+      {
+        "index": 12,
+        "spawnT": 44.4,
+        "lockT": 48.57,
+        "settleEndT": 48.57
+      },
+      {
+        "index": 13,
+        "spawnT": 48.57,
+        "lockT": 52.42,
+        "settleEndT": 53.63
+      },
+      {
+        "index": 14,
+        "spawnT": 53.63,
+        "lockT": 57.88,
+        "settleEndT": 57.88
+      },
+      {
+        "index": 15,
+        "spawnT": 57.88,
+        "lockT": 61.05,
+        "settleEndT": 62.67
+      },
+      {
+        "index": 16,
+        "spawnT": 62.67,
+        "lockT": 66.1,
+        "settleEndT": 66.52
+      },
+      {
+        "index": 17,
+        "spawnT": 66.52,
+        "lockT": 70.38,
+        "settleEndT": 71.08
+      },
+      {
+        "index": 18,
+        "spawnT": 71.08,
+        "lockT": 74.38,
+        "settleEndT": 76
+      },
+      {
+        "index": 19,
+        "spawnT": 76,
+        "lockT": 79.63,
+        "settleEndT": 80.05
+      },
+      {
+        "index": 20,
+        "spawnT": 80.05,
+        "lockT": 84.03,
+        "settleEndT": 84.03
+      },
+      {
+        "index": 21,
+        "spawnT": 84.03,
+        "lockT": 88.28,
+        "settleEndT": 90.22
+      },
+      {
+        "index": 22,
+        "spawnT": 90.22,
+        "lockT": 93,
+        "settleEndT": 93
+      },
+      {
+        "index": 23,
+        "spawnT": 93,
+        "lockT": 96,
+        "settleEndT": 96.42
+      },
+      {
+        "index": 24,
+        "spawnT": 96.42,
+        "lockT": 99.33,
+        "settleEndT": 99.75
+      }
+    ],
+    "perPieceLock": [
+      {
+        "index": 1,
+        "dropDistance": 19,
+        "fallSpeed": 4.039,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 2,
+        "dropDistance": 20,
+        "fallSpeed": 4.076,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 3,
+        "dropDistance": 18,
+        "fallSpeed": 4.106,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 0
+      },
+      {
+        "index": 4,
+        "dropDistance": 19,
+        "fallSpeed": 4.15,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 3
+      },
+      {
+        "index": 5,
+        "dropDistance": 17,
+        "fallSpeed": 4.176,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 3
+      },
+      {
+        "index": 6,
+        "dropDistance": 18,
+        "fallSpeed": 4.214,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 3
+      },
+      {
+        "index": 7,
+        "dropDistance": 19,
+        "fallSpeed": 4.269,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 3
+      },
+      {
+        "index": 8,
+        "dropDistance": 19,
+        "fallSpeed": 4.313,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 2
+      },
+      {
+        "index": 9,
+        "dropDistance": 17,
+        "fallSpeed": 4.357,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 4
+      },
+      {
+        "index": 10,
+        "dropDistance": 15,
+        "fallSpeed": 4.397,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 3
+      },
+      {
+        "index": 11,
+        "dropDistance": 17,
+        "fallSpeed": 4.443,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 3
+      },
+      {
+        "index": 12,
+        "dropDistance": 18,
+        "fallSpeed": 4.492,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 4
+      },
+      {
+        "index": 13,
+        "dropDistance": 15,
+        "fallSpeed": 4.534,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 4
+      },
+      {
+        "index": 14,
+        "dropDistance": 17,
+        "fallSpeed": 4.594,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 4
+      },
+      {
+        "index": 15,
+        "dropDistance": 15,
+        "fallSpeed": 4.628,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 3
+      },
+      {
+        "index": 16,
+        "dropDistance": 19,
+        "fallSpeed": 4.685,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 3
+      },
+      {
+        "index": 17,
+        "dropDistance": 15,
+        "fallSpeed": 4.733,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 4
+      },
+      {
+        "index": 18,
+        "dropDistance": 17,
+        "fallSpeed": 4.778,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "floatingBlocksBeforeLock": 3
+      },
+      {
+        "index": 19,
+        "dropDistance": 15,
+        "fallSpeed": 4.839,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "floatingBlocksBeforeLock": 5
+      },
+      {
+        "index": 20,
+        "dropDistance": 19,
+        "fallSpeed": 4.89,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "floatingBlocksBeforeLock": 6
+      },
+      {
+        "index": 21,
+        "dropDistance": 18,
+        "fallSpeed": 4.94,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "floatingBlocksBeforeLock": 4
+      },
+      {
+        "index": 22,
+        "dropDistance": 15,
+        "fallSpeed": 5.496,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 6,
+        "taskKindAtLock": "newShape",
+        "floatingBlocksBeforeLock": 5
+      },
+      {
+        "index": 23,
+        "dropDistance": 15,
+        "fallSpeed": 5.532,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 6,
+        "taskKindAtLock": "newShape",
+        "floatingBlocksBeforeLock": 5
+      },
+      {
+        "index": 24,
+        "dropDistance": 15,
+        "fallSpeed": 5.572,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 6,
+        "taskKindAtLock": "newShape",
+        "floatingBlocksBeforeLock": 6
+      }
+    ],
+    "perPieceClearGroups": [
+      {
+        "index": 1,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 2,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 3,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 4,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 5,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 6,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 7,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "B",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 8,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 9,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 10,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 11,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 12,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 13,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "C",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ]
+      },
+      {
+        "index": 14,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 15,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 16,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 17,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 18,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 19,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 20,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 21,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 22,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 23,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 24,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      }
+    ],
+    "perPieceBoardState": [
+      {
+        "index": 1,
+        "sumColHeight": 5,
+        "filledCount": 4,
+        "closedHoles": 1,
+        "maxColHeight": 2,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 2,
+        "sumColHeight": 11,
+        "filledCount": 8,
+        "closedHoles": 3,
+        "maxColHeight": 2,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 3,
+        "sumColHeight": 14,
+        "filledCount": 8,
+        "closedHoles": 6,
+        "maxColHeight": 4,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 4,
+        "sumColHeight": 18,
+        "filledCount": 12,
+        "closedHoles": 6,
+        "maxColHeight": 4,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 5,
+        "sumColHeight": 17,
+        "filledCount": 11,
+        "closedHoles": 6,
+        "maxColHeight": 5,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 6,
+        "sumColHeight": 15,
+        "filledCount": 11,
+        "closedHoles": 4,
+        "maxColHeight": 5,
+        "closedHolesDelta": -2
+      },
+      {
+        "index": 7,
+        "sumColHeight": 17,
+        "filledCount": 11,
+        "closedHoles": 6,
+        "maxColHeight": 5,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 8,
+        "sumColHeight": 21,
+        "filledCount": 10,
+        "closedHoles": 11,
+        "maxColHeight": 5,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 9,
+        "sumColHeight": 28,
+        "filledCount": 14,
+        "closedHoles": 14,
+        "maxColHeight": 5,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 10,
+        "sumColHeight": 33,
+        "filledCount": 18,
+        "closedHoles": 15,
+        "maxColHeight": 6,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 11,
+        "sumColHeight": 33,
+        "filledCount": 17,
+        "closedHoles": 16,
+        "maxColHeight": 6,
+        "closedHolesDelta": -1
+      },
+      {
+        "index": 12,
+        "sumColHeight": 35,
+        "filledCount": 21,
+        "closedHoles": 14,
+        "maxColHeight": 6,
+        "closedHolesDelta": -2
+      },
+      {
+        "index": 13,
+        "sumColHeight": 29,
+        "filledCount": 16,
+        "closedHoles": 13,
+        "maxColHeight": 6,
+        "closedHolesDelta": 4
+      },
+      {
+        "index": 14,
+        "sumColHeight": 34,
+        "filledCount": 20,
+        "closedHoles": 14,
+        "maxColHeight": 6,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 15,
+        "sumColHeight": 35,
+        "filledCount": 20,
+        "closedHoles": 15,
+        "maxColHeight": 6,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 16,
+        "sumColHeight": 38,
+        "filledCount": 20,
+        "closedHoles": 18,
+        "maxColHeight": 6,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 17,
+        "sumColHeight": 36,
+        "filledCount": 20,
+        "closedHoles": 16,
+        "maxColHeight": 6,
+        "closedHolesDelta": 4
+      },
+      {
+        "index": 18,
+        "sumColHeight": 27,
+        "filledCount": 11,
+        "closedHoles": 16,
+        "maxColHeight": 5,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 19,
+        "sumColHeight": 27,
+        "filledCount": 11,
+        "closedHoles": 16,
+        "maxColHeight": 7,
+        "closedHolesDelta": 9
+      },
+      {
+        "index": 20,
+        "sumColHeight": 33,
+        "filledCount": 15,
+        "closedHoles": 18,
+        "maxColHeight": 7,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 21,
+        "sumColHeight": 34,
+        "filledCount": 14,
+        "closedHoles": 20,
+        "maxColHeight": 7,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 22,
+        "sumColHeight": 39,
+        "filledCount": 18,
+        "closedHoles": 21,
+        "maxColHeight": 7,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 23,
+        "sumColHeight": 44,
+        "filledCount": 18,
+        "closedHoles": 26,
+        "maxColHeight": 7,
+        "closedHolesDelta": 4
+      },
+      {
+        "index": 24,
+        "sumColHeight": 45,
+        "filledCount": 18,
+        "closedHoles": 27,
+        "maxColHeight": 7,
+        "closedHolesDelta": 1
+      }
+    ],
+    "perGravityEvent": [
+      {
+        "pieceIndex": 7,
+        "displaced": 0,
+        "blockCount": 0,
+        "perBlockDrop": [],
+        "animSeconds": 0.2,
+        "capped": false,
+        "piecesSinceLastWipe": "—"
+      },
+      {
+        "pieceIndex": 13,
+        "displaced": 1,
+        "blockCount": 1,
+        "perBlockDrop": [
+          4
+        ],
+        "animSeconds": 0.36,
+        "capped": false,
+        "piecesSinceLastWipe": "—"
+      },
+      {
+        "pieceIndex": 17,
+        "displaced": 4,
+        "blockCount": 1,
+        "perBlockDrop": [
+          1
+        ],
+        "animSeconds": 0.27,
+        "capped": false,
+        "piecesSinceLastWipe": "—"
+      }
+    ],
+    "perExpand": [
+      {
+        "pieces": 3,
+        "seconds": 11.38
+      },
+      {
+        "pieces": 6,
+        "seconds": 22.27
+      },
+      {
+        "pieces": 15,
+        "seconds": 61.47
+      },
+      {
+        "pieces": 18,
+        "seconds": 74.8
+      }
+    ],
+    "perShaveEvent": [
+      {
+        "source": "fullwidth",
+        "pieceIndex": 18,
+        "seconds": 74.8,
+        "shavedCells": 8,
+        "shavedBallCells": 0,
+        "shavedClearBallCells": 0,
+        "sumHeightBefore": 36,
+        "sumHeightAfter": 27,
+        "closedHolesOpened": 1,
+        "refillWithin10": 1,
+        "refillWindowPieces": 3
+      }
+    ],
+    "perNewShape": [
+      {
+        "shape": "V",
+        "unlockedPieces": 21,
+        "firstDealtPieces": null
+      }
+    ],
+    "perTask": [
+      {
+        "index": 1,
+        "piecesTaken": 3
+      },
+      {
+        "index": 2,
+        "piecesTaken": 3
+      },
+      {
+        "index": 3,
+        "piecesTaken": 9
+      },
+      {
+        "index": 4,
+        "piecesTaken": 3
+      },
+      {
+        "index": 5,
+        "piecesTaken": 3
+      }
+    ],
+    "perGame": {
+      "presentationDurationsSeconds": {
+        "clear": 6.000000000000001,
+        "gravity": 0.8300000000000001,
+        "extraClear": 0.4,
+        "expand": 4.8,
+        "variety": 1.5,
+        "wipe": 0
+      },
+      "deathSumHeightOverWidth": 4.5,
+      "spawnColumnHeightAtDeath": 7,
+      "finalWidth": 10,
+      "deathPieces": 24,
+      "deathPhase": "newShape",
+      "min20PieceSumHeightDelta": 27
+    }
+  }
+}
