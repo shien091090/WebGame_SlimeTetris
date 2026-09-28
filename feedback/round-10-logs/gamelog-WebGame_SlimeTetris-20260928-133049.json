@@ -1,0 +1,7222 @@
+{
+  "meta": {
+    "game": "WebGame_SlimeTetris",
+    "version": "v25",
+    "endedAt": "2026-09-28T05:30:49.006Z",
+    "reason": "lockout",
+    "totalPieces": 78,
+    "totalSeconds": 249.93,
+    "localGameSeq": 1,
+    "paramsSnapshot": {
+      "fallSpeedByStar": [
+        2.4,
+        3,
+        3.6,
+        4.3,
+        4.8,
+        5.1,
+        5.4,
+        5.8,
+        6.1,
+        6.5
+      ],
+      "dasMs": 170,
+      "arrMs": 50,
+      "digRequirements": [
+        6,
+        8,
+        9,
+        10
+      ],
+      "varietyRequirements": [
+        2,
+        1,
+        2,
+        4,
+        4,
+        2
+      ],
+      "overflowCap": 2
+    }
+  },
+  "stars": {
+    "finalStars": 7,
+    "isVictory": false,
+    "perStar": [
+      {
+        "star": 1,
+        "pieces": 9,
+        "seconds": 44.63,
+        "durationPieces": 9,
+        "durationSeconds": 44.63,
+        "sumColHeight": 21,
+        "closedHoles": 6,
+        "maxColHeight": 6
+      },
+      {
+        "star": 2,
+        "pieces": 17,
+        "seconds": 78.72,
+        "durationPieces": 8,
+        "durationSeconds": 34.09,
+        "sumColHeight": 37,
+        "closedHoles": 11,
+        "maxColHeight": 7
+      },
+      {
+        "star": 3,
+        "pieces": 24,
+        "seconds": 104.15,
+        "durationPieces": 7,
+        "durationSeconds": 25.43,
+        "sumColHeight": 53,
+        "closedHoles": 23,
+        "maxColHeight": 8
+      },
+      {
+        "star": 4,
+        "pieces": 28,
+        "seconds": 118.67,
+        "durationPieces": 4,
+        "durationSeconds": 14.52,
+        "sumColHeight": 45,
+        "closedHoles": 22,
+        "maxColHeight": 7
+      },
+      {
+        "star": 5,
+        "pieces": 42,
+        "seconds": 164.53,
+        "durationPieces": 14,
+        "durationSeconds": 45.86,
+        "sumColHeight": 91,
+        "closedHoles": 39,
+        "maxColHeight": 11
+      },
+      {
+        "star": 6,
+        "pieces": 50,
+        "seconds": 186.6,
+        "durationPieces": 8,
+        "durationSeconds": 22.07,
+        "sumColHeight": 71,
+        "closedHoles": 41,
+        "maxColHeight": 12
+      },
+      {
+        "star": 7,
+        "pieces": 66,
+        "seconds": 230.63,
+        "durationPieces": 16,
+        "durationSeconds": 44.03,
+        "sumColHeight": 100,
+        "closedHoles": 56,
+        "maxColHeight": 13
+      },
+      {
+        "star": 8,
+        "pieces": "—",
+        "seconds": "—",
+        "durationPieces": "—",
+        "durationSeconds": "—",
+        "sumColHeight": "—",
+        "closedHoles": "—",
+        "maxColHeight": "—"
+      },
+      {
+        "star": 9,
+        "pieces": "—",
+        "seconds": "—",
+        "durationPieces": "—",
+        "durationSeconds": "—",
+        "sumColHeight": "—",
+        "closedHoles": "—",
+        "maxColHeight": "—"
+      },
+      {
+        "star": 10,
+        "pieces": "—",
+        "seconds": "—",
+        "durationPieces": "—",
+        "durationSeconds": "—",
+        "sumColHeight": "—",
+        "closedHoles": "—",
+        "maxColHeight": "—"
+      }
+    ],
+    "bestBeforeThisGame": null,
+    "newRecord": true,
+    "endReason": "lockout"
+  },
+  "validation": {
+    "digPhaseTargetColorRatio": 0.47368421052631576,
+    "digPhaseTargetColorRatioReference": {
+      "passiveExpected": 0.35,
+      "threeGameSignalLine": 0.45,
+      "note": "單局樣本小, 僅供對照, 非判定門檻"
+    },
+    "firstAnyClearPieceIndex": 4,
+    "firstTargetClearPieceIndex": 7,
+    "perTask": [
+      {
+        "index": 1,
+        "kind": "dig",
+        "color": "A",
+        "required": 6,
+        "enteredPieces": 0,
+        "enteredSeconds": 0,
+        "achievedPieces": 9,
+        "achievedSeconds": 44.63,
+        "advanceCount": 2,
+        "oneShot": false,
+        "lastAdvanceDelta": 4,
+        "advanceDeltas": [
+          4,
+          4
+        ],
+        "overflowRaw": 2,
+        "overflowCappedAmount": 0,
+        "reward": {
+          "type": "expand",
+          "side": "left"
+        }
+      },
+      {
+        "index": 2,
+        "kind": "dig",
+        "color": "B",
+        "required": 8,
+        "enteredPieces": 9,
+        "enteredSeconds": 44.63,
+        "achievedPieces": 17,
+        "achievedSeconds": 78.72,
+        "advanceCount": 2,
+        "oneShot": false,
+        "lastAdvanceDelta": 5,
+        "advanceDeltas": [
+          5,
+          5
+        ],
+        "overflowRaw": 4,
+        "overflowCappedAmount": 2,
+        "reward": {
+          "type": "expand",
+          "side": "right"
+        }
+      },
+      {
+        "index": 3,
+        "kind": "dig",
+        "color": "A",
+        "required": 9,
+        "enteredPieces": 17,
+        "enteredSeconds": 78.72,
+        "achievedPieces": 24,
+        "achievedSeconds": 104.15,
+        "advanceCount": 2,
+        "oneShot": false,
+        "lastAdvanceDelta": 5,
+        "advanceDeltas": [
+          4,
+          5
+        ],
+        "overflowRaw": 2,
+        "overflowCappedAmount": 0,
+        "reward": {
+          "type": "expand",
+          "side": "left"
+        }
+      },
+      {
+        "index": 4,
+        "kind": "dig",
+        "color": "C",
+        "required": 10,
+        "enteredPieces": 24,
+        "enteredSeconds": 104.15,
+        "achievedPieces": 28,
+        "achievedSeconds": 118.67,
+        "advanceCount": 2,
+        "oneShot": false,
+        "lastAdvanceDelta": 6,
+        "advanceDeltas": [
+          3,
+          6
+        ],
+        "overflowRaw": 1,
+        "overflowCappedAmount": null,
+        "reward": {
+          "type": "expand",
+          "side": "right",
+          "shave": true
+        }
+      },
+      {
+        "index": 5,
+        "kind": "big",
+        "color": null,
+        "required": 2,
+        "enteredPieces": 28,
+        "enteredSeconds": 118.67,
+        "achievedPieces": 42,
+        "achievedSeconds": 164.53,
+        "advanceCount": 2,
+        "oneShot": false,
+        "lastAdvanceDelta": 1,
+        "advanceDeltas": [
+          1,
+          1
+        ],
+        "overflowRaw": null,
+        "overflowCappedAmount": null,
+        "reward": {
+          "type": "newPiece",
+          "shape": "V",
+          "clearBall": true,
+          "clearBallBlocked": false
+        }
+      },
+      {
+        "index": 6,
+        "kind": "newShape",
+        "color": null,
+        "required": 1,
+        "enteredPieces": 42,
+        "enteredSeconds": 164.53,
+        "achievedPieces": 50,
+        "achievedSeconds": 186.6,
+        "advanceCount": 1,
+        "oneShot": true,
+        "lastAdvanceDelta": 1,
+        "advanceDeltas": [
+          1
+        ],
+        "overflowRaw": null,
+        "overflowCappedAmount": null,
+        "reward": {
+          "type": "newPiece",
+          "shape": "U",
+          "shave": true
+        },
+        "newShapeDetail": {
+          "dealt": {
+            "V": 1,
+            "U": 0,
+            "X": 0
+          },
+          "hits": [
+            {
+              "shape": "V",
+              "groupCount": 1,
+              "guaranteed": true,
+              "pieceIndex": 50
+            }
+          ]
+        }
+      },
+      {
+        "index": 7,
+        "kind": "gravity",
+        "color": null,
+        "required": 2,
+        "enteredPieces": 50,
+        "enteredSeconds": 186.6,
+        "achievedPieces": 66,
+        "achievedSeconds": 230.63,
+        "advanceCount": 2,
+        "oneShot": false,
+        "lastAdvanceDelta": 1,
+        "advanceDeltas": [
+          1,
+          1
+        ],
+        "overflowRaw": null,
+        "overflowCappedAmount": null,
+        "reward": {
+          "type": "newPiece",
+          "shape": "X"
+        }
+      }
+    ],
+    "endTask": {
+      "index": 8,
+      "kind": "big",
+      "color": null,
+      "remaining": 3
+    },
+    "perNewShape": [
+      {
+        "shape": "V",
+        "name": "角形",
+        "unlockedPieces": 42,
+        "unlockedSeconds": 164.53,
+        "boundaryDeferred": true,
+        "dealCount": 6,
+        "dealCountSelfCheck": true,
+        "firstDealtPieces": 50,
+        "clearsPerDeal": [
+          {
+            "first": 4,
+            "extra": 0
+          },
+          {
+            "first": 4,
+            "extra": 0
+          },
+          {
+            "first": 0,
+            "extra": 0
+          },
+          {
+            "first": 4,
+            "extra": 0
+          },
+          {
+            "first": 0,
+            "extra": 0
+          },
+          {
+            "first": 0,
+            "extra": 0
+          }
+        ]
+      },
+      {
+        "shape": "U",
+        "name": "杯形",
+        "unlockedPieces": 50,
+        "unlockedSeconds": 186.6,
+        "boundaryDeferred": false,
+        "dealCount": 3,
+        "dealCountSelfCheck": true,
+        "firstDealtPieces": 59,
+        "clearsPerDeal": [
+          {
+            "first": 0,
+            "extra": 0
+          },
+          {
+            "first": 4,
+            "extra": 4
+          },
+          {
+            "first": 0,
+            "extra": 0
+          }
+        ]
+      },
+      {
+        "shape": "X",
+        "name": "十字形",
+        "unlockedPieces": 66,
+        "unlockedSeconds": 230.63,
+        "boundaryDeferred": false,
+        "dealCount": 2,
+        "dealCountSelfCheck": true,
+        "firstDealtPieces": 70,
+        "clearsPerDeal": [
+          {
+            "first": 4,
+            "extra": 0
+          },
+          {
+            "first": 4,
+            "extra": 0
+          }
+        ]
+      }
+    ],
+    "newShapeTaskExtra": [
+      {
+        "taskIndex": 6,
+        "guaranteedHit": true,
+        "piecesFromGuaranteedToFirstNonGuaranteedHit": "—"
+      }
+    ],
+    "misattributedNewShape": []
+  },
+  "multiTaskPassiveBaseline": {
+    "big": {
+      "pieces": 24,
+      "hits": 3
+    },
+    "gravity": {
+      "pieces": 34,
+      "hits": 2
+    },
+    "note": "滿寬後、該任務不是當前任務時的每塊發生率 p; 被動期望等待 = 需求/p, 與實際等待塊數比較(見 perTask); 參照線: 實際/期望 ≤0.6 有在做, ≥0.85 等同被動(3 局合併), 非判定門檻"
+  },
+  "newShapePassiveBaseline": {
+    "byShape": {
+      "V": {
+        "first": {
+          "current": {
+            "pieces": 1,
+            "hits": 1
+          },
+          "nonCurrent": {
+            "pieces": 0,
+            "hits": 0
+          }
+        },
+        "nonFirst": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 5,
+            "hits": 2
+          }
+        }
+      },
+      "U": {
+        "first": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 1,
+            "hits": 0
+          }
+        },
+        "nonFirst": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 2,
+            "hits": 1
+          }
+        }
+      },
+      "X": {
+        "first": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 1,
+            "hits": 1
+          }
+        },
+        "nonFirst": {
+          "current": {
+            "pieces": 0,
+            "hits": 0
+          },
+          "nonCurrent": {
+            "pieces": 1,
+            "hits": 1
+          }
+        }
+      }
+    },
+    "note": "命中率依外型 x 首發/非首發 x 是否為當前任務分開記; 第 1 輪需求 1, 多半由首發完成, 讀數主要看第 2 輪"
+  },
+  "gravityTaskDetail": {
+    "k7": {
+      "piecesWhileCurrent": 16,
+      "piecesWithBallWhileCurrent": 3,
+      "idleEventsWhileCurrent": 0
+    },
+    "k10": {
+      "piecesWhileCurrent": 0,
+      "piecesWithBallWhileCurrent": 0,
+      "idleEventsWhileCurrent": 0
+    }
+  },
+  "perGameSummary": {
+    "totalPieces": 78,
+    "totalSeconds": 249.93,
+    "hardDropRate": 0,
+    "expandTimeline": [
+      {
+        "pieces": 9,
+        "seconds": 44.63
+      },
+      {
+        "pieces": 17,
+        "seconds": 78.72
+      },
+      {
+        "pieces": 24,
+        "seconds": 104.15
+      },
+      {
+        "pieces": 28,
+        "seconds": 118.67
+      }
+    ],
+    "unlockedColumns": 4,
+    "totalCleared": 189,
+    "targetCleared": 36,
+    "clearedPerPiece": 2.423076923076923,
+    "teamSizeDistribution": {
+      "4": 25,
+      "5": 11,
+      "6": 6,
+      "7+": 1
+    },
+    "shaveTotalCells": 19,
+    "finalColumnHeights": {
+      "0": 15,
+      "1": 18,
+      "2": 21,
+      "3": 20,
+      "4": 20,
+      "5": 14,
+      "6": 17,
+      "7": 16,
+      "-2": 12,
+      "-1": 12
+    },
+    "finalClosedHoles": 91,
+    "endReason": "lockout",
+    "finalStars": 7,
+    "unlockedShapes": [
+      "V",
+      "U",
+      "X"
+    ],
+    "gravityBall": {
+      "spawned": 9,
+      "cleared": 9,
+      "shavedOff": 0,
+      "residual": 0,
+      "selfCheck": true,
+      "triggerCount": 8,
+      "movedCount": 8,
+      "displacedTotal": 67,
+      "maxDisplacedSingleEvent": 17,
+      "maxDropSingleEvent": 6,
+      "extraClearCount": 5,
+      "extraClearCells": 23,
+      "idleCount": 0,
+      "idleRate": 0,
+      "ballGroupTrueCells": 38,
+      "eNoBall": 1.641025641025641
+    },
+    "shaveSelfCheck": {
+      "shaveEventCount": 2,
+      "completedShaveTasks": 2,
+      "matches": true
+    },
+    "largeGravityEvents": [],
+    "clearBallSummary": {
+      "obtainedCount": 1,
+      "dispensedCount": 1,
+      "clearedCount": 1,
+      "shavedCount": 0,
+      "residualCount": 0,
+      "undispensedCount": 0,
+      "blockedCount": 0,
+      "wipeCount": 1,
+      "selfCheckObtained": true,
+      "selfCheckDispensed": true
+    }
+  },
+  "clearBall": {
+    "perBall": [
+      {
+        "id": 1,
+        "source": 5,
+        "obtainedPieces": 42,
+        "obtainedSeconds": 164.53,
+        "earliestIndex": 44,
+        "dispensedIndex": 44,
+        "deferredByBall": false,
+        "deferredByFirstShape": false,
+        "gapPiecesToTrigger": 1,
+        "stage": "4a",
+        "triggeredPieces": 45,
+        "triggeredSeconds": 171.87,
+        "groupColor": "A",
+        "groupSize": 6,
+        "groupHasBall": false,
+        "concurrentClearBallCount": 1,
+        "colorCountsBeforeWipe": {
+          "A": 19,
+          "B": 24,
+          "C": 15
+        },
+        "isMaxColor": false,
+        "topColumnsOfColor": 2,
+        "wipeCellCount": 19,
+        "merged": false,
+        "before": {
+          "sumColHeight": 106,
+          "floatingBlocks": 4,
+          "floatingCells": 7,
+          "filledCount": 58,
+          "closedHoles": 48,
+          "spawnRegionColHeight": 11
+        },
+        "after": {
+          "sumColHeight": 102,
+          "floatingBlocks": 14,
+          "floatingCells": 33,
+          "filledCount": 39,
+          "closedHoles": 63,
+          "spawnRegionColHeight": 11
+        },
+        "followup10": {
+          "gravityEvents": 1,
+          "displacedCells": 8,
+          "sumHeightAt5": 93,
+          "sumHeightAt10": 81,
+          "refilled": 4,
+          "piecesObserved": 10
+        },
+        "outcome": "cleared",
+        "firstWipeOfGame": true
+      }
+    ]
+  },
+  "transitions": [
+    {
+      "taskIndex": 1,
+      "starsReached": 1,
+      "startPieceIndex": 9,
+      "endPieceIndex": 9,
+      "startRealSec": 83.19,
+      "endRealSec": 88.46,
+      "phaseDurationsSeconds": {
+        "expand": 1,
+        "newShape": 0,
+        "shave": 0,
+        "star": 1,
+        "reveal": 1.62,
+        "speed": 1,
+        "gapTotal": 0.65
+      },
+      "keyPresses": {
+        "piece": 0,
+        "escH": 0,
+        "r": 0
+      },
+      "pressLog": []
+    },
+    {
+      "taskIndex": 2,
+      "starsReached": 2,
+      "startPieceIndex": 17,
+      "endPieceIndex": 17,
+      "startRealSec": 122.54,
+      "endRealSec": 127.81,
+      "phaseDurationsSeconds": {
+        "expand": 1,
+        "newShape": 0,
+        "shave": 0,
+        "star": 1,
+        "reveal": 1.62,
+        "speed": 1,
+        "gapTotal": 0.65
+      },
+      "keyPresses": {
+        "piece": 0,
+        "escH": 0,
+        "r": 0
+      },
+      "pressLog": []
+    },
+    {
+      "taskIndex": 3,
+      "starsReached": 3,
+      "startPieceIndex": 24,
+      "endPieceIndex": 24,
+      "startRealSec": 153.24,
+      "endRealSec": 158.51,
+      "phaseDurationsSeconds": {
+        "expand": 1,
+        "newShape": 0,
+        "shave": 0,
+        "star": 1,
+        "reveal": 1.62,
+        "speed": 1,
+        "gapTotal": 0.65
+      },
+      "keyPresses": {
+        "piece": 0,
+        "escH": 0,
+        "r": 0
+      },
+      "pressLog": []
+    },
+    {
+      "taskIndex": 4,
+      "starsReached": 4,
+      "startPieceIndex": 28,
+      "endPieceIndex": 28,
+      "startRealSec": 173.02,
+      "endRealSec": 179.09,
+      "phaseDurationsSeconds": {
+        "expand": 1,
+        "newShape": 0,
+        "shave": 0.8,
+        "star": 1,
+        "reveal": 1.62,
+        "speed": 1,
+        "gapTotal": 0.65
+      },
+      "keyPresses": {
+        "piece": 0,
+        "escH": 0,
+        "r": 0
+      },
+      "pressLog": []
+    },
+    {
+      "taskIndex": 5,
+      "starsReached": 5,
+      "startPieceIndex": 42,
+      "endPieceIndex": 42,
+      "startRealSec": 224.95,
+      "endRealSec": 230.42,
+      "phaseDurationsSeconds": {
+        "expand": 0,
+        "newShape": 1.2,
+        "shave": 0,
+        "star": 1,
+        "reveal": 1.62,
+        "speed": 1,
+        "gapTotal": 0.65
+      },
+      "keyPresses": {
+        "piece": 0,
+        "escH": 0,
+        "r": 0
+      },
+      "pressLog": []
+    },
+    {
+      "taskIndex": 6,
+      "starsReached": 6,
+      "startPieceIndex": 50,
+      "endPieceIndex": 50,
+      "startRealSec": 252.49,
+      "endRealSec": 258.75,
+      "phaseDurationsSeconds": {
+        "expand": 0,
+        "newShape": 1.2,
+        "shave": 0.8,
+        "star": 1,
+        "reveal": 1.62,
+        "speed": 1,
+        "gapTotal": 0.65
+      },
+      "keyPresses": {
+        "piece": 0,
+        "escH": 0,
+        "r": 0
+      },
+      "pressLog": []
+    },
+    {
+      "taskIndex": 7,
+      "starsReached": 7,
+      "startPieceIndex": 66,
+      "endPieceIndex": 66,
+      "startRealSec": 302.79,
+      "endRealSec": 308.25,
+      "phaseDurationsSeconds": {
+        "expand": 0,
+        "newShape": 1.2,
+        "shave": 0,
+        "star": 1,
+        "reveal": 1.62,
+        "speed": 1,
+        "gapTotal": 0.65
+      },
+      "keyPresses": {
+        "piece": 0,
+        "escH": 0,
+        "r": 0
+      },
+      "pressLog": []
+    }
+  ],
+  "calibration": {
+    "perPieceSpawn": [
+      {
+        "index": 1,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 0,
+        "firstDealt": false,
+        "starAtSpawn": 0
+      },
+      {
+        "index": 2,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 1,
+        "firstDealt": false,
+        "starAtSpawn": 0
+      },
+      {
+        "index": 3,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 2,
+        "firstDealt": false,
+        "starAtSpawn": 0
+      },
+      {
+        "index": 4,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 4,
+        "firstDealt": false,
+        "starAtSpawn": 0
+      },
+      {
+        "index": 5,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 4,
+        "firstDealt": false,
+        "starAtSpawn": 0
+      },
+      {
+        "index": 6,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 5,
+        "firstDealt": false,
+        "starAtSpawn": 0
+      },
+      {
+        "index": 7,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false,
+        "starAtSpawn": 0
+      },
+      {
+        "index": 8,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 4,
+        "firstDealt": false,
+        "starAtSpawn": 0
+      },
+      {
+        "index": 9,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false,
+        "starAtSpawn": 0
+      },
+      {
+        "index": 10,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false,
+        "starAtSpawn": 1
+      },
+      {
+        "index": 11,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false,
+        "starAtSpawn": 1
+      },
+      {
+        "index": 12,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false,
+        "starAtSpawn": 1
+      },
+      {
+        "index": 13,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 5,
+        "firstDealt": false,
+        "starAtSpawn": 1
+      },
+      {
+        "index": 14,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 7,
+        "firstDealt": false,
+        "starAtSpawn": 1
+      },
+      {
+        "index": 15,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false,
+        "starAtSpawn": 1
+      },
+      {
+        "index": 16,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false,
+        "starAtSpawn": 1
+      },
+      {
+        "index": 17,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 7,
+        "firstDealt": false,
+        "starAtSpawn": 1
+      },
+      {
+        "index": 18,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 7,
+        "firstDealt": false,
+        "starAtSpawn": 2
+      },
+      {
+        "index": 19,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 7,
+        "firstDealt": false,
+        "starAtSpawn": 2
+      },
+      {
+        "index": 20,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 7,
+        "firstDealt": false,
+        "starAtSpawn": 2
+      },
+      {
+        "index": 21,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 9,
+        "firstDealt": false,
+        "starAtSpawn": 2
+      },
+      {
+        "index": 22,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 9,
+        "firstDealt": false,
+        "starAtSpawn": 2
+      },
+      {
+        "index": 23,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 9,
+        "firstDealt": false,
+        "starAtSpawn": 2
+      },
+      {
+        "index": 24,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 8,
+        "firstDealt": false,
+        "starAtSpawn": 2
+      },
+      {
+        "index": 25,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 8,
+        "firstDealt": false,
+        "starAtSpawn": 3
+      },
+      {
+        "index": 26,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 8,
+        "firstDealt": false,
+        "starAtSpawn": 3
+      },
+      {
+        "index": 27,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 8,
+        "firstDealt": false,
+        "starAtSpawn": 3
+      },
+      {
+        "index": 28,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 8,
+        "firstDealt": false,
+        "starAtSpawn": 3
+      },
+      {
+        "index": 29,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 30,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 6,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 31,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 8,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 32,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 9,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 33,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 10,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 34,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 10,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 35,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 8,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 36,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 10,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 37,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 7,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 38,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 9,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 39,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 9,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 40,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 9,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 41,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 9,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 42,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 9,
+        "firstDealt": false,
+        "starAtSpawn": 4
+      },
+      {
+        "index": 43,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false,
+        "starAtSpawn": 5
+      },
+      {
+        "index": 44,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": true,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false,
+        "starAtSpawn": 5
+      },
+      {
+        "index": 45,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 12,
+        "firstDealt": false,
+        "starAtSpawn": 5
+      },
+      {
+        "index": 46,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false,
+        "starAtSpawn": 5
+      },
+      {
+        "index": 47,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 13,
+        "firstDealt": false,
+        "starAtSpawn": 5
+      },
+      {
+        "index": 48,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 13,
+        "firstDealt": false,
+        "starAtSpawn": 5
+      },
+      {
+        "index": 49,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 9,
+        "firstDealt": false,
+        "starAtSpawn": 5
+      },
+      {
+        "index": 50,
+        "shape": "V",
+        "cellCount": 3,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 9,
+        "firstDealt": true,
+        "starAtSpawn": 5
+      },
+      {
+        "index": 51,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 8,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 52,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 10,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 53,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 10,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 54,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 10,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 55,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 56,
+        "shape": "V",
+        "cellCount": 3,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 12,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 57,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 12,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 58,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 12,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 59,
+        "shape": "U",
+        "cellCount": 5,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 12,
+        "firstDealt": true,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 60,
+        "shape": "V",
+        "cellCount": 3,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 12,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 61,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 12,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 62,
+        "shape": "J",
+        "cellCount": 4,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 13,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 63,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 64,
+        "shape": "Z",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 11,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 65,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 13,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 66,
+        "shape": "U",
+        "cellCount": 5,
+        "hasBall": true,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 14,
+        "firstDealt": false,
+        "starAtSpawn": 6
+      },
+      {
+        "index": 67,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 13,
+        "firstDealt": false,
+        "starAtSpawn": 7
+      },
+      {
+        "index": 68,
+        "shape": "S",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 13,
+        "firstDealt": false,
+        "starAtSpawn": 7
+      },
+      {
+        "index": 69,
+        "shape": "V",
+        "cellCount": 3,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 13,
+        "firstDealt": false,
+        "starAtSpawn": 7
+      },
+      {
+        "index": 70,
+        "shape": "X",
+        "cellCount": 5,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 13,
+        "firstDealt": true,
+        "starAtSpawn": 7
+      },
+      {
+        "index": 71,
+        "shape": "O",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 13,
+        "firstDealt": false,
+        "starAtSpawn": 7
+      },
+      {
+        "index": 72,
+        "shape": "X",
+        "cellCount": 5,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 15,
+        "firstDealt": false,
+        "starAtSpawn": 7
+      },
+      {
+        "index": 73,
+        "shape": "I",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 15,
+        "firstDealt": false,
+        "starAtSpawn": 7
+      },
+      {
+        "index": 74,
+        "shape": "V",
+        "cellCount": 3,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 15,
+        "firstDealt": false,
+        "starAtSpawn": 7
+      },
+      {
+        "index": 75,
+        "shape": "T",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 16,
+        "firstDealt": false,
+        "starAtSpawn": 7
+      },
+      {
+        "index": 76,
+        "shape": "U",
+        "cellCount": 5,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 16,
+        "firstDealt": false,
+        "starAtSpawn": 7
+      },
+      {
+        "index": 77,
+        "shape": "L",
+        "cellCount": 4,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 18,
+        "firstDealt": false,
+        "starAtSpawn": 7
+      },
+      {
+        "index": 78,
+        "shape": "V",
+        "cellCount": 3,
+        "hasBall": false,
+        "hasClearBall": false,
+        "spawnColMaxHeight": 19,
+        "firstDealt": false,
+        "starAtSpawn": 7
+      }
+    ],
+    "perPieceTiming": [
+      {
+        "index": 1,
+        "spawnT": 0,
+        "lockT": 5.23,
+        "settleEndT": 5.23
+      },
+      {
+        "index": 2,
+        "spawnT": 5.23,
+        "lockT": 9.73,
+        "settleEndT": 9.73
+      },
+      {
+        "index": 3,
+        "spawnT": 9.73,
+        "lockT": 15.6,
+        "settleEndT": 15.6
+      },
+      {
+        "index": 4,
+        "spawnT": 15.6,
+        "lockT": 18.45,
+        "settleEndT": 18.87
+      },
+      {
+        "index": 5,
+        "spawnT": 18.87,
+        "lockT": 25.4,
+        "settleEndT": 25.4
+      },
+      {
+        "index": 6,
+        "spawnT": 25.4,
+        "lockT": 28.43,
+        "settleEndT": 28.43
+      },
+      {
+        "index": 7,
+        "spawnT": 28.43,
+        "lockT": 31.67,
+        "settleEndT": 33.45
+      },
+      {
+        "index": 8,
+        "spawnT": 33.45,
+        "lockT": 39.4,
+        "settleEndT": 39.82
+      },
+      {
+        "index": 9,
+        "spawnT": 39.82,
+        "lockT": 44.22,
+        "settleEndT": 44.63
+      },
+      {
+        "index": 10,
+        "spawnT": 44.63,
+        "lockT": 50.82,
+        "settleEndT": 50.82
+      },
+      {
+        "index": 11,
+        "spawnT": 50.82,
+        "lockT": 54.23,
+        "settleEndT": 54.65
+      },
+      {
+        "index": 12,
+        "spawnT": 54.65,
+        "lockT": 57.07,
+        "settleEndT": 57.48
+      },
+      {
+        "index": 13,
+        "spawnT": 57.48,
+        "lockT": 61.63,
+        "settleEndT": 61.63
+      },
+      {
+        "index": 14,
+        "spawnT": 61.63,
+        "lockT": 65.73,
+        "settleEndT": 67.03
+      },
+      {
+        "index": 15,
+        "spawnT": 67.03,
+        "lockT": 71.23,
+        "settleEndT": 71.23
+      },
+      {
+        "index": 16,
+        "spawnT": 71.23,
+        "lockT": 75.18,
+        "settleEndT": 75.18
+      },
+      {
+        "index": 17,
+        "spawnT": 75.18,
+        "lockT": 78.3,
+        "settleEndT": 78.72
+      },
+      {
+        "index": 18,
+        "spawnT": 78.72,
+        "lockT": 81.95,
+        "settleEndT": 82.37
+      },
+      {
+        "index": 19,
+        "spawnT": 82.37,
+        "lockT": 86.32,
+        "settleEndT": 86.32
+      },
+      {
+        "index": 20,
+        "spawnT": 86.32,
+        "lockT": 89.37,
+        "settleEndT": 89.78
+      },
+      {
+        "index": 21,
+        "spawnT": 89.78,
+        "lockT": 92.47,
+        "settleEndT": 92.47
+      },
+      {
+        "index": 22,
+        "spawnT": 92.47,
+        "lockT": 96.3,
+        "settleEndT": 96.72
+      },
+      {
+        "index": 23,
+        "spawnT": 96.72,
+        "lockT": 99.83,
+        "settleEndT": 100.53
+      },
+      {
+        "index": 24,
+        "spawnT": 100.53,
+        "lockT": 103.73,
+        "settleEndT": 104.15
+      },
+      {
+        "index": 25,
+        "spawnT": 104.15,
+        "lockT": 107.9,
+        "settleEndT": 107.9
+      },
+      {
+        "index": 26,
+        "spawnT": 107.9,
+        "lockT": 110.33,
+        "settleEndT": 111.03
+      },
+      {
+        "index": 27,
+        "spawnT": 111.03,
+        "lockT": 114.68,
+        "settleEndT": 115.1
+      },
+      {
+        "index": 28,
+        "spawnT": 115.1,
+        "lockT": 118.25,
+        "settleEndT": 118.67
+      },
+      {
+        "index": 29,
+        "spawnT": 118.67,
+        "lockT": 122.45,
+        "settleEndT": 122.45
+      },
+      {
+        "index": 30,
+        "spawnT": 122.45,
+        "lockT": 126.08,
+        "settleEndT": 126.08
+      },
+      {
+        "index": 31,
+        "spawnT": 126.08,
+        "lockT": 128.33,
+        "settleEndT": 128.75
+      },
+      {
+        "index": 32,
+        "spawnT": 128.75,
+        "lockT": 131.78,
+        "settleEndT": 131.78
+      },
+      {
+        "index": 33,
+        "spawnT": 131.78,
+        "lockT": 135.1,
+        "settleEndT": 135.52
+      },
+      {
+        "index": 34,
+        "spawnT": 135.52,
+        "lockT": 138.77,
+        "settleEndT": 138.77
+      },
+      {
+        "index": 35,
+        "spawnT": 138.77,
+        "lockT": 141.4,
+        "settleEndT": 141.4
+      },
+      {
+        "index": 36,
+        "spawnT": 141.4,
+        "lockT": 144.03,
+        "settleEndT": 146.07
+      },
+      {
+        "index": 37,
+        "spawnT": 146.07,
+        "lockT": 149.2,
+        "settleEndT": 149.2
+      },
+      {
+        "index": 38,
+        "spawnT": 149.2,
+        "lockT": 152.92,
+        "settleEndT": 152.92
+      },
+      {
+        "index": 39,
+        "spawnT": 152.92,
+        "lockT": 156.37,
+        "settleEndT": 156.37
+      },
+      {
+        "index": 40,
+        "spawnT": 156.37,
+        "lockT": 159.42,
+        "settleEndT": 159.42
+      },
+      {
+        "index": 41,
+        "spawnT": 159.42,
+        "lockT": 162.27,
+        "settleEndT": 162.27
+      },
+      {
+        "index": 42,
+        "spawnT": 162.27,
+        "lockT": 164.12,
+        "settleEndT": 164.53
+      },
+      {
+        "index": 43,
+        "spawnT": 164.53,
+        "lockT": 167.02,
+        "settleEndT": 167.02
+      },
+      {
+        "index": 44,
+        "spawnT": 167.02,
+        "lockT": 169.5,
+        "settleEndT": 169.5
+      },
+      {
+        "index": 45,
+        "spawnT": 169.5,
+        "lockT": 171.45,
+        "settleEndT": 172.87
+      },
+      {
+        "index": 46,
+        "spawnT": 172.87,
+        "lockT": 174.68,
+        "settleEndT": 174.68
+      },
+      {
+        "index": 47,
+        "spawnT": 174.68,
+        "lockT": 176.77,
+        "settleEndT": 177.18
+      },
+      {
+        "index": 48,
+        "spawnT": 177.18,
+        "lockT": 179.47,
+        "settleEndT": 181.4
+      },
+      {
+        "index": 49,
+        "spawnT": 181.4,
+        "lockT": 183.82,
+        "settleEndT": 183.82
+      },
+      {
+        "index": 50,
+        "spawnT": 183.82,
+        "lockT": 186.18,
+        "settleEndT": 186.6
+      },
+      {
+        "index": 51,
+        "spawnT": 186.6,
+        "lockT": 189.53,
+        "settleEndT": 189.95
+      },
+      {
+        "index": 52,
+        "spawnT": 189.95,
+        "lockT": 193.07,
+        "settleEndT": 193.07
+      },
+      {
+        "index": 53,
+        "spawnT": 193.07,
+        "lockT": 196,
+        "settleEndT": 196
+      },
+      {
+        "index": 54,
+        "spawnT": 196,
+        "lockT": 198.57,
+        "settleEndT": 198.98
+      },
+      {
+        "index": 55,
+        "spawnT": 198.98,
+        "lockT": 201.05,
+        "settleEndT": 201.47
+      },
+      {
+        "index": 56,
+        "spawnT": 201.47,
+        "lockT": 204.48,
+        "settleEndT": 204.9
+      },
+      {
+        "index": 57,
+        "spawnT": 204.9,
+        "lockT": 207.1,
+        "settleEndT": 207.1
+      },
+      {
+        "index": 58,
+        "spawnT": 207.1,
+        "lockT": 209.3,
+        "settleEndT": 209.72
+      },
+      {
+        "index": 59,
+        "spawnT": 209.72,
+        "lockT": 212.28,
+        "settleEndT": 212.28
+      },
+      {
+        "index": 60,
+        "spawnT": 212.28,
+        "lockT": 214.28,
+        "settleEndT": 214.28
+      },
+      {
+        "index": 61,
+        "spawnT": 214.28,
+        "lockT": 216.27,
+        "settleEndT": 216.67
+      },
+      {
+        "index": 62,
+        "spawnT": 216.67,
+        "lockT": 218.67,
+        "settleEndT": 219.93
+      },
+      {
+        "index": 63,
+        "spawnT": 219.93,
+        "lockT": 222.27,
+        "settleEndT": 222.27
+      },
+      {
+        "index": 64,
+        "spawnT": 222.27,
+        "lockT": 224.28,
+        "settleEndT": 224.7
+      },
+      {
+        "index": 65,
+        "spawnT": 224.7,
+        "lockT": 226.7,
+        "settleEndT": 226.7
+      },
+      {
+        "index": 66,
+        "spawnT": 226.7,
+        "lockT": 228.95,
+        "settleEndT": 230.63
+      },
+      {
+        "index": 67,
+        "spawnT": 230.63,
+        "lockT": 232.73,
+        "settleEndT": 233.15
+      },
+      {
+        "index": 68,
+        "spawnT": 233.15,
+        "lockT": 235.42,
+        "settleEndT": 235.42
+      },
+      {
+        "index": 69,
+        "spawnT": 235.42,
+        "lockT": 237.35,
+        "settleEndT": 237.77
+      },
+      {
+        "index": 70,
+        "spawnT": 237.77,
+        "lockT": 239.5,
+        "settleEndT": 239.92
+      },
+      {
+        "index": 71,
+        "spawnT": 239.92,
+        "lockT": 241.2,
+        "settleEndT": 241.2
+      },
+      {
+        "index": 72,
+        "spawnT": 241.2,
+        "lockT": 242.88,
+        "settleEndT": 243.3
+      },
+      {
+        "index": 73,
+        "spawnT": 243.3,
+        "lockT": 245.03,
+        "settleEndT": 245.03
+      },
+      {
+        "index": 74,
+        "spawnT": 245.03,
+        "lockT": 246.6,
+        "settleEndT": 246.6
+      },
+      {
+        "index": 75,
+        "spawnT": 246.6,
+        "lockT": 247.82,
+        "settleEndT": 247.82
+      },
+      {
+        "index": 76,
+        "spawnT": 247.82,
+        "lockT": 248.58,
+        "settleEndT": 248.58
+      },
+      {
+        "index": 77,
+        "spawnT": 248.58,
+        "lockT": 249.4,
+        "settleEndT": 249.4
+      },
+      {
+        "index": 78,
+        "spawnT": 249.4,
+        "lockT": 249.93,
+        "settleEndT": 249.93
+      }
+    ],
+    "perPieceLock": [
+      {
+        "index": 1,
+        "dropDistance": 19,
+        "fallSpeed": 2.4,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "starAtLock": 0,
+        "floatingBlocksBeforeLock": 0,
+        "softDropCells": 10,
+        "softDropSeconds": 0.8,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 2.28,
+        "secondsToFirstSoftDrop": 0.92
+      },
+      {
+        "index": 2,
+        "dropDistance": 19,
+        "fallSpeed": 2.4,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "starAtLock": 0,
+        "floatingBlocksBeforeLock": 0,
+        "softDropCells": 13,
+        "softDropSeconds": 1.12,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 2.9,
+        "secondsToFirstSoftDrop": 2.5
+      },
+      {
+        "index": 3,
+        "dropDistance": 19,
+        "fallSpeed": 2.4,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "starAtLock": 0,
+        "floatingBlocksBeforeLock": 0,
+        "softDropCells": 8,
+        "softDropSeconds": 0.93,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 4.9,
+        "secondsToFirstSoftDrop": 3.33
+      },
+      {
+        "index": 4,
+        "dropDistance": 18,
+        "fallSpeed": 2.4,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "starAtLock": 0,
+        "floatingBlocksBeforeLock": 0,
+        "softDropCells": 16,
+        "softDropSeconds": 1.6,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0.7,
+        "secondsToFirstSoftDrop": 1.05
+      },
+      {
+        "index": 5,
+        "dropDistance": 17,
+        "fallSpeed": 2.4,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "starAtLock": 0,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 4,
+        "softDropSeconds": 0.58,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 4.63,
+        "secondsToFirstSoftDrop": 5.37
+      },
+      {
+        "index": 6,
+        "dropDistance": 16,
+        "fallSpeed": 2.4,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "starAtLock": 0,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 13,
+        "softDropSeconds": 1.18,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.07,
+        "secondsToFirstSoftDrop": 1.48
+      },
+      {
+        "index": 7,
+        "dropDistance": 14,
+        "fallSpeed": 2.4,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "starAtLock": 0,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 10,
+        "softDropSeconds": 0.98,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.67,
+        "secondsToFirstSoftDrop": 1.95
+      },
+      {
+        "index": 8,
+        "dropDistance": 16,
+        "fallSpeed": 2.4,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "starAtLock": 0,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 4,
+        "softDropSeconds": 0.57,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 4.6,
+        "secondsToFirstSoftDrop": 5.13
+      },
+      {
+        "index": 9,
+        "dropDistance": 17,
+        "fallSpeed": 2.4,
+        "hardDrop": false,
+        "widthAtLock": 6,
+        "taskIndexAtLock": 1,
+        "taskKindAtLock": "dig",
+        "starAtLock": 0,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 10,
+        "softDropSeconds": 0.82,
+        "lockDelaySeconds": 0.58,
+        "secondsToLastMoveOrRotate": 4.4,
+        "secondsToFirstSoftDrop": 2.43
+      },
+      {
+        "index": 10,
+        "dropDistance": 17,
+        "fallSpeed": 3,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "starAtLock": 1,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 4.53,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 11,
+        "dropDistance": 19,
+        "fallSpeed": 3,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "starAtLock": 1,
+        "floatingBlocksBeforeLock": 0,
+        "softDropCells": 14,
+        "softDropSeconds": 1.53,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.43,
+        "secondsToFirstSoftDrop": 1.77
+      },
+      {
+        "index": 12,
+        "dropDistance": 14,
+        "fallSpeed": 3,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "starAtLock": 1,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 12,
+        "softDropSeconds": 1.15,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0.52,
+        "secondsToFirstSoftDrop": 0.98
+      },
+      {
+        "index": 13,
+        "dropDistance": 15,
+        "fallSpeed": 3,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "starAtLock": 1,
+        "floatingBlocksBeforeLock": 3,
+        "softDropCells": 6,
+        "softDropSeconds": 0.5,
+        "lockDelaySeconds": 0.65,
+        "secondsToLastMoveOrRotate": 3.63,
+        "secondsToFirstSoftDrop": 2.37
+      },
+      {
+        "index": 14,
+        "dropDistance": 14,
+        "fallSpeed": 3,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "starAtLock": 1,
+        "floatingBlocksBeforeLock": 2,
+        "softDropCells": 5,
+        "softDropSeconds": 0.65,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 2.87,
+        "secondsToFirstSoftDrop": 3.23
+      },
+      {
+        "index": 15,
+        "dropDistance": 19,
+        "fallSpeed": 3,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "starAtLock": 1,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 12,
+        "softDropSeconds": 1.25,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 2.52,
+        "secondsToFirstSoftDrop": 1.67
+      },
+      {
+        "index": 16,
+        "dropDistance": 14,
+        "fallSpeed": 3,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "starAtLock": 1,
+        "floatingBlocksBeforeLock": 0,
+        "softDropCells": 6,
+        "softDropSeconds": 0.83,
+        "lockDelaySeconds": 0.65,
+        "secondsToLastMoveOrRotate": 3.95,
+        "secondsToFirstSoftDrop": 2.85
+      },
+      {
+        "index": 17,
+        "dropDistance": 14,
+        "fallSpeed": 3,
+        "hardDrop": false,
+        "widthAtLock": 7,
+        "taskIndexAtLock": 2,
+        "taskKindAtLock": "dig",
+        "starAtLock": 1,
+        "floatingBlocksBeforeLock": 0,
+        "softDropCells": 9,
+        "softDropSeconds": 0.87,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 2.23,
+        "secondsToFirstSoftDrop": 1.25
+      },
+      {
+        "index": 18,
+        "dropDistance": 15,
+        "fallSpeed": 3.6,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "starAtLock": 2,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 8,
+        "softDropSeconds": 0.78,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.68,
+        "secondsToFirstSoftDrop": 2.1
+      },
+      {
+        "index": 19,
+        "dropDistance": 16,
+        "fallSpeed": 3.6,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "starAtLock": 2,
+        "floatingBlocksBeforeLock": 2,
+        "softDropCells": 6,
+        "softDropSeconds": 0.55,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 2.68,
+        "secondsToFirstSoftDrop": 3.02
+      },
+      {
+        "index": 20,
+        "dropDistance": 13,
+        "fallSpeed": 3.6,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "starAtLock": 2,
+        "floatingBlocksBeforeLock": 2,
+        "softDropCells": 6,
+        "softDropSeconds": 0.72,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.77,
+        "secondsToFirstSoftDrop": 2.07
+      },
+      {
+        "index": 21,
+        "dropDistance": 14,
+        "fallSpeed": 3.6,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "starAtLock": 2,
+        "floatingBlocksBeforeLock": 3,
+        "softDropCells": 9,
+        "softDropSeconds": 0.97,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.08,
+        "secondsToFirstSoftDrop": 1.43
+      },
+      {
+        "index": 22,
+        "dropDistance": 14,
+        "fallSpeed": 3.6,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "starAtLock": 2,
+        "floatingBlocksBeforeLock": 3,
+        "softDropCells": 4,
+        "softDropSeconds": 0.43,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.5,
+        "secondsToFirstSoftDrop": 2.08
+      },
+      {
+        "index": 23,
+        "dropDistance": 13,
+        "fallSpeed": 3.6,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "starAtLock": 2,
+        "floatingBlocksBeforeLock": 4,
+        "softDropCells": 6,
+        "softDropSeconds": 0.77,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.82,
+        "secondsToFirstSoftDrop": 2.18
+      },
+      {
+        "index": 24,
+        "dropDistance": 14,
+        "fallSpeed": 3.6,
+        "hardDrop": false,
+        "widthAtLock": 8,
+        "taskIndexAtLock": 3,
+        "taskKindAtLock": "dig",
+        "starAtLock": 2,
+        "floatingBlocksBeforeLock": 2,
+        "softDropCells": 7,
+        "softDropSeconds": 0.82,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.7,
+        "secondsToFirstSoftDrop": 2.17
+      },
+      {
+        "index": 25,
+        "dropDistance": 14,
+        "fallSpeed": 4.3,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "starAtLock": 3,
+        "floatingBlocksBeforeLock": 2,
+        "softDropCells": 1,
+        "softDropSeconds": 0.27,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.37,
+        "secondsToFirstSoftDrop": 3.23
+      },
+      {
+        "index": 26,
+        "dropDistance": 11,
+        "fallSpeed": 4.3,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "starAtLock": 3,
+        "floatingBlocksBeforeLock": 2,
+        "softDropCells": 5,
+        "softDropSeconds": 0.6,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.12,
+        "secondsToFirstSoftDrop": 1.57
+      },
+      {
+        "index": 27,
+        "dropDistance": 15,
+        "fallSpeed": 4.3,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "starAtLock": 3,
+        "floatingBlocksBeforeLock": 2,
+        "softDropCells": 3,
+        "softDropSeconds": 0.43,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 2.28,
+        "secondsToFirstSoftDrop": 2.93
+      },
+      {
+        "index": 28,
+        "dropDistance": 13,
+        "fallSpeed": 4.3,
+        "hardDrop": false,
+        "widthAtLock": 9,
+        "taskIndexAtLock": 4,
+        "taskKindAtLock": "dig",
+        "starAtLock": 3,
+        "floatingBlocksBeforeLock": 3,
+        "softDropCells": 3,
+        "softDropSeconds": 0.45,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 2.07,
+        "secondsToFirstSoftDrop": 2.42
+      },
+      {
+        "index": 29,
+        "dropDistance": 15,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 5,
+        "softDropCells": 1,
+        "softDropSeconds": 0.38,
+        "lockDelaySeconds": 0.75,
+        "secondsToLastMoveOrRotate": 2.95,
+        "secondsToFirstSoftDrop": 3.22
+      },
+      {
+        "index": 30,
+        "dropDistance": 13,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 3,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.9,
+        "secondsToLastMoveOrRotate": 3.12,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 31,
+        "dropDistance": 12,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 3,
+        "softDropCells": 7,
+        "softDropSeconds": 0.75,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0.73,
+        "secondsToFirstSoftDrop": 1.22
+      },
+      {
+        "index": 32,
+        "dropDistance": 12,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 4,
+        "softDropCells": 0,
+        "softDropSeconds": 0.22,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 2.33,
+        "secondsToFirstSoftDrop": 2.7
+      },
+      {
+        "index": 33,
+        "dropDistance": 14,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 4,
+        "softDropCells": 2,
+        "softDropSeconds": 0.3,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.92,
+        "secondsToFirstSoftDrop": 2.72
+      },
+      {
+        "index": 34,
+        "dropDistance": 12,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 4,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.72,
+        "secondsToLastMoveOrRotate": 2.68,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 35,
+        "dropDistance": 12,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 4,
+        "softDropCells": 4,
+        "softDropSeconds": 0.43,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0.97,
+        "secondsToFirstSoftDrop": 1.85
+      },
+      {
+        "index": 36,
+        "dropDistance": 12,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 4,
+        "softDropCells": 4,
+        "softDropSeconds": 0.52,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.43,
+        "secondsToFirstSoftDrop": 1.85
+      },
+      {
+        "index": 37,
+        "dropDistance": 13,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 2,
+        "softDropCells": 1,
+        "softDropSeconds": 0.22,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0.63,
+        "secondsToFirstSoftDrop": 2.55
+      },
+      {
+        "index": 38,
+        "dropDistance": 16,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 2,
+        "softDropCells": 2,
+        "softDropSeconds": 0.33,
+        "lockDelaySeconds": 0.55,
+        "secondsToLastMoveOrRotate": 2.75,
+        "secondsToFirstSoftDrop": 3.1
+      },
+      {
+        "index": 39,
+        "dropDistance": 13,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.75,
+        "secondsToLastMoveOrRotate": 2.38,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 40,
+        "dropDistance": 12,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.53,
+        "secondsToLastMoveOrRotate": 3.05,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 41,
+        "dropDistance": 12,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 2,
+        "softDropSeconds": 0.3,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.55,
+        "secondsToFirstSoftDrop": 2.22
+      },
+      {
+        "index": 42,
+        "dropDistance": 10,
+        "fallSpeed": 4.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 5,
+        "taskKindAtLock": "big",
+        "starAtLock": 4,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 7,
+        "softDropSeconds": 0.67,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0,
+        "secondsToFirstSoftDrop": 0.83
+      },
+      {
+        "index": 43,
+        "dropDistance": 10,
+        "fallSpeed": 5.1,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 6,
+        "taskKindAtLock": "newShape",
+        "starAtLock": 5,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 0,
+        "softDropSeconds": 0.13,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.6,
+        "secondsToFirstSoftDrop": 2.03
+      },
+      {
+        "index": 44,
+        "dropDistance": 10,
+        "fallSpeed": 5.1,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 6,
+        "taskKindAtLock": "newShape",
+        "starAtLock": 5,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 0,
+        "softDropSeconds": 0.13,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.4,
+        "secondsToFirstSoftDrop": 2.07
+      },
+      {
+        "index": 45,
+        "dropDistance": 8,
+        "fallSpeed": 5.1,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 6,
+        "taskKindAtLock": "newShape",
+        "starAtLock": 5,
+        "floatingBlocksBeforeLock": 1,
+        "softDropCells": 2,
+        "softDropSeconds": 0.35,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0.95,
+        "secondsToFirstSoftDrop": 1.33
+      },
+      {
+        "index": 46,
+        "dropDistance": 8,
+        "fallSpeed": 5.1,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 6,
+        "taskKindAtLock": "newShape",
+        "starAtLock": 5,
+        "floatingBlocksBeforeLock": 14,
+        "softDropCells": 3,
+        "softDropSeconds": 0.4,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0,
+        "secondsToFirstSoftDrop": 1.1
+      },
+      {
+        "index": 47,
+        "dropDistance": 8,
+        "fallSpeed": 5.1,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 6,
+        "taskKindAtLock": "newShape",
+        "starAtLock": 5,
+        "floatingBlocksBeforeLock": 12,
+        "softDropCells": 1,
+        "softDropSeconds": 0.27,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.15,
+        "secondsToFirstSoftDrop": 1.57
+      },
+      {
+        "index": 48,
+        "dropDistance": 9,
+        "fallSpeed": 5.1,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 6,
+        "taskKindAtLock": "newShape",
+        "starAtLock": 5,
+        "floatingBlocksBeforeLock": 14,
+        "softDropCells": 0,
+        "softDropSeconds": 0.15,
+        "lockDelaySeconds": 0.55,
+        "secondsToLastMoveOrRotate": 1.22,
+        "secondsToFirstSoftDrop": 1.88
+      },
+      {
+        "index": 49,
+        "dropDistance": 13,
+        "fallSpeed": 5.1,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 6,
+        "taskKindAtLock": "newShape",
+        "starAtLock": 5,
+        "floatingBlocksBeforeLock": 10,
+        "softDropCells": 6,
+        "softDropSeconds": 0.72,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0.98,
+        "secondsToFirstSoftDrop": 1.43
+      },
+      {
+        "index": 50,
+        "dropDistance": 11,
+        "fallSpeed": 5.1,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 6,
+        "taskKindAtLock": "newShape",
+        "starAtLock": 5,
+        "floatingBlocksBeforeLock": 9,
+        "softDropCells": 3,
+        "softDropSeconds": 0.45,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1,
+        "secondsToFirstSoftDrop": 1.63
+      },
+      {
+        "index": 51,
+        "dropDistance": 13,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 8,
+        "softDropCells": 0,
+        "softDropSeconds": 0.18,
+        "lockDelaySeconds": 0.7,
+        "secondsToLastMoveOrRotate": 2.2,
+        "secondsToFirstSoftDrop": 2.6
+      },
+      {
+        "index": 52,
+        "dropDistance": 14,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 9,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0.68,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 53,
+        "dropDistance": 13,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 8,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.23,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 54,
+        "dropDistance": 11,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 7,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.63,
+        "secondsToLastMoveOrRotate": 1.92,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 55,
+        "dropDistance": 9,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 7,
+        "softDropCells": 2,
+        "softDropSeconds": 0.33,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0.72,
+        "secondsToFirstSoftDrop": 1.47
+      },
+      {
+        "index": 56,
+        "dropDistance": 13,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 8,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 2.48,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 57,
+        "dropDistance": 9,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 9,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.32,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 58,
+        "dropDistance": 9,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 8,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.45,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 59,
+        "dropDistance": 11,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 8,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.58,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 60,
+        "dropDistance": 9,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 7,
+        "softDropCells": 2,
+        "softDropSeconds": 0.35,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1,
+        "secondsToFirstSoftDrop": 1.33
+      },
+      {
+        "index": 61,
+        "dropDistance": 10,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 7,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.1,
+        "secondsToLastMoveOrRotate": 1.98,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 62,
+        "dropDistance": 8,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 8,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.2,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 63,
+        "dropDistance": 10,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 8,
+        "softDropCells": 1,
+        "softDropSeconds": 0.25,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.4,
+        "secondsToFirstSoftDrop": 1.8
+      },
+      {
+        "index": 64,
+        "dropDistance": 9,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 7,
+        "softDropCells": 2,
+        "softDropSeconds": 0.32,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0.95,
+        "secondsToFirstSoftDrop": 1.37
+      },
+      {
+        "index": 65,
+        "dropDistance": 8,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 8,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.58,
+        "secondsToLastMoveOrRotate": 1.18,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 66,
+        "dropDistance": 10,
+        "fallSpeed": 5.4,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 7,
+        "taskKindAtLock": "gravity",
+        "starAtLock": 6,
+        "floatingBlocksBeforeLock": 7,
+        "softDropCells": 2,
+        "softDropSeconds": 0.28,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.03,
+        "secondsToFirstSoftDrop": 1.63
+      },
+      {
+        "index": 67,
+        "dropDistance": 11,
+        "fallSpeed": 5.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 8,
+        "taskKindAtLock": "big",
+        "starAtLock": 7,
+        "floatingBlocksBeforeLock": 6,
+        "softDropCells": 4,
+        "softDropSeconds": 0.42,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1,
+        "secondsToFirstSoftDrop": 1.3
+      },
+      {
+        "index": 68,
+        "dropDistance": 9,
+        "fallSpeed": 5.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 8,
+        "taskKindAtLock": "big",
+        "starAtLock": 7,
+        "floatingBlocksBeforeLock": 8,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.7,
+        "secondsToLastMoveOrRotate": 1.75,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 69,
+        "dropDistance": 9,
+        "fallSpeed": 5.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 8,
+        "taskKindAtLock": "big",
+        "starAtLock": 7,
+        "floatingBlocksBeforeLock": 7,
+        "softDropCells": 2,
+        "softDropSeconds": 0.23,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0.68,
+        "secondsToFirstSoftDrop": 1.3
+      },
+      {
+        "index": 70,
+        "dropDistance": 7,
+        "fallSpeed": 5.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 8,
+        "taskKindAtLock": "big",
+        "starAtLock": 7,
+        "floatingBlocksBeforeLock": 8,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 1.02,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 71,
+        "dropDistance": 6,
+        "fallSpeed": 5.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 8,
+        "taskKindAtLock": "big",
+        "starAtLock": 7,
+        "floatingBlocksBeforeLock": 10,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.23,
+        "secondsToLastMoveOrRotate": 1.28,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 72,
+        "dropDistance": 7,
+        "fallSpeed": 5.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 8,
+        "taskKindAtLock": "big",
+        "starAtLock": 7,
+        "floatingBlocksBeforeLock": 11,
+        "softDropCells": 1,
+        "softDropSeconds": 0.27,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0.57,
+        "secondsToFirstSoftDrop": 1.12
+      },
+      {
+        "index": 73,
+        "dropDistance": 7,
+        "fallSpeed": 5.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 8,
+        "taskKindAtLock": "big",
+        "starAtLock": 7,
+        "floatingBlocksBeforeLock": 9,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.57,
+        "secondsToLastMoveOrRotate": 0.75,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 74,
+        "dropDistance": 5,
+        "fallSpeed": 5.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 8,
+        "taskKindAtLock": "big",
+        "starAtLock": 7,
+        "floatingBlocksBeforeLock": 8,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.72,
+        "secondsToLastMoveOrRotate": 0.88,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 75,
+        "dropDistance": 5,
+        "fallSpeed": 5.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 8,
+        "taskKindAtLock": "big",
+        "starAtLock": 7,
+        "floatingBlocksBeforeLock": 8,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.43,
+        "secondsToLastMoveOrRotate": 1.22,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 76,
+        "dropDistance": 4,
+        "fallSpeed": 5.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 8,
+        "taskKindAtLock": "big",
+        "starAtLock": 7,
+        "floatingBlocksBeforeLock": 9,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.07,
+        "secondsToLastMoveOrRotate": 0.77,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 77,
+        "dropDistance": 1,
+        "fallSpeed": 5.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 8,
+        "taskKindAtLock": "big",
+        "starAtLock": 7,
+        "floatingBlocksBeforeLock": 9,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.65,
+        "secondsToLastMoveOrRotate": 0.82,
+        "secondsToFirstSoftDrop": "—"
+      },
+      {
+        "index": 78,
+        "dropDistance": 0,
+        "fallSpeed": 5.8,
+        "hardDrop": false,
+        "widthAtLock": 10,
+        "taskIndexAtLock": 8,
+        "taskKindAtLock": "big",
+        "starAtLock": 7,
+        "floatingBlocksBeforeLock": 9,
+        "softDropCells": 0,
+        "softDropSeconds": 0,
+        "lockDelaySeconds": 0.52,
+        "secondsToLastMoveOrRotate": 0,
+        "secondsToFirstSoftDrop": "—"
+      }
+    ],
+    "perPieceClearGroups": [
+      {
+        "index": 1,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 2,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 3,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 4,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 5,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 6,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 7,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "B",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ]
+      },
+      {
+        "index": 8,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 9,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 10,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 11,
+        "firstSegment": [
+          {
+            "size": 6,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 12,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 13,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 14,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "A",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 15,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 16,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 17,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 18,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 19,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 20,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 21,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 22,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 23,
+        "firstSegment": [
+          {
+            "size": 6,
+            "color": "B",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 24,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 25,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 26,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 27,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 28,
+        "firstSegment": [
+          {
+            "size": 6,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": true,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 29,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 30,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 31,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 32,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 33,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 34,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 35,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 36,
+        "firstSegment": [
+          {
+            "size": 8,
+            "color": "B",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": [
+          {
+            "size": 6,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": false
+          }
+        ]
+      },
+      {
+        "index": 37,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 38,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 39,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 40,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 41,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 42,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 43,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 44,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 45,
+        "firstSegment": [
+          {
+            "size": 6,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 1,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 46,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 47,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 48,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "C",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": [
+          {
+            "size": 5,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": false
+          }
+        ]
+      },
+      {
+        "index": 49,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 50,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 51,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          },
+          {
+            "size": 4,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 52,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 53,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 54,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 55,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 56,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 57,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 58,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 59,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 60,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 61,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 62,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "C",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": [
+          {
+            "size": 5,
+            "color": "A",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": false
+          }
+        ]
+      },
+      {
+        "index": 63,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 64,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 65,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 66,
+        "firstSegment": [
+          {
+            "size": 5,
+            "color": "C",
+            "ballCount": 1,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": [
+          {
+            "size": 4,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": false
+          }
+        ]
+      },
+      {
+        "index": 67,
+        "firstSegment": [
+          {
+            "size": 6,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 68,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 69,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 70,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "B",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 71,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 72,
+        "firstSegment": [
+          {
+            "size": 4,
+            "color": "A",
+            "ballCount": 0,
+            "clearBallCount": 0,
+            "isTargetColorGroup": false,
+            "hasPieceCell": true
+          }
+        ],
+        "extraSegment": []
+      },
+      {
+        "index": 73,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 74,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 75,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 76,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 77,
+        "firstSegment": [],
+        "extraSegment": []
+      },
+      {
+        "index": 78,
+        "firstSegment": [],
+        "extraSegment": []
+      }
+    ],
+    "perPieceBoardState": [
+      {
+        "index": 1,
+        "sumColHeight": 4,
+        "filledCount": 4,
+        "closedHoles": 0,
+        "maxColHeight": 2,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 2,
+        "sumColHeight": 8,
+        "filledCount": 8,
+        "closedHoles": 0,
+        "maxColHeight": 2,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 3,
+        "sumColHeight": 12,
+        "filledCount": 12,
+        "closedHoles": 0,
+        "maxColHeight": 4,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 4,
+        "sumColHeight": 16,
+        "filledCount": 12,
+        "closedHoles": 4,
+        "maxColHeight": 4,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 5,
+        "sumColHeight": 21,
+        "filledCount": 16,
+        "closedHoles": 5,
+        "maxColHeight": 5,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 6,
+        "sumColHeight": 25,
+        "filledCount": 20,
+        "closedHoles": 5,
+        "maxColHeight": 6,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 7,
+        "sumColHeight": 17,
+        "filledCount": 15,
+        "closedHoles": 2,
+        "maxColHeight": 5,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 8,
+        "sumColHeight": 21,
+        "filledCount": 15,
+        "closedHoles": 6,
+        "maxColHeight": 6,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 9,
+        "sumColHeight": 21,
+        "filledCount": 15,
+        "closedHoles": 6,
+        "maxColHeight": 6,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 10,
+        "sumColHeight": 25,
+        "filledCount": 19,
+        "closedHoles": 6,
+        "maxColHeight": 6,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 11,
+        "sumColHeight": 25,
+        "filledCount": 17,
+        "closedHoles": 8,
+        "maxColHeight": 6,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 12,
+        "sumColHeight": 23,
+        "filledCount": 16,
+        "closedHoles": 7,
+        "maxColHeight": 7,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 13,
+        "sumColHeight": 30,
+        "filledCount": 20,
+        "closedHoles": 10,
+        "maxColHeight": 7,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 14,
+        "sumColHeight": 27,
+        "filledCount": 19,
+        "closedHoles": 8,
+        "maxColHeight": 6,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 15,
+        "sumColHeight": 31,
+        "filledCount": 23,
+        "closedHoles": 8,
+        "maxColHeight": 6,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 16,
+        "sumColHeight": 39,
+        "filledCount": 27,
+        "closedHoles": 12,
+        "maxColHeight": 7,
+        "closedHolesDelta": 4
+      },
+      {
+        "index": 17,
+        "sumColHeight": 37,
+        "filledCount": 26,
+        "closedHoles": 11,
+        "maxColHeight": 7,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 18,
+        "sumColHeight": 38,
+        "filledCount": 25,
+        "closedHoles": 13,
+        "maxColHeight": 7,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 19,
+        "sumColHeight": 46,
+        "filledCount": 29,
+        "closedHoles": 17,
+        "maxColHeight": 7,
+        "closedHolesDelta": 4
+      },
+      {
+        "index": 20,
+        "sumColHeight": 50,
+        "filledCount": 29,
+        "closedHoles": 21,
+        "maxColHeight": 9,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 21,
+        "sumColHeight": 55,
+        "filledCount": 33,
+        "closedHoles": 22,
+        "maxColHeight": 9,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 22,
+        "sumColHeight": 52,
+        "filledCount": 33,
+        "closedHoles": 19,
+        "maxColHeight": 9,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 23,
+        "sumColHeight": 49,
+        "filledCount": 31,
+        "closedHoles": 18,
+        "maxColHeight": 8,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 24,
+        "sumColHeight": 53,
+        "filledCount": 30,
+        "closedHoles": 23,
+        "maxColHeight": 8,
+        "closedHolesDelta": 6
+      },
+      {
+        "index": 25,
+        "sumColHeight": 64,
+        "filledCount": 34,
+        "closedHoles": 30,
+        "maxColHeight": 8,
+        "closedHolesDelta": 7
+      },
+      {
+        "index": 26,
+        "sumColHeight": 61,
+        "filledCount": 34,
+        "closedHoles": 27,
+        "maxColHeight": 8,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 27,
+        "sumColHeight": 66,
+        "filledCount": 34,
+        "closedHoles": 32,
+        "maxColHeight": 8,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 28,
+        "sumColHeight": 45,
+        "filledCount": 23,
+        "closedHoles": 22,
+        "maxColHeight": 7,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 29,
+        "sumColHeight": 49,
+        "filledCount": 27,
+        "closedHoles": 22,
+        "maxColHeight": 8,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 30,
+        "sumColHeight": 57,
+        "filledCount": 31,
+        "closedHoles": 26,
+        "maxColHeight": 8,
+        "closedHolesDelta": 4
+      },
+      {
+        "index": 31,
+        "sumColHeight": 59,
+        "filledCount": 31,
+        "closedHoles": 28,
+        "maxColHeight": 9,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 32,
+        "sumColHeight": 66,
+        "filledCount": 35,
+        "closedHoles": 31,
+        "maxColHeight": 10,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 33,
+        "sumColHeight": 70,
+        "filledCount": 35,
+        "closedHoles": 35,
+        "maxColHeight": 10,
+        "closedHolesDelta": 4
+      },
+      {
+        "index": 34,
+        "sumColHeight": 77,
+        "filledCount": 39,
+        "closedHoles": 38,
+        "maxColHeight": 10,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 35,
+        "sumColHeight": 88,
+        "filledCount": 43,
+        "closedHoles": 45,
+        "maxColHeight": 10,
+        "closedHolesDelta": 7
+      },
+      {
+        "index": 36,
+        "sumColHeight": 60,
+        "filledCount": 33,
+        "closedHoles": 27,
+        "maxColHeight": 9,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 37,
+        "sumColHeight": 65,
+        "filledCount": 37,
+        "closedHoles": 28,
+        "maxColHeight": 9,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 38,
+        "sumColHeight": 72,
+        "filledCount": 41,
+        "closedHoles": 31,
+        "maxColHeight": 9,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 39,
+        "sumColHeight": 77,
+        "filledCount": 45,
+        "closedHoles": 32,
+        "maxColHeight": 9,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 40,
+        "sumColHeight": 83,
+        "filledCount": 49,
+        "closedHoles": 34,
+        "maxColHeight": 10,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 41,
+        "sumColHeight": 87,
+        "filledCount": 53,
+        "closedHoles": 34,
+        "maxColHeight": 11,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 42,
+        "sumColHeight": 91,
+        "filledCount": 52,
+        "closedHoles": 39,
+        "maxColHeight": 11,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 43,
+        "sumColHeight": 98,
+        "filledCount": 56,
+        "closedHoles": 42,
+        "maxColHeight": 11,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 44,
+        "sumColHeight": 104,
+        "filledCount": 60,
+        "closedHoles": 44,
+        "maxColHeight": 12,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 45,
+        "sumColHeight": 102,
+        "filledCount": 39,
+        "closedHoles": 63,
+        "maxColHeight": 13,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 46,
+        "sumColHeight": 108,
+        "filledCount": 43,
+        "closedHoles": 65,
+        "maxColHeight": 13,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 47,
+        "sumColHeight": 109,
+        "filledCount": 43,
+        "closedHoles": 66,
+        "maxColHeight": 14,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 48,
+        "sumColHeight": 88,
+        "filledCount": 37,
+        "closedHoles": 51,
+        "maxColHeight": 14,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 49,
+        "sumColHeight": 93,
+        "filledCount": 41,
+        "closedHoles": 52,
+        "maxColHeight": 14,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 50,
+        "sumColHeight": 71,
+        "filledCount": 30,
+        "closedHoles": 41,
+        "maxColHeight": 12,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 51,
+        "sumColHeight": 64,
+        "filledCount": 26,
+        "closedHoles": 38,
+        "maxColHeight": 12,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 52,
+        "sumColHeight": 72,
+        "filledCount": 30,
+        "closedHoles": 42,
+        "maxColHeight": 12,
+        "closedHolesDelta": 4
+      },
+      {
+        "index": 53,
+        "sumColHeight": 78,
+        "filledCount": 34,
+        "closedHoles": 44,
+        "maxColHeight": 12,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 54,
+        "sumColHeight": 81,
+        "filledCount": 34,
+        "closedHoles": 47,
+        "maxColHeight": 12,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 55,
+        "sumColHeight": 84,
+        "filledCount": 34,
+        "closedHoles": 50,
+        "maxColHeight": 12,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 56,
+        "sumColHeight": 88,
+        "filledCount": 33,
+        "closedHoles": 55,
+        "maxColHeight": 12,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 57,
+        "sumColHeight": 92,
+        "filledCount": 37,
+        "closedHoles": 55,
+        "maxColHeight": 12,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 58,
+        "sumColHeight": 97,
+        "filledCount": 37,
+        "closedHoles": 60,
+        "maxColHeight": 13,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 59,
+        "sumColHeight": 103,
+        "filledCount": 42,
+        "closedHoles": 61,
+        "maxColHeight": 13,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 60,
+        "sumColHeight": 116,
+        "filledCount": 45,
+        "closedHoles": 71,
+        "maxColHeight": 13,
+        "closedHolesDelta": 10
+      },
+      {
+        "index": 61,
+        "sumColHeight": 116,
+        "filledCount": 45,
+        "closedHoles": 71,
+        "maxColHeight": 13,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 62,
+        "sumColHeight": 99,
+        "filledCount": 40,
+        "closedHoles": 59,
+        "maxColHeight": 13,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 63,
+        "sumColHeight": 109,
+        "filledCount": 44,
+        "closedHoles": 65,
+        "maxColHeight": 13,
+        "closedHolesDelta": 6
+      },
+      {
+        "index": 64,
+        "sumColHeight": 112,
+        "filledCount": 44,
+        "closedHoles": 68,
+        "maxColHeight": 13,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 65,
+        "sumColHeight": 119,
+        "filledCount": 48,
+        "closedHoles": 71,
+        "maxColHeight": 14,
+        "closedHolesDelta": 3
+      },
+      {
+        "index": 66,
+        "sumColHeight": 100,
+        "filledCount": 44,
+        "closedHoles": 56,
+        "maxColHeight": 13,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 67,
+        "sumColHeight": 111,
+        "filledCount": 42,
+        "closedHoles": 69,
+        "maxColHeight": 13,
+        "closedHolesDelta": 7
+      },
+      {
+        "index": 68,
+        "sumColHeight": 115,
+        "filledCount": 46,
+        "closedHoles": 69,
+        "maxColHeight": 13,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 69,
+        "sumColHeight": 118,
+        "filledCount": 45,
+        "closedHoles": 73,
+        "maxColHeight": 13,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 70,
+        "sumColHeight": 124,
+        "filledCount": 46,
+        "closedHoles": 78,
+        "maxColHeight": 14,
+        "closedHolesDelta": 5
+      },
+      {
+        "index": 71,
+        "sumColHeight": 130,
+        "filledCount": 50,
+        "closedHoles": 80,
+        "maxColHeight": 15,
+        "closedHolesDelta": 2
+      },
+      {
+        "index": 72,
+        "sumColHeight": 131,
+        "filledCount": 51,
+        "closedHoles": 80,
+        "maxColHeight": 15,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 73,
+        "sumColHeight": 135,
+        "filledCount": 55,
+        "closedHoles": 80,
+        "maxColHeight": 16,
+        "closedHolesDelta": 0
+      },
+      {
+        "index": 74,
+        "sumColHeight": 139,
+        "filledCount": 58,
+        "closedHoles": 81,
+        "maxColHeight": 16,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 75,
+        "sumColHeight": 148,
+        "filledCount": 62,
+        "closedHoles": 86,
+        "maxColHeight": 17,
+        "closedHolesDelta": 5
+      },
+      {
+        "index": 76,
+        "sumColHeight": 154,
+        "filledCount": 67,
+        "closedHoles": 87,
+        "maxColHeight": 18,
+        "closedHolesDelta": 1
+      },
+      {
+        "index": 77,
+        "sumColHeight": 162,
+        "filledCount": 71,
+        "closedHoles": 91,
+        "maxColHeight": 20,
+        "closedHolesDelta": 4
+      },
+      {
+        "index": 78,
+        "sumColHeight": 165,
+        "filledCount": 74,
+        "closedHoles": 91,
+        "maxColHeight": 21,
+        "closedHolesDelta": 0
+      }
+    ],
+    "perGravityEvent": [
+      {
+        "pieceIndex": 7,
+        "displaced": 12,
+        "blockCount": 3,
+        "perBlockDrop": [
+          1,
+          2,
+          4
+        ],
+        "animSeconds": 0.9,
+        "capped": false,
+        "piecesSinceLastWipe": "—"
+      },
+      {
+        "pieceIndex": 14,
+        "displaced": 4,
+        "blockCount": 3,
+        "perBlockDrop": [
+          3,
+          1,
+          2
+        ],
+        "animSeconds": 0.84,
+        "capped": false,
+        "piecesSinceLastWipe": "—"
+      },
+      {
+        "pieceIndex": 23,
+        "displaced": 2,
+        "blockCount": 1,
+        "perBlockDrop": [
+          1
+        ],
+        "animSeconds": 0.27,
+        "capped": false,
+        "piecesSinceLastWipe": "—"
+      },
+      {
+        "pieceIndex": 26,
+        "displaced": 5,
+        "blockCount": 1,
+        "perBlockDrop": [
+          2
+        ],
+        "animSeconds": 0.27,
+        "capped": false,
+        "piecesSinceLastWipe": "—"
+      },
+      {
+        "pieceIndex": 36,
+        "displaced": 15,
+        "blockCount": 4,
+        "perBlockDrop": [
+          1,
+          3,
+          1,
+          3
+        ],
+        "animSeconds": 1.14,
+        "capped": false,
+        "piecesSinceLastWipe": "—"
+      },
+      {
+        "pieceIndex": 48,
+        "displaced": 8,
+        "blockCount": 3,
+        "perBlockDrop": [
+          1,
+          6,
+          3
+        ],
+        "animSeconds": 1.05,
+        "capped": false,
+        "piecesSinceLastWipe": 3
+      },
+      {
+        "pieceIndex": 62,
+        "displaced": 4,
+        "blockCount": 1,
+        "perBlockDrop": [
+          5
+        ],
+        "animSeconds": 0.42,
+        "capped": false,
+        "piecesSinceLastWipe": 17
+      },
+      {
+        "pieceIndex": 66,
+        "displaced": 17,
+        "blockCount": 3,
+        "perBlockDrop": [
+          1,
+          1,
+          2
+        ],
+        "animSeconds": 0.81,
+        "capped": false,
+        "piecesSinceLastWipe": 21
+      }
+    ],
+    "perGravityBallPiece": [
+      {
+        "pieceIndex": 6,
+        "starAtSpawn": 0,
+        "outcome": "clearedMoved",
+        "outcomeStar": 0,
+        "outcomePieceIndex": 7,
+        "piecesRemainingAtEnd": 72
+      },
+      {
+        "pieceIndex": 13,
+        "starAtSpawn": 1,
+        "outcome": "clearedMoved",
+        "outcomeStar": 1,
+        "outcomePieceIndex": 14,
+        "piecesRemainingAtEnd": 65
+      },
+      {
+        "pieceIndex": 21,
+        "starAtSpawn": 2,
+        "outcome": "clearedMoved",
+        "outcomeStar": 2,
+        "outcomePieceIndex": 23,
+        "piecesRemainingAtEnd": 57
+      },
+      {
+        "pieceIndex": 25,
+        "starAtSpawn": 3,
+        "outcome": "clearedMoved",
+        "outcomeStar": 3,
+        "outcomePieceIndex": 26,
+        "piecesRemainingAtEnd": 53
+      },
+      {
+        "pieceIndex": 36,
+        "starAtSpawn": 4,
+        "outcome": "clearedMoved",
+        "outcomeStar": 4,
+        "outcomePieceIndex": 36,
+        "piecesRemainingAtEnd": 42
+      },
+      {
+        "pieceIndex": 48,
+        "starAtSpawn": 5,
+        "outcome": "clearedMoved",
+        "outcomeStar": 5,
+        "outcomePieceIndex": 48,
+        "piecesRemainingAtEnd": 30
+      },
+      {
+        "pieceIndex": 52,
+        "starAtSpawn": 6,
+        "outcome": "residual",
+        "outcomeStar": null,
+        "outcomePieceIndex": null,
+        "piecesRemainingAtEnd": null
+      },
+      {
+        "pieceIndex": 62,
+        "starAtSpawn": 6,
+        "outcome": "clearedMoved",
+        "outcomeStar": 6,
+        "outcomePieceIndex": 62,
+        "piecesRemainingAtEnd": 16
+      },
+      {
+        "pieceIndex": 66,
+        "starAtSpawn": 6,
+        "outcome": "clearedMoved",
+        "outcomeStar": 6,
+        "outcomePieceIndex": 66,
+        "piecesRemainingAtEnd": 12
+      }
+    ],
+    "perHorizontalPress": [
+      {
+        "pieceIndex": 1,
+        "dir": "left",
+        "msSinceSpawn": 467,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 1,
+        "dir": "right",
+        "msSinceSpawn": 1383,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 1,
+        "dir": "right",
+        "msSinceSpawn": 1900,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 1,
+        "dir": "left",
+        "msSinceSpawn": 2100,
+        "holdMs": 417,
+        "movedCols": 2,
+        "blockedCount": 4,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 1,
+        "dir": "left",
+        "msSinceSpawn": 2633,
+        "holdMs": 133,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 1,
+        "dir": "left",
+        "msSinceSpawn": 2833,
+        "holdMs": 133,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 2,
+        "dir": "right",
+        "msSinceSpawn": 567,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 2,
+        "dir": "right",
+        "msSinceSpawn": 2900,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 3,
+        "dir": "right",
+        "msSinceSpawn": 750,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 3,
+        "dir": "right",
+        "msSinceSpawn": 1117,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 3,
+        "dir": "left",
+        "msSinceSpawn": 2267,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 3,
+        "dir": "right",
+        "msSinceSpawn": 2767,
+        "holdMs": 150,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 3,
+        "dir": "left",
+        "msSinceSpawn": 4033,
+        "holdMs": 183,
+        "movedCols": 2,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 3,
+        "dir": "left",
+        "msSinceSpawn": 4400,
+        "holdMs": 67,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 3,
+        "dir": "right",
+        "msSinceSpawn": 4900,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 4,
+        "dir": "left",
+        "msSinceSpawn": 317,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 4,
+        "dir": "right",
+        "msSinceSpawn": 700,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 5,
+        "dir": "right",
+        "msSinceSpawn": 1150,
+        "holdMs": 167,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 5,
+        "dir": "left",
+        "msSinceSpawn": 1767,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 5,
+        "dir": "right",
+        "msSinceSpawn": 2133,
+        "holdMs": 200,
+        "movedCols": 2,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 5,
+        "dir": "right",
+        "msSinceSpawn": 2617,
+        "holdMs": 200,
+        "movedCols": 1,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 5,
+        "dir": "right",
+        "msSinceSpawn": 2983,
+        "holdMs": 367,
+        "movedCols": 0,
+        "blockedCount": 5,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 5,
+        "dir": "left",
+        "msSinceSpawn": 3917,
+        "holdMs": 383,
+        "movedCols": 4,
+        "blockedCount": 2,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 5,
+        "dir": "left",
+        "msSinceSpawn": 4850,
+        "holdMs": 83,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 6,
+        "dir": "right",
+        "msSinceSpawn": 267,
+        "holdMs": 233,
+        "movedCols": 2,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 6,
+        "dir": "left",
+        "msSinceSpawn": 1067,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 7,
+        "dir": "left",
+        "msSinceSpawn": 1667,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 8,
+        "dir": "right",
+        "msSinceSpawn": 567,
+        "holdMs": 250,
+        "movedCols": 3,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 8,
+        "dir": "left",
+        "msSinceSpawn": 3950,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 9,
+        "dir": "right",
+        "msSinceSpawn": 700,
+        "holdMs": 317,
+        "movedCols": 3,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 9,
+        "dir": "right",
+        "msSinceSpawn": 1983,
+        "holdMs": 183,
+        "movedCols": 0,
+        "blockedCount": 2,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 10,
+        "dir": "right",
+        "msSinceSpawn": 700,
+        "holdMs": 250,
+        "movedCols": 3,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 10,
+        "dir": "right",
+        "msSinceSpawn": 4533,
+        "holdMs": 150,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 11,
+        "dir": "left",
+        "msSinceSpawn": 1150,
+        "holdMs": 433,
+        "movedCols": 4,
+        "blockedCount": 3,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 12,
+        "dir": "right",
+        "msSinceSpawn": 333,
+        "holdMs": 183,
+        "movedCols": 2,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 13,
+        "dir": "right",
+        "msSinceSpawn": 367,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 13,
+        "dir": "left",
+        "msSinceSpawn": 1633,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 13,
+        "dir": "right",
+        "msSinceSpawn": 3417,
+        "holdMs": 117,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 13,
+        "dir": "right",
+        "msSinceSpawn": 3633,
+        "holdMs": 150,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 14,
+        "dir": "left",
+        "msSinceSpawn": 1700,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 14,
+        "dir": "right",
+        "msSinceSpawn": 2083,
+        "holdMs": 900,
+        "movedCols": 4,
+        "blockedCount": 12,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 15,
+        "dir": "right",
+        "msSinceSpawn": 883,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 15,
+        "dir": "left",
+        "msSinceSpawn": 2333,
+        "holdMs": 250,
+        "movedCols": 2,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 16,
+        "dir": "right",
+        "msSinceSpawn": 183,
+        "holdMs": 567,
+        "movedCols": 3,
+        "blockedCount": 6,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 16,
+        "dir": "left",
+        "msSinceSpawn": 833,
+        "holdMs": 233,
+        "movedCols": 3,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 16,
+        "dir": "left",
+        "msSinceSpawn": 1350,
+        "holdMs": 167,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 16,
+        "dir": "left",
+        "msSinceSpawn": 2067,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 16,
+        "dir": "right",
+        "msSinceSpawn": 3783,
+        "holdMs": 167,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "lockCut"
+      },
+      {
+        "pieceIndex": 17,
+        "dir": "right",
+        "msSinceSpawn": "—",
+        "holdMs": 267,
+        "movedCols": 0,
+        "blockedCount": 0,
+        "source": "boundaryBlocked",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 17,
+        "dir": "right",
+        "msSinceSpawn": 500,
+        "holdMs": 633,
+        "movedCols": 3,
+        "blockedCount": 8,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 17,
+        "dir": "left",
+        "msSinceSpawn": 2000,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 17,
+        "dir": "right",
+        "msSinceSpawn": 2233,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 18,
+        "dir": "right",
+        "msSinceSpawn": 650,
+        "holdMs": 183,
+        "movedCols": 2,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 18,
+        "dir": "left",
+        "msSinceSpawn": 1383,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 18,
+        "dir": "left",
+        "msSinceSpawn": 1683,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 19,
+        "dir": "right",
+        "msSinceSpawn": 533,
+        "holdMs": 417,
+        "movedCols": 4,
+        "blockedCount": 2,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 19,
+        "dir": "right",
+        "msSinceSpawn": 2150,
+        "holdMs": 817,
+        "movedCols": 1,
+        "blockedCount": 13,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 19,
+        "dir": "left",
+        "msSinceSpawn": 3783,
+        "holdMs": 83,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 20,
+        "dir": "right",
+        "msSinceSpawn": 533,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 20,
+        "dir": "left",
+        "msSinceSpawn": 1767,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 21,
+        "dir": "left",
+        "msSinceSpawn": 700,
+        "holdMs": 167,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 21,
+        "dir": "left",
+        "msSinceSpawn": 1083,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 22,
+        "dir": "left",
+        "msSinceSpawn": 517,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 22,
+        "dir": "right",
+        "msSinceSpawn": 833,
+        "holdMs": 217,
+        "movedCols": 2,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 22,
+        "dir": "right",
+        "msSinceSpawn": 1450,
+        "holdMs": 150,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 23,
+        "dir": "right",
+        "msSinceSpawn": 267,
+        "holdMs": 150,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 23,
+        "dir": "right",
+        "msSinceSpawn": 750,
+        "holdMs": 183,
+        "movedCols": 2,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 23,
+        "dir": "left",
+        "msSinceSpawn": 1217,
+        "holdMs": 517,
+        "movedCols": 5,
+        "blockedCount": 3,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 24,
+        "dir": "left",
+        "msSinceSpawn": 467,
+        "holdMs": 167,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 24,
+        "dir": "right",
+        "msSinceSpawn": 1417,
+        "holdMs": 567,
+        "movedCols": 4,
+        "blockedCount": 5,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 25,
+        "dir": "left",
+        "msSinceSpawn": 1133,
+        "holdMs": 233,
+        "movedCols": 3,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 26,
+        "dir": "left",
+        "msSinceSpawn": 433,
+        "holdMs": 167,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 26,
+        "dir": "left",
+        "msSinceSpawn": 883,
+        "holdMs": 167,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 26,
+        "dir": "left",
+        "msSinceSpawn": 1117,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 27,
+        "dir": "left",
+        "msSinceSpawn": 683,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 27,
+        "dir": "left",
+        "msSinceSpawn": 1200,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 27,
+        "dir": "right",
+        "msSinceSpawn": 1717,
+        "holdMs": 317,
+        "movedCols": 4,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 27,
+        "dir": "right",
+        "msSinceSpawn": 2283,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 28,
+        "dir": "left",
+        "msSinceSpawn": 1550,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 28,
+        "dir": "left",
+        "msSinceSpawn": 1767,
+        "holdMs": 150,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 28,
+        "dir": "left",
+        "msSinceSpawn": 2067,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 29,
+        "dir": "left",
+        "msSinceSpawn": 1183,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 29,
+        "dir": "left",
+        "msSinceSpawn": 2433,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 29,
+        "dir": "left",
+        "msSinceSpawn": 2650,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 29,
+        "dir": "left",
+        "msSinceSpawn": 2950,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 30,
+        "dir": "right",
+        "msSinceSpawn": 1667,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 30,
+        "dir": "left",
+        "msSinceSpawn": 2517,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 30,
+        "dir": "right",
+        "msSinceSpawn": 3117,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 31,
+        "dir": "left",
+        "msSinceSpawn": 700,
+        "holdMs": 150,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 32,
+        "dir": "left",
+        "msSinceSpawn": 333,
+        "holdMs": 283,
+        "movedCols": 3,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 32,
+        "dir": "right",
+        "msSinceSpawn": 1317,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 32,
+        "dir": "left",
+        "msSinceSpawn": 2033,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 32,
+        "dir": "right",
+        "msSinceSpawn": 2333,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 33,
+        "dir": "right",
+        "msSinceSpawn": 300,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 33,
+        "dir": "left",
+        "msSinceSpawn": 650,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 33,
+        "dir": "right",
+        "msSinceSpawn": 900,
+        "holdMs": 267,
+        "movedCols": 3,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 33,
+        "dir": "left",
+        "msSinceSpawn": 1917,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 34,
+        "dir": "right",
+        "msSinceSpawn": 683,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 34,
+        "dir": "right",
+        "msSinceSpawn": 1933,
+        "holdMs": 400,
+        "movedCols": 4,
+        "blockedCount": 2,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 34,
+        "dir": "left",
+        "msSinceSpawn": 2467,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 34,
+        "dir": "left",
+        "msSinceSpawn": 2683,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 35,
+        "dir": "right",
+        "msSinceSpawn": 683,
+        "holdMs": 600,
+        "movedCols": 4,
+        "blockedCount": 6,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 36,
+        "dir": "right",
+        "msSinceSpawn": 683,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 36,
+        "dir": "left",
+        "msSinceSpawn": 1433,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 38,
+        "dir": "right",
+        "msSinceSpawn": 633,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 38,
+        "dir": "right",
+        "msSinceSpawn": 1183,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 38,
+        "dir": "left",
+        "msSinceSpawn": 2750,
+        "holdMs": 50,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 39,
+        "dir": "right",
+        "msSinceSpawn": 350,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 39,
+        "dir": "right",
+        "msSinceSpawn": 883,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 39,
+        "dir": "left",
+        "msSinceSpawn": 1950,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 39,
+        "dir": "right",
+        "msSinceSpawn": 2333,
+        "holdMs": 67,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 39,
+        "dir": "left",
+        "msSinceSpawn": 3150,
+        "holdMs": 133,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 40,
+        "dir": "right",
+        "msSinceSpawn": 1233,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 40,
+        "dir": "right",
+        "msSinceSpawn": 1550,
+        "holdMs": 300,
+        "movedCols": 3,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 40,
+        "dir": "left",
+        "msSinceSpawn": 2750,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 41,
+        "dir": "right",
+        "msSinceSpawn": "—",
+        "holdMs": 50,
+        "movedCols": 0,
+        "blockedCount": 0,
+        "source": "boundaryBlocked",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 41,
+        "dir": "right",
+        "msSinceSpawn": 0,
+        "holdMs": 800,
+        "movedCols": 2,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 41,
+        "dir": "right",
+        "msSinceSpawn": 1200,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 41,
+        "dir": "right",
+        "msSinceSpawn": 1550,
+        "holdMs": 67,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 43,
+        "dir": "left",
+        "msSinceSpawn": 417,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 43,
+        "dir": "left",
+        "msSinceSpawn": 817,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 43,
+        "dir": "left",
+        "msSinceSpawn": 1600,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 44,
+        "dir": "left",
+        "msSinceSpawn": 1400,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 45,
+        "dir": "right",
+        "msSinceSpawn": 750,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 45,
+        "dir": "right",
+        "msSinceSpawn": 950,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 47,
+        "dir": "left",
+        "msSinceSpawn": 500,
+        "holdMs": 350,
+        "movedCols": 3,
+        "blockedCount": 2,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 47,
+        "dir": "right",
+        "msSinceSpawn": 1150,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 48,
+        "dir": "right",
+        "msSinceSpawn": 367,
+        "holdMs": 200,
+        "movedCols": 2,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 48,
+        "dir": "right",
+        "msSinceSpawn": 917,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 48,
+        "dir": "right",
+        "msSinceSpawn": 1217,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 49,
+        "dir": "right",
+        "msSinceSpawn": 467,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 49,
+        "dir": "right",
+        "msSinceSpawn": 983,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 50,
+        "dir": "right",
+        "msSinceSpawn": 333,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 50,
+        "dir": "left",
+        "msSinceSpawn": 633,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 50,
+        "dir": "left",
+        "msSinceSpawn": 817,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 51,
+        "dir": "right",
+        "msSinceSpawn": 800,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 51,
+        "dir": "left",
+        "msSinceSpawn": 1717,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 51,
+        "dir": "left",
+        "msSinceSpawn": 1950,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 51,
+        "dir": "left",
+        "msSinceSpawn": 2200,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 52,
+        "dir": "left",
+        "msSinceSpawn": 433,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 52,
+        "dir": "left",
+        "msSinceSpawn": 1917,
+        "holdMs": 67,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 52,
+        "dir": "left",
+        "msSinceSpawn": 2650,
+        "holdMs": 100,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 53,
+        "dir": "right",
+        "msSinceSpawn": 950,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 53,
+        "dir": "right",
+        "msSinceSpawn": 1233,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 53,
+        "dir": "right",
+        "msSinceSpawn": 2450,
+        "holdMs": 133,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 53,
+        "dir": "right",
+        "msSinceSpawn": 2650,
+        "holdMs": 133,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 54,
+        "dir": "left",
+        "msSinceSpawn": 950,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 54,
+        "dir": "left",
+        "msSinceSpawn": 1633,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 54,
+        "dir": "right",
+        "msSinceSpawn": 1750,
+        "holdMs": 217,
+        "movedCols": 1,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 55,
+        "dir": "right",
+        "msSinceSpawn": 717,
+        "holdMs": 167,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 56,
+        "dir": "left",
+        "msSinceSpawn": 367,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 56,
+        "dir": "right",
+        "msSinceSpawn": 833,
+        "holdMs": 550,
+        "movedCols": 5,
+        "blockedCount": 4,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 56,
+        "dir": "left",
+        "msSinceSpawn": 2333,
+        "holdMs": 100,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 56,
+        "dir": "left",
+        "msSinceSpawn": 2483,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 56,
+        "dir": "left",
+        "msSinceSpawn": 2700,
+        "holdMs": 50,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 57,
+        "dir": "left",
+        "msSinceSpawn": 333,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 58,
+        "dir": "left",
+        "msSinceSpawn": 583,
+        "holdMs": 183,
+        "movedCols": 2,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 58,
+        "dir": "left",
+        "msSinceSpawn": 1150,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 59,
+        "dir": "right",
+        "msSinceSpawn": 617,
+        "holdMs": 333,
+        "movedCols": 5,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 59,
+        "dir": "left",
+        "msSinceSpawn": 1217,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 59,
+        "dir": "left",
+        "msSinceSpawn": 1583,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 60,
+        "dir": "right",
+        "msSinceSpawn": 350,
+        "holdMs": 233,
+        "movedCols": 3,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 60,
+        "dir": "right",
+        "msSinceSpawn": 783,
+        "holdMs": 283,
+        "movedCols": 1,
+        "blockedCount": 3,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 61,
+        "dir": "right",
+        "msSinceSpawn": 383,
+        "holdMs": 150,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 61,
+        "dir": "right",
+        "msSinceSpawn": 933,
+        "holdMs": 167,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 61,
+        "dir": "right",
+        "msSinceSpawn": 1517,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 61,
+        "dir": "left",
+        "msSinceSpawn": 1750,
+        "holdMs": 233,
+        "movedCols": 2,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "lockCut"
+      },
+      {
+        "pieceIndex": 62,
+        "dir": "right",
+        "msSinceSpawn": 450,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 62,
+        "dir": "left",
+        "msSinceSpawn": 750,
+        "holdMs": 83,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 62,
+        "dir": "left",
+        "msSinceSpawn": 1200,
+        "holdMs": 67,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 63,
+        "dir": "left",
+        "msSinceSpawn": 350,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 63,
+        "dir": "left",
+        "msSinceSpawn": 550,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 63,
+        "dir": "left",
+        "msSinceSpawn": 883,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 64,
+        "dir": "left",
+        "msSinceSpawn": 333,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 65,
+        "dir": "left",
+        "msSinceSpawn": 400,
+        "holdMs": 233,
+        "movedCols": 3,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 65,
+        "dir": "right",
+        "msSinceSpawn": 783,
+        "holdMs": 200,
+        "movedCols": 2,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 65,
+        "dir": "right",
+        "msSinceSpawn": 1183,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 66,
+        "dir": "right",
+        "msSinceSpawn": 433,
+        "holdMs": 167,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 66,
+        "dir": "left",
+        "msSinceSpawn": 750,
+        "holdMs": 283,
+        "movedCols": 4,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 67,
+        "dir": "left",
+        "msSinceSpawn": 283,
+        "holdMs": 333,
+        "movedCols": 3,
+        "blockedCount": 2,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 67,
+        "dir": "right",
+        "msSinceSpawn": 1000,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 68,
+        "dir": "left",
+        "msSinceSpawn": 450,
+        "holdMs": 150,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 68,
+        "dir": "left",
+        "msSinceSpawn": 717,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 68,
+        "dir": "left",
+        "msSinceSpawn": 1533,
+        "holdMs": 67,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 68,
+        "dir": "right",
+        "msSinceSpawn": 1750,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 69,
+        "dir": "left",
+        "msSinceSpawn": 400,
+        "holdMs": 350,
+        "movedCols": 4,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 70,
+        "dir": "right",
+        "msSinceSpawn": 650,
+        "holdMs": 167,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 70,
+        "dir": "right",
+        "msSinceSpawn": 1017,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 71,
+        "dir": "right",
+        "msSinceSpawn": 850,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 71,
+        "dir": "left",
+        "msSinceSpawn": 933,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 71,
+        "dir": "left",
+        "msSinceSpawn": 1117,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 72,
+        "dir": "left",
+        "msSinceSpawn": "—",
+        "holdMs": 100,
+        "movedCols": 0,
+        "blockedCount": 0,
+        "source": "boundaryBlocked",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 72,
+        "dir": "right",
+        "msSinceSpawn": 567,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 72,
+        "dir": "left",
+        "msSinceSpawn": 0,
+        "holdMs": 1683,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "lockCut"
+      },
+      {
+        "pieceIndex": 73,
+        "dir": "left",
+        "msSinceSpawn": 400,
+        "holdMs": 117,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 73,
+        "dir": "right",
+        "msSinceSpawn": 750,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 73,
+        "dir": "left",
+        "msSinceSpawn": 1300,
+        "holdMs": 133,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 74,
+        "dir": "left",
+        "msSinceSpawn": 350,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 74,
+        "dir": "right",
+        "msSinceSpawn": 550,
+        "holdMs": 167,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 75,
+        "dir": "right",
+        "msSinceSpawn": 267,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 75,
+        "dir": "right",
+        "msSinceSpawn": 467,
+        "holdMs": 267,
+        "movedCols": 3,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 75,
+        "dir": "right",
+        "msSinceSpawn": 1033,
+        "holdMs": 183,
+        "movedCols": 0,
+        "blockedCount": 1,
+        "source": "normal",
+        "endedBy": "lockCut"
+      },
+      {
+        "pieceIndex": 76,
+        "dir": "right",
+        "msSinceSpawn": "—",
+        "holdMs": 500,
+        "movedCols": 0,
+        "blockedCount": 0,
+        "source": "boundaryBlocked",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 77,
+        "dir": "right",
+        "msSinceSpawn": 83,
+        "holdMs": 100,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 77,
+        "dir": "right",
+        "msSinceSpawn": 467,
+        "holdMs": 133,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 78,
+        "dir": "left",
+        "msSinceSpawn": "—",
+        "holdMs": 117,
+        "movedCols": 0,
+        "blockedCount": 0,
+        "source": "boundaryBlocked",
+        "endedBy": "released"
+      },
+      {
+        "pieceIndex": 78,
+        "dir": "left",
+        "msSinceSpawn": 0,
+        "holdMs": 533,
+        "movedCols": 1,
+        "blockedCount": 0,
+        "source": "normal",
+        "endedBy": "lockCut"
+      }
+    ],
+    "horizontalPressSelfCheck": true,
+    "perExpand": [
+      {
+        "pieces": 9,
+        "seconds": 44.63
+      },
+      {
+        "pieces": 17,
+        "seconds": 78.72
+      },
+      {
+        "pieces": 24,
+        "seconds": 104.15
+      },
+      {
+        "pieces": 28,
+        "seconds": 118.67
+      }
+    ],
+    "perShaveEvent": [
+      {
+        "source": "task4",
+        "pieceIndex": 28,
+        "seconds": 118.67,
+        "shavedCells": 9,
+        "shavedBallCells": 0,
+        "shavedClearBallCells": 0,
+        "sumHeightBefore": 70,
+        "sumHeightAfter": 45,
+        "closedHolesOpened": 16,
+        "refillWithin10": 12,
+        "refillWindowPieces": 10
+      },
+      {
+        "source": "task6",
+        "pieceIndex": 50,
+        "seconds": 186.6,
+        "shavedCells": 10,
+        "shavedBallCells": 0,
+        "shavedClearBallCells": 0,
+        "sumHeightBefore": 92,
+        "sumHeightAfter": 71,
+        "closedHolesOpened": 11,
+        "refillWithin10": 4,
+        "refillWindowPieces": 10
+      }
+    ],
+    "perNewShape": [
+      {
+        "shape": "V",
+        "unlockedPieces": 42,
+        "firstDealtPieces": 50
+      },
+      {
+        "shape": "U",
+        "unlockedPieces": 50,
+        "firstDealtPieces": 59
+      },
+      {
+        "shape": "X",
+        "unlockedPieces": 66,
+        "firstDealtPieces": 70
+      }
+    ],
+    "perTask": [
+      {
+        "index": 1,
+        "piecesTaken": 9
+      },
+      {
+        "index": 2,
+        "piecesTaken": 8
+      },
+      {
+        "index": 3,
+        "piecesTaken": 7
+      },
+      {
+        "index": 4,
+        "piecesTaken": 4
+      },
+      {
+        "index": 5,
+        "piecesTaken": 14
+      },
+      {
+        "index": 6,
+        "piecesTaken": 8
+      },
+      {
+        "index": 7,
+        "piecesTaken": 16
+      }
+    ],
+    "perStarTier": [
+      {
+        "star": 0,
+        "pieces": 9,
+        "avgSecondsPerPiece": 4.96,
+        "avgDropDistance": 17.22,
+        "avgClearedPerPiece": 2.22,
+        "avgHeightDeltaPerPiece": 2.33
+      },
+      {
+        "star": 1,
+        "pieces": 8,
+        "avgSecondsPerPiece": 4.26,
+        "avgDropDistance": 15.75,
+        "avgClearedPerPiece": 2.5,
+        "avgHeightDeltaPerPiece": 2
+      },
+      {
+        "star": 2,
+        "pieces": 7,
+        "avgSecondsPerPiece": 3.63,
+        "avgDropDistance": 14.14,
+        "avgClearedPerPiece": 3.29,
+        "avgHeightDeltaPerPiece": 2.29
+      },
+      {
+        "star": 3,
+        "pieces": 4,
+        "avgSecondsPerPiece": 3.63,
+        "avgDropDistance": 13.25,
+        "avgClearedPerPiece": 3.25,
+        "avgHeightDeltaPerPiece": -2
+      },
+      {
+        "star": 4,
+        "pieces": 14,
+        "avgSecondsPerPiece": 3.28,
+        "avgDropDistance": 12.71,
+        "avgClearedPerPiece": 1.86,
+        "avgHeightDeltaPerPiece": 3.29
+      },
+      {
+        "star": 5,
+        "pieces": 8,
+        "avgSecondsPerPiece": 2.76,
+        "avgDropDistance": 9.63,
+        "avgClearedPerPiece": 2.75,
+        "avgHeightDeltaPerPiece": -2.5
+      },
+      {
+        "star": 6,
+        "pieces": 16,
+        "avgSecondsPerPiece": 2.75,
+        "avgDropDistance": 10.38,
+        "avgClearedPerPiece": 2.94,
+        "avgHeightDeltaPerPiece": 1.81
+      },
+      {
+        "star": 7,
+        "pieces": 12,
+        "avgSecondsPerPiece": 1.61,
+        "avgDropDistance": 5.92,
+        "avgClearedPerPiece": 1.5,
+        "avgHeightDeltaPerPiece": 5.42
+      },
+      {
+        "star": 8,
+        "pieces": 0,
+        "avgSecondsPerPiece": null,
+        "avgDropDistance": null,
+        "avgClearedPerPiece": null,
+        "avgHeightDeltaPerPiece": null
+      },
+      {
+        "star": 9,
+        "pieces": 0,
+        "avgSecondsPerPiece": null,
+        "avgDropDistance": null,
+        "avgClearedPerPiece": null,
+        "avgHeightDeltaPerPiece": null
+      }
+    ],
+    "perWidth": [
+      {
+        "width": 6,
+        "pieces": 9,
+        "avgTargetPerPiece": 0.889,
+        "avgHeightDeltaPerPiece": 2.333
+      },
+      {
+        "width": 7,
+        "pieces": 8,
+        "avgTargetPerPiece": 1.25,
+        "avgHeightDeltaPerPiece": 2
+      },
+      {
+        "width": 8,
+        "pieces": 7,
+        "avgTargetPerPiece": 1.286,
+        "avgHeightDeltaPerPiece": 2.286
+      },
+      {
+        "width": 9,
+        "pieces": 4,
+        "avgTargetPerPiece": 2.25,
+        "avgHeightDeltaPerPiece": -2
+      },
+      {
+        "width": 10,
+        "pieces": 50,
+        "avgTargetPerPiece": 0,
+        "avgHeightDeltaPerPiece": 2.4
+      }
+    ],
+    "perGame": {
+      "presentationDurationsSeconds": {
+        "clear": 14.800000000000008,
+        "gravity": 5.700000000000001,
+        "extraClear": 2,
+        "wipe": 1,
+        "transition": 39.06666666666573
+      },
+      "deathSumHeightOverWidth": 16.5,
+      "spawnColumnHeightAtDeath": 19,
+      "finalWidth": 10,
+      "deathPieces": 78,
+      "deathTaskIndex": 8,
+      "min20PieceSumHeightDelta": -8,
+      "abandonAtSumHeight": null,
+      "abandonAtWidth": null
+    }
+  }
+}
