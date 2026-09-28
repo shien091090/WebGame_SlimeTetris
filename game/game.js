@@ -813,6 +813,7 @@
     var holesBeforeList = closedHoleCellsList(colsRange);
     var trimCells = shaveColumnsOnce(colsRange);
     applyShaveBookkeeping(trimCells);
+    recomputeFloating();
     var sumAfter = sumColHeights();
     var holesAfterList = closedHoleCellsList(colsRange);
     var afterKeySet = Object.create(null);
