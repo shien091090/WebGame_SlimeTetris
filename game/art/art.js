@@ -851,7 +851,7 @@
     ctx.strokeRect(ox - 1, b.y, ow + 2, b.h + 1);
     ctx.fillStyle = PAL.boundary;
     ctx.fillRect(ox - 2, b.y + b.h, ow + 4, 3);
-    // 頂線
+    // 頂線: 只畫橘色虛線, 不配字(v27, 第 11 輪: 「頂線」字樣多餘 — 線本身 + 橘色危險語意已讀得出)
     if (LAY.showTop) {
       ctx.strokeStyle = PAL.topLine;
       ctx.lineWidth = 2.5;
@@ -861,7 +861,6 @@
       ctx.lineTo(ox + ow + 4, b.y + 1);
       ctx.stroke();
       ctx.setLineDash([]);
-      txt(ctx, '頂線', b.x + b.w + 3, b.y + 2, 11, PAL.topLine, 'left');
     }
     ctx.restore();
   }

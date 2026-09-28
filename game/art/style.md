@@ -1,6 +1,6 @@
 # 史萊姆擴張 v26 美術規格
 
-RD 只讀這份。對應 `spec.md` v26 / `guide.md` v26。函式全掛在 `window.Art`, 參數固定 `(ctx, state)`(`drawBackground`、`drawPauseMask` 只有 `ctx`), 各自 save / restore。沿用 v25 美術的色票、形狀語言、物件畫法與版面骨架; 本版**新增 2 個函式 `drawMuteIndicator`、`drawMuteToast`(需要 RD 接)**, 其餘函式名與 state 欄位都不變, 只改內部畫法(異動清單見第 9 節)。
+RD 只讀這份。對應 `spec.md` v26 / `guide.md` v26。函式全掛在 `window.Art`, 參數固定 `(ctx, state)`(`drawBackground`、`drawPauseMask` 只有 `ctx`), 各自 save / restore。沿用 v25 美術的色票、形狀語言、物件畫法與版面骨架; 本版**新增 2 個函式 `drawMuteIndicator`、`drawMuteToast`(需要 RD 接)**, 其餘函式名與 state 欄位都不變, 只改內部畫法(異動清單見第 9 節)。**第 11 輪修正: `drawBoard` 的頂線拿掉「頂線」字樣, 只留橘色虛線; 函式名與 state 不變, RD 不用改呼叫。**
 
 **index.html 必須宣告 `<meta charset="utf-8">`**(art.js 內含中文字串; 沒宣告在 file:// 下會亂碼)。字型只用系統字(微軟正黑體 → PingFang TC → Noto Sans TC → sans-serif), 不載外部資源。
 
@@ -63,7 +63,7 @@ RD 只讀這份。對應 `spec.md` v26 / `guide.md` v26。函式全掛在 `windo
 - **P2 規則上存在的東西, 畫面上就必須存在**: 懸空塊用共同輪廓 + 連接桿表達「整塊一起動」; 零位移重力事件有獨立的「內收虛線環 + 橫槓」; 留在盤面上的清色球一直是清色球的樣子; 削頂在盤面完全沒有已填格時照樣演出橫幅(規則照跑, 只是沒格可削); 第 10 個任務的回報「通關」在面板上有自己的圖示(白金星)
 - **P3 一個意義一種長相**: 白 = 消除與任務、青 = 重力、紫 = 削頂、綠 = 開欄 / 獎勵 / 解鎖 / 揭示、洋紅 = 清色球、淺灰白 = 新外型形狀、橘 = 結束與壓力、金 / 白金 = 星數; **星數全畫面只有一個畫家**(HUD、升星卡片、最佳紀錄、結束畫面、通關畫面、面板的「通關」圖示、說明頁); 過場第 1 段橫幅的字與任務面板第二欄一字不差(「獎勵: 向左長一欄」「解鎖: 新形狀方塊」「獎勵: 削頂」); 說明頁的面板、星數、盤面全部直接呼叫遊戲內畫家並給當版 state, 用遊戲內原字(「已達成」, 不寫「歸零」); 第 3 頁的面板與遊戲內同一個畫家(同一組三張底卡), 目標照遊戲內寫「[紅色史萊姆] 消掉 紅色」; **v26 第 6 頁的 M 直接畫遊戲內的靜音切換提示**(同一個畫家、同一組字「靜音 / 有聲」)
 - **P4 關鍵區分至少兩條通道**(已縮邊界: 老闆明言 prototype 不為色弱加符號): 三色 = 色相 + 明度; 重力球 vs 清色球 = 底色 + 核心 + 符號; 金星 vs 白金星 = 明度 + 疊加元素(白金多一圈外框星, 可數); 消除 / 削除 / 下落 / 全盤清除四種標記 = 顏色 + 形狀; 一般消除 vs 追加消除 = 顏色 + 單框 / 雙框
-- **P7 每個元素都要掙得它的版面**: **v26 盤面上的下次開欄標示不再寫字**(面板第二欄已寫「向左長一欄」, 盤面上只留貼著那一欄的記號); 靜音標示只在靜音時出現(有聲是預設, 不畫); 局中星數不附數字(5 星位本身就是讀數); 面板欄位標籤兩個字(目標 / 獎勵 / 解鎖 / 剩餘), 剩餘只留一個數字(v20 的「已完成 / 需求」拿掉, 趨勢交給進度條); 拿掉新任務橫幅(面板自己會換)、清色球效果卡片、+500 / +1,500; 落速提升不寫速度數字; 說明頁只加圖畫不出來的指認(「目標看這裡」「或」「解完」「通關」、「青色框 = 懸空」); **v25 第 3 頁拿掉盤面、下次開這側與「做到之後盤面多一欄」**(老闆第 9 輪: 不是這頁要教的, 且只示範了一種獎勵)
+- **P7 每個元素都要掙得它的版面**: **v26 盤面上的下次開欄標示不再寫字**(面板第二欄已寫「向左長一欄」, 盤面上只留貼著那一欄的記號); **盤面頂線不配「頂線」字樣(第 11 輪)**, 橘色虛線 + 橘 = 結束的語意色已說清楚; 靜音標示只在靜音時出現(有聲是預設, 不畫); 局中星數不附數字(5 星位本身就是讀數); 面板欄位標籤兩個字(目標 / 獎勵 / 解鎖 / 剩餘), 剩餘只留一個數字(v20 的「已完成 / 需求」拿掉, 趨勢交給進度條); 拿掉新任務橫幅(面板自己會換)、清色球效果卡片、+500 / +1,500; 落速提升不寫速度數字; 說明頁只加圖畫不出來的指認(「目標看這裡」「或」「解完」「通關」、「青色框 = 懸空」); **v25 第 3 頁拿掉盤面、下次開這側與「做到之後盤面多一欄」**(老闆第 9 輪: 不是這頁要教的, 且只示範了一種獎勵)
 - **P13 事件要排隊, 不能同時冒出來**: 過場四段各自一件事, 一段演完才演下一段; 第 1 段內「延展 → 新形狀方塊展示 → 削頂」各自一個函式、各自一個橫幅, 前一項的卡片與橫幅在下一項開始前就不再畫(不再像 v20 那樣讓卡片保留到事件結束); 升星卡片與落速卡片末段淡出, 不帶到下一段
 - **P18 重要資訊不能只存在一瞬間**: 靜音切換提示只停 1 秒, 所以靜音狀態另有常駐的靜音標示; 做到會得到什麼常駐在面板第二欄; 升星結果常駐在右欄星數框(第 2 段卡片淡出時 HUD 已同步變好); 解鎖的新外型之後在預覽中出現; 局終星數與停在的任務留在結束畫面
 - **P19 資訊盡量貼著它描述的物件**: 說明第 3 頁「目標看這裡」改成白色虛線直接圈在面板的目標那一塊上, 指示字與短箭頭緊貼圈的正上方(老闆第 9 輪: 原本的箭頭指著面板右側空白); 遊戲內的算數標籤錨在算數的那一團上方、下次開欄記號畫在那一欄正下方(v26 只剩記號, 讀數在面板)
@@ -76,7 +76,7 @@ RD 只讀這份。對應 `spec.md` v26 / `guide.md` v26。函式全掛在 `windo
 | spec 物件 | 函式 | state 欄位 | 各狀態視覺 |
 | --- | --- | --- | --- |
 | 背景 | `drawBackground(ctx)` | — | 全畫面底色。每幀最先畫 |
-| 盤面邊界 / 不可見區 | `drawBoard(ctx, s)` | `minCol`, `maxCol`(目前已開的絕對欄範圍, 開局 0 / 5) | 已開範圍: 深底 + 格線 + 淺色邊界框; 未開的欄: 斜紋預留槽; 頂線: 橘色虛線 +「頂線」小字。寬度 6~10 由 minCol / maxCol 決定 |
+| 盤面邊界 / 不可見區 | `drawBoard(ctx, s)` | `minCol`, `maxCol`(目前已開的絕對欄範圍, 開局 0 / 5) | 已開範圍: 深底 + 格線 + 淺色邊界框; 未開的欄: 斜紋預留槽; 頂線: 橘色虛線, **不配字(第 11 輪)**。寬度 6~10 由 minCol / maxCol 決定 |
 | 盤面格位 | `drawCell(ctx, s)` | `x`, `y`, `kind`: `'empty'`/`'color'`/`'ball'`/`'clearBall'`, `color`: `'A'`/`'B'`/`'C'`, `mark`: `'none'`/`'clearing'`/`'shaving'`/`'falling'`/`'wiping'`, `t` | 空: 不畫; 已填色: 純色史萊姆; **消除標記中** `'clearing'`: 白色單框 + 本體隨 t 縮小閃白; **削除標記中** `'shaving'`: 紫色斜紋 + 紫框, 本體淡出; **下落中** `'falling'`: 本體 + 上方三道青色拖尾; **全盤清除中** `'wiping'`: 單格版(全盤清除那一段請改用 `drawBoardWipe`)。鎖定後不區分來自哪一種方塊 |
 | 重力球格位 | `drawGravityBall(ctx, s)` | `x`, `y`, `mark`, `t`(同 drawCell) | 等同 `drawCell(kind:'ball')`。已鎖定: 灰藍底銀球 + 三色環 + 向下箭頭; 成團消除中(觸發) `'clearing'` 另多一圈青色外擴環; 隨重力事件下落 `'falling'`; 被削頂 `'shaving'`(沒有青環 = 不觸發); 隨方塊下落 → `drawPiece`。不被全盤清除移除(照常 drawCell) |
 | 清色球格位 | `drawClearBall(ctx, s)` | `x`, `y`, `mark`, `t`(同 drawCell) | 等同 `drawCell(kind:'clearBall')`。已鎖定(未成團, 一直留著) `'none'`: 紫黑底 + 洋紅外框 + 洋紅球 + 三色環 + 白色四角星; 成團消除中(觸發全盤清除) `'clearing'`: 白框縮小 + 洋紅四角星往外放大 + 洋紅外擴環; 隨重力事件下落 `'falling'`; 被削頂 `'shaving'`: 紫色削除, 沒有任何洋紅演出; 在預覽中 / 隨方塊下落 / 落點 → `drawNextPreview` / `drawPiece` / `drawGhost`。**待發、作廢沒有畫面**(spec 不做待發圖示) |
@@ -200,7 +200,7 @@ RD 只讀這份。對應 `spec.md` v26 / `guide.md` v26。函式全掛在 `windo
 | 格位 | 26 × 26(史萊姆本體內縮約 1.5, 圓角約 7) |
 | 重力球 / 清色球 | 格內圓半徑 0.36 / 0.34 × 格; 三色環線寬 0.1 / 0.09 × 格; 清色球外框 0.07 × 格、四角星外徑 0.25 × 格 |
 | 盤面外框(滿寬 10 欄) | x 350~610, y 110~604(260 × 494); 開局 6 欄 = x 402~558 |
-| 頂線 | y 110, 線寬 2.5 虛線 |
+| 頂線 | y 110, 線寬 2.5 虛線(8 / 5), 左右各超出盤面 4px; 無文字 |
 | 懸空輪廓 / 連接桿 | 線寬 2, 內縮 1.5 / 桿 8 × 4 |
 | 下落中輪廓 | 青 3 + 暗描邊 5 |
 | 落地撞擊線 | 線寬 3, 每側外擴 4 |
@@ -232,8 +232,8 @@ RD 只讀這份。對應 `spec.md` v26 / `guide.md` v26。函式全掛在 `windo
 
 | 類別 | 函式 |
 | --- | --- |
-| 保留(畫法不變) | `drawBackground`, `drawBoard`, `drawCell`, `drawGravityBall`, `drawClearBall`, `drawFloatingMark`, `drawFloatingEventBlock`, `drawLandingImpact`, `drawGravityEvent`, `drawExtraClear`, `drawClearResult`, `drawPiece` / `drawPlayer`, `drawGhost`, `drawNextPreview`, `drawAbandonTimer`, `drawExpandEvent`, `drawUnlockEvent`, `drawShaveEvent`, `drawShaveIndicator`, `drawStarGain`, `drawSpeedUp`, `drawBoardWipe`, `Art.wipeShake`, `Art.shaveCellT`, `Art.eventPhases` |
-| 修改(只改內部畫法, 函式名與 state 不變) | `drawTaskProgress`(大團目標「一次消掉 5 顆以上」、用新形狀方塊目標「使用新形狀方塊來消除」; 結束畫面的停在任務同步), `drawNextExpandSide`(整欄虛線框 + 字 → 槽底短綠線 + 小箭頭), `drawHud` / `drawPauseMask` / `drawGameOver` / `drawVictory`(操作提示加「M 靜音」), `drawGuidePage`(第 6 頁標題加「靜音」, 加 M 橫條) |
+| 保留(畫法不變) | `drawBackground`, `drawCell`, `drawGravityBall`, `drawClearBall`, `drawFloatingMark`, `drawFloatingEventBlock`, `drawLandingImpact`, `drawGravityEvent`, `drawExtraClear`, `drawClearResult`, `drawPiece` / `drawPlayer`, `drawGhost`, `drawNextPreview`, `drawAbandonTimer`, `drawExpandEvent`, `drawUnlockEvent`, `drawShaveEvent`, `drawShaveIndicator`, `drawStarGain`, `drawSpeedUp`, `drawBoardWipe`, `Art.wipeShake`, `Art.shaveCellT`, `Art.eventPhases` |
+| 修改(只改內部畫法, 函式名與 state 不變) | **`drawBoard`(第 11 輪: 頂線拿掉「頂線」字樣; 遊戲內與說明第 4 頁同時生效)**, `drawTaskProgress`(大團目標「一次消掉 5 顆以上」、用新形狀方塊目標「使用新形狀方塊來消除」; 結束畫面的停在任務同步), `drawNextExpandSide`(整欄虛線框 + 字 → 槽底短綠線 + 小箭頭), `drawHud` / `drawPauseMask` / `drawGameOver` / `drawVictory`(操作提示加「M 靜音」), `drawGuidePage`(第 6 頁標題加「靜音」, 加 M 橫條) |
 | **新增(需要 RD 接)** | **`drawMuteIndicator`**(靜音標示), **`drawMuteToast`**(靜音切換提示) |
 | 刪除 | 無 |
 

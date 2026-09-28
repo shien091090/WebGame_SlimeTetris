@@ -1,4 +1,4 @@
-# 音效說明(v26)
+# 音效說明(v26, round-11 修正)
 
 RD 只需要讀這份。載入方式: index.html 用 `<script src="audio/sound.js"></script>`(一般 script, 不是 module), 之後使用全域的 `window.Sound`。所有函式呼叫錯了都不報錯: 未知的事件名靜默忽略, init 之前的 play / playMusic 靜默丟棄。
 
@@ -47,7 +47,7 @@ RD 只需要讀這份。載入方式: index.html 用 `<script src="audio/sound.j
 | `win` | 通關 | 第 10 星那段演完、進入通關畫面時(先 `stopMusic()`) | 無 | win_jingle.mp3(約 5.5 秒) | 1.0 | 4 |
 | `gameOver` | 結束(放不下) | 因 lock out 或 block out 進入結束畫面時(先 `stopMusic()`); 含過場第 2 段後判死, 此時在 `starUp` 那段演完、進結束畫面時呼叫 | 無 | game_over_jingle.mp3(約 5.6 秒, 溫和的收尾, 不是失敗警報) | 0.75 | 3 |
 | `forfeit` | 放棄生效 | 長按 R 滿 1 秒、放棄生效時(同樣先 `stopMusic()`)。放棄後進結束畫面**不要**再呼叫 `gameOver` | 無 | forfeit_fold.mp3 | 0.5 | 2 |
-| `pageFlip` | 說明翻頁 | 說明畫面翻頁成立時; 第 1 頁按上一頁、最後一頁按下一頁不呼叫 | 無 | page_flip.mp3 | 0.45 | 1 |
+| `pageFlip` | 說明翻頁 | 說明畫面翻頁成立時; 第 1 頁按上一頁、最後一頁按下一頁不呼叫 | 無 | page_flip.mp3(round-11 換成起音在 3 毫秒內的短翻頁聲; sound.js 內另嵌同一段聲音, 以 Web Audio 即時播放, 包括啟用聲音的那一鍵本身就是翻頁時) | 0.5 | 1 |
 
 **不出聲、不要呼叫任何事件的**: 左右移動(含連續移動)、軟降、暫停與恢復、叫出與關閉說明(翻頁以外)、放棄長按進行中、重力球或清色球出現在預覽或落下時、M 切換本身。
 
@@ -65,7 +65,7 @@ RD 只需要讀這份。載入方式: index.html 用 `<script src="audio/sound.j
 
 ## 理念或經驗落實
 
-- 音效經驗文件目前各類別皆無條目, 本作沒有可落實的既有經驗。
+- 經驗文件「技術 / 即時回饋音的延遲」(本作 round-11 回寫): 所有素材的起音已量過(出到峰值一成的時間): 大多在 0.03 秒內; 較慢的兩個是刻意的漸強 — `colorClear` 的掃掠層(0.26 秒, 同一刻有立即出聲的悶擊層墊著)與 `speedUp` 的上揚音(0.12 秒), 不改; 原本的 `pageFlip`(0.52 秒)是延遲來源, 換成起音 3 毫秒的素材並改走內嵌 Web Audio。
 - 規格「聲音份量跟事件份量成正比」: 以 1~4 級定音量與素材長度(操作聲 0.05~0.2 秒且音量 0.18~0.42; 升星、通關是完整旋律且音量 0.9~1.0)。
 - 規格「頻繁的操作聲不能蓋掉事件聲」: 等級 1 在重事件後 0.35 秒內自動減半; 升星期間音樂自動壓低。
 - 規格「只聽聲音分得出有消沒算與有算」: `progress` 用獨立的高音上行鈴聲並自動錯開 0.09 秒, 不與 `clear` 同音域。
@@ -73,4 +73,4 @@ RD 只需要讀這份。載入方式: index.html 用 `<script src="audio/sound.j
 
 ## 格式與相容性
 
-全部是 mp3(最廣的瀏覽器相容)。以 `HTMLAudioElement` 播放, 不用 fetch, file:// 直接開可用。總大小約 630 KB。
+全部是 mp3(最廣的瀏覽器相容)。以 `HTMLAudioElement` 播放, 不用 fetch, file:// 直接開可用。例外: `pageFlip` 的聲音另以 16-bit PCM 內嵌在 sound.js, init 時直接填進 Web Audio 緩衝區(不需解碼、不讀檔), 播放不經 `HTMLAudioElement`; 瀏覽器沒有 Web Audio 時自動退回 page_flip.mp3。對 RD 無差別, 呼叫方式不變。總大小約 630 KB(含 sound.js)。

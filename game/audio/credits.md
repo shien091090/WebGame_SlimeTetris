@@ -1,4 +1,4 @@
-# 音效素材來源(v26)
+# 音效素材來源(v26, round-11 修正)
 
 全部 24 個檔, 皆為 CC0(公有領域), 法律上不需署名, 仍列出作者致謝。
 
@@ -26,7 +26,7 @@
 | task_reveal_pluck.mp3 | taskReveal | Music Jingles / jingles_PIZZI16.ogg | https://kenney.nl/assets/music-jingles | Kenney | CC0 | 標準處理 |
 | speed_up_rise.mp3 | speedUp | Digital Audio / phaseJump5.ogg | https://kenney.nl/assets/digital-audio | Kenney | CC0 | 標準處理 |
 | forfeit_fold.mp3 | forfeit | Interface Sounds / minimize_006.ogg | https://kenney.nl/assets/interface-sounds | Kenney | CC0 | 標準處理 |
-| page_flip.mp3 | pageFlip | RPG Audio / bookFlip1.ogg | https://kenney.nl/assets/rpg-audio | Kenney | CC0 | 標準處理 |
+| page_flip.mp3 | pageFlip | RPG Audio / bookFlip3.ogg | https://kenney.nl/assets/rpg-audio | Kenney | CC0 | round-11 由 bookFlip1 換成 bookFlip3(前者峰值前有 0.5 秒細碎前奏, 聽起來像延遲)。處理: 轉單聲道、從峰值一成處前 3 毫秒切起、開頭 2 毫秒 / 尾端 10 毫秒淡入淡出、峰值正規化約 -1 dBFS、存 mp3; 同一段聲音降為 24 kHz 16-bit PCM 以 base64 內嵌在 sound.js(Web Audio 播放用, mp3 為後備) |
 | win_jingle.mp3 | win | Cozy Puzzle Clear (Jingle).mp3 | https://opengameart.org/content/cozy-puzzle-jingle-result | MintoDog | CC0 | 標準處理(原為 mp3, 以較低位元率重新壓成單聲道 mp3, 由 228 KB 降到約 39 KB) |
 | game_over_jingle.mp3 | gameOver | Cozy Puzzle Failure (Jingle).mp3 | https://opengameart.org/content/cozy-puzzle-jingle-result | MintoDog | CC0 | 標準處理(同上, 由 242 KB 降到約 32 KB) |
 | music_happy_lullaby.mp3 | 背景音樂 game / gameDucked | song17.mp3(Happy Lullaby) | https://opengameart.org/content/happy-lullaby-song17 | cynicmusic | CC0 | 無, 原檔直接改名 |
